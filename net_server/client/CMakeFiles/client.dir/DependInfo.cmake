@@ -4,6 +4,10 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
+  "/mnt/hgfs/linux_share/net_server/net/src/server.c" "/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir/__/net/src/server.c.o"
+  "/mnt/hgfs/linux_share/net_server/net/src/socket.c" "/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir/__/net/src/socket.c.o"
+  "/mnt/hgfs/linux_share/net_server/net/src/socket_epoll.c" "/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o"
+  "/mnt/hgfs/linux_share/net_server/net/src/socket_event.c" "/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir/__/net/src/socket_event.c.o"
   "/mnt/hgfs/linux_share/net_server/client/main.c" "/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir/main.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")

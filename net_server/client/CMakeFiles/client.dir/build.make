@@ -75,14 +75,114 @@ client/CMakeFiles/client.dir/main.c.o.provides: client/CMakeFiles/client.dir/mai
 
 client/CMakeFiles/client.dir/main.c.o.provides.build: client/CMakeFiles/client.dir/main.c.o
 
+client/CMakeFiles/client.dir/__/net/src/server.c.o: client/CMakeFiles/client.dir/flags.make
+client/CMakeFiles/client.dir/__/net/src/server.c.o: net/src/server.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/net_server/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/net/src/server.c.o"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/net/src/server.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/server.c
+
+client/CMakeFiles/client.dir/__/net/src/server.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/client.dir/__/net/src/server.c.i"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/server.c > CMakeFiles/client.dir/__/net/src/server.c.i
+
+client/CMakeFiles/client.dir/__/net/src/server.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/client.dir/__/net/src/server.c.s"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/server.c -o CMakeFiles/client.dir/__/net/src/server.c.s
+
+client/CMakeFiles/client.dir/__/net/src/server.c.o.requires:
+.PHONY : client/CMakeFiles/client.dir/__/net/src/server.c.o.requires
+
+client/CMakeFiles/client.dir/__/net/src/server.c.o.provides: client/CMakeFiles/client.dir/__/net/src/server.c.o.requires
+	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/server.c.o.provides.build
+.PHONY : client/CMakeFiles/client.dir/__/net/src/server.c.o.provides
+
+client/CMakeFiles/client.dir/__/net/src/server.c.o.provides.build: client/CMakeFiles/client.dir/__/net/src/server.c.o
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.o: client/CMakeFiles/client.dir/flags.make
+client/CMakeFiles/client.dir/__/net/src/socket.c.o: net/src/socket.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/net_server/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/net/src/socket.c.o"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/net/src/socket.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/socket.c
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/client.dir/__/net/src/socket.c.i"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/socket.c > CMakeFiles/client.dir/__/net/src/socket.c.i
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/client.dir/__/net/src/socket.c.s"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/socket.c -o CMakeFiles/client.dir/__/net/src/socket.c.s
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.o.requires:
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket.c.o.requires
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.o.provides: client/CMakeFiles/client.dir/__/net/src/socket.c.o.requires
+	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket.c.o.provides.build
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket.c.o.provides
+
+client/CMakeFiles/client.dir/__/net/src/socket.c.o.provides.build: client/CMakeFiles/client.dir/__/net/src/socket.c.o
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o: client/CMakeFiles/client.dir/flags.make
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o: net/src/socket_epoll.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/net_server/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/net/src/socket_epoll.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/socket_epoll.c
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/client.dir/__/net/src/socket_epoll.c.i"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/socket_epoll.c > CMakeFiles/client.dir/__/net/src/socket_epoll.c.i
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/client.dir/__/net/src/socket_epoll.c.s"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/socket_epoll.c -o CMakeFiles/client.dir/__/net/src/socket_epoll.c.s
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.requires:
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.requires
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.provides: client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.requires
+	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.provides.build
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.provides
+
+client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.provides.build: client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.o: client/CMakeFiles/client.dir/flags.make
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.o: net/src/socket_event.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/net_server/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/net/src/socket_event.c.o"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/net/src/socket_event.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/socket_event.c
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/client.dir/__/net/src/socket_event.c.i"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/socket_event.c > CMakeFiles/client.dir/__/net/src/socket_event.c.i
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/client.dir/__/net/src/socket_event.c.s"
+	cd /mnt/hgfs/linux_share/net_server/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/socket_event.c -o CMakeFiles/client.dir/__/net/src/socket_event.c.s
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.requires:
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.requires
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.provides: client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.requires
+	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.provides.build
+.PHONY : client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.provides
+
+client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.provides.build: client/CMakeFiles/client.dir/__/net/src/socket_event.c.o
+
 # Object files for target client
 client_OBJECTS = \
-"CMakeFiles/client.dir/main.c.o"
+"CMakeFiles/client.dir/main.c.o" \
+"CMakeFiles/client.dir/__/net/src/server.c.o" \
+"CMakeFiles/client.dir/__/net/src/socket.c.o" \
+"CMakeFiles/client.dir/__/net/src/socket_epoll.c.o" \
+"CMakeFiles/client.dir/__/net/src/socket_event.c.o"
 
 # External object files for target client
 client_EXTERNAL_OBJECTS =
 
 /mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/main.c.o
+/mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/__/net/src/server.c.o
+/mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/__/net/src/socket.c.o
+/mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o
+/mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/__/net/src/socket_event.c.o
 /mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/build.make
 /mnt/hgfs/linux_share/bin/client: client/CMakeFiles/client.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable /mnt/hgfs/linux_share/bin/client"
@@ -93,6 +193,10 @@ client/CMakeFiles/client.dir/build: /mnt/hgfs/linux_share/bin/client
 .PHONY : client/CMakeFiles/client.dir/build
 
 client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/main.c.o.requires
+client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/net/src/server.c.o.requires
+client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/net/src/socket.c.o.requires
+client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o.requires
+client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/net/src/socket_event.c.o.requires
 .PHONY : client/CMakeFiles/client.dir/requires
 
 client/CMakeFiles/client.dir/clean:

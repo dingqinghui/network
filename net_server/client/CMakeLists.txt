@@ -12,7 +12,7 @@ cmake_minimum_required (VERSION 2.8)
 project (Demo1)
 
 # 指定生成目标
-aux_source_directory(./../common DIR_SRCS)
+aux_source_directory(./../net/src DIR_SRCS)
 # 指定生成目标
 add_executable(client main.c ${DIR_SRCS})
 

@@ -5,8 +5,8 @@
 #include <string.h>
 typedef struct  st_block
 {
-	char* data;		  
-	int   size;       
+	char* data;
+	int   size;
 	int   begin;
 	int   end;
 	struct st_block* next;
@@ -38,7 +38,7 @@ int release_block(st_block* block) {
 	return 0;
 }
 
-int write_to_block(st_block* block,const char* buffer, int nsize) {
+int write_to_block(st_block* block, const char* buffer, int nsize) {
 	if (!block)
 		return 0;
 
@@ -51,7 +51,19 @@ int write_to_block(st_block* block,const char* buffer, int nsize) {
 	block->end += nwrite;
 	return nwrite;
 }
+int is_empty_block(st_block* block) {
+	if (!block)
+		return 0;
 
+	return block->begin == block->end;
+}
+
+int reset_block(st_block* block) {
+	if (!block)
+		return -1;
+	block->begin = 0;
+	block->end = 0;
+}
 int read_from_block(st_block* block, char* buffer, int nsize) {
 	if (!block)
 		return 0;
@@ -60,19 +72,19 @@ int read_from_block(st_block* block, char* buffer, int nsize) {
 		return 0;
 
 	int nread = nuse >= nsize ? nsize : nuse;
-	memcpy(buffer ,block->data + block->begin, nread);
+	memcpy(buffer, block->data + block->begin, nread);
 	block->begin += nread;
+
+	if (is_empty_block(block))
+	{
+		reset_block(block);
+	}
 	return nread;
 }
-int reset_block(st_block* block) {
-	if (!block)
-		return -1;
-	block->begin = 0;
-	block->end = 0;
-	block->next = NULL;
-}
 
-typedef struct 
+
+
+typedef struct
 {
 	st_block* head;
 	st_block* tail;
@@ -80,7 +92,7 @@ typedef struct
 }st_buffer;
 
 st_buffer* create_buffer() {
-	
+
 	st_buffer* buffer = (st_buffer*)malloc(sizeof(st_buffer));
 	if (!buffer)
 		return NULL;
@@ -122,7 +134,7 @@ int write_to_buffer(st_buffer* buffer, const char* pdata, int nsize) {
 		}
 		else
 		{
-			return nsize;
+			return nwrite;
 		}
 	}
 
@@ -130,7 +142,7 @@ int write_to_buffer(st_buffer* buffer, const char* pdata, int nsize) {
 	if (!block)
 		return nwrite;
 
-	write_to_block(block, pdata, nsize);
+	nwrite += write_to_block(block, pdata, nsize);
 
 	if (buffer->tail) {
 		buffer->tail->next = block;
@@ -144,46 +156,51 @@ int write_to_buffer(st_buffer* buffer, const char* pdata, int nsize) {
 
 	buffer->free = block;
 
-	return nsize;
+	return nwrite;
 }
 
 int read_from_buffer(st_buffer* buffer, char* pdata, int nsize) {
+	if (nsize <= 0)
+		return 0;
 	if (!buffer)
 		return 0;
 
-	int nread = 0;
+	if (buffer->head == NULL)
+		return 0;
 
-	//traverse buffer list  read data.  buffer->free->next must not have data
-	st_block* block = buffer->head;
-	st_block* end_block = buffer->free->next; 
-	while (block && block != end_block) {
-		
-		nread  += read_from_block(block, pdata + nread, nsize - nread);
-		if (nread >= nsize){
-			break;
-		}
-
-		st_block* o_block = block;
-		if (buffer->free != o_block){
-			buffer->tail->next = o_block;
-			buffer->tail = o_block;
-			//reset block  link to tail
-			reset_block(o_block);
-		}
-		else{
-			reset_block(o_block);
-		}
-		block = block->next;
+	if (buffer->head == buffer->tail) {
+		return read_from_block(buffer->head, pdata, nsize);
 	}
 
-	buffer->head = block;
+	//traverse buffer list  read data.  buffer->free->next must not have data
+	int nread = 0;
+	st_block* block = buffer->head;
+	while (nread <  nsize) {
+		if (is_empty_block(block))
+			break;
+
+		nread += read_from_block(block, pdata + nread, nsize - nread);
+
+		st_block* o_block = block;
+		block = block->next;
+
+		if (is_empty_block(o_block)) {
+			buffer->tail->next = o_block;
+			buffer->tail = o_block;
+			o_block->next = NULL;
+			buffer->head = block;
+			if (o_block == buffer->free) {
+				buffer->free = buffer->head;
+			}
+		}
+	}
 	return nread;
 }
 
 int print_buffer(st_buffer* buffer) {
 	st_block* block = buffer->head;
 	while (block) {
-		printf("block:%x begin:%d end:%d  size:%d  next:%x data:%d\n",block,block->begin,block->end,block->size,block->next,block->data);
+		printf("block:%x begin:%d end:%d  size:%d  next:%x data:%d\n", block, block->begin, block->end, block->size, block->next, block->data);
 
 		block = block->next;
 	}

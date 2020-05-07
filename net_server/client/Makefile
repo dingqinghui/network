@@ -115,6 +115,102 @@ client/fast:
 	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+__/net/src/server.o: __/net/src/server.c.o
+.PHONY : __/net/src/server.o
+
+# target to build an object file
+__/net/src/server.c.o:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/server.c.o
+.PHONY : __/net/src/server.c.o
+
+__/net/src/server.i: __/net/src/server.c.i
+.PHONY : __/net/src/server.i
+
+# target to preprocess a source file
+__/net/src/server.c.i:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/server.c.i
+.PHONY : __/net/src/server.c.i
+
+__/net/src/server.s: __/net/src/server.c.s
+.PHONY : __/net/src/server.s
+
+# target to generate assembly for a file
+__/net/src/server.c.s:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/server.c.s
+.PHONY : __/net/src/server.c.s
+
+__/net/src/socket.o: __/net/src/socket.c.o
+.PHONY : __/net/src/socket.o
+
+# target to build an object file
+__/net/src/socket.c.o:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket.c.o
+.PHONY : __/net/src/socket.c.o
+
+__/net/src/socket.i: __/net/src/socket.c.i
+.PHONY : __/net/src/socket.i
+
+# target to preprocess a source file
+__/net/src/socket.c.i:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket.c.i
+.PHONY : __/net/src/socket.c.i
+
+__/net/src/socket.s: __/net/src/socket.c.s
+.PHONY : __/net/src/socket.s
+
+# target to generate assembly for a file
+__/net/src/socket.c.s:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket.c.s
+.PHONY : __/net/src/socket.c.s
+
+__/net/src/socket_epoll.o: __/net/src/socket_epoll.c.o
+.PHONY : __/net/src/socket_epoll.o
+
+# target to build an object file
+__/net/src/socket_epoll.c.o:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.o
+.PHONY : __/net/src/socket_epoll.c.o
+
+__/net/src/socket_epoll.i: __/net/src/socket_epoll.c.i
+.PHONY : __/net/src/socket_epoll.i
+
+# target to preprocess a source file
+__/net/src/socket_epoll.c.i:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.i
+.PHONY : __/net/src/socket_epoll.c.i
+
+__/net/src/socket_epoll.s: __/net/src/socket_epoll.c.s
+.PHONY : __/net/src/socket_epoll.s
+
+# target to generate assembly for a file
+__/net/src/socket_epoll.c.s:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_epoll.c.s
+.PHONY : __/net/src/socket_epoll.c.s
+
+__/net/src/socket_event.o: __/net/src/socket_event.c.o
+.PHONY : __/net/src/socket_event.o
+
+# target to build an object file
+__/net/src/socket_event.c.o:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_event.c.o
+.PHONY : __/net/src/socket_event.c.o
+
+__/net/src/socket_event.i: __/net/src/socket_event.c.i
+.PHONY : __/net/src/socket_event.i
+
+# target to preprocess a source file
+__/net/src/socket_event.c.i:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_event.c.i
+.PHONY : __/net/src/socket_event.c.i
+
+__/net/src/socket_event.s: __/net/src/socket_event.c.s
+.PHONY : __/net/src/socket_event.s
+
+# target to generate assembly for a file
+__/net/src/socket_event.c.s:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/net/src/socket_event.c.s
+.PHONY : __/net/src/socket_event.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -148,6 +244,18 @@ help:
 	@echo "... client"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... __/net/src/server.o"
+	@echo "... __/net/src/server.i"
+	@echo "... __/net/src/server.s"
+	@echo "... __/net/src/socket.o"
+	@echo "... __/net/src/socket.i"
+	@echo "... __/net/src/socket.s"
+	@echo "... __/net/src/socket_epoll.o"
+	@echo "... __/net/src/socket_epoll.i"
+	@echo "... __/net/src/socket_epoll.s"
+	@echo "... __/net/src/socket_event.o"
+	@echo "... __/net/src/socket_event.i"
+	@echo "... __/net/src/socket_event.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
