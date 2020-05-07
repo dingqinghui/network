@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/linux_share/net_server/client/main.c
+stdio.h
+-
+../common/buffer.h
+/mnt/hgfs/linux_share/net_server/common/buffer.h
+
+/mnt/hgfs/linux_share/net_server/common/buffer.h
+stdlib.h
+-
+string.h
+-
+

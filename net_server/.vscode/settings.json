@@ -1,0 +1,27 @@
+
+{//如下内容适用于机智云官方的 ESP8266 SoC 代码，其他项目请自行修改路径
+    "[cpp]": {
+            "editor.quickSuggestions": true
+    },
+    "[c]": {
+         "editor.quickSuggestions": true
+    },
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/app/driver",
+        "${workspaceFolder}/app/include",
+        "${workspaceFolder}/app/Gizwits",
+        "${workspaceFolder}/app/include/driver",
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/app/Utils",
+        "I:/linux_share/include/**",
+        "I:/linux_share/include/"
+      ],
+      
+    "C_Cpp.default.browse.databaseFilename": "${workspaceFolder}/.vscode/.browse.c_cpp.db",
+    "files.associations": {
+      "limits": "cpp",
+      "server.h": "c"
+    }
+    }

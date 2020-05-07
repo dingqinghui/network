@@ -1,0 +1,2 @@
+/mnt/hgfs/linux_share/net_server/client/CMakeFiles/client.dir
+/mnt/hgfs/linux_share/net_server/server/CMakeFiles/server.dir
