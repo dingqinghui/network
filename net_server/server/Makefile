@@ -115,29 +115,29 @@ server/fast:
 	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-__/net/src/server.o: __/net/src/server.c.o
-.PHONY : __/net/src/server.o
+__/net/src/net_server.o: __/net/src/net_server.c.o
+.PHONY : __/net/src/net_server.o
 
 # target to build an object file
-__/net/src/server.c.o:
-	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/server.c.o
-.PHONY : __/net/src/server.c.o
+__/net/src/net_server.c.o:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/net_server.c.o
+.PHONY : __/net/src/net_server.c.o
 
-__/net/src/server.i: __/net/src/server.c.i
-.PHONY : __/net/src/server.i
+__/net/src/net_server.i: __/net/src/net_server.c.i
+.PHONY : __/net/src/net_server.i
 
 # target to preprocess a source file
-__/net/src/server.c.i:
-	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/server.c.i
-.PHONY : __/net/src/server.c.i
+__/net/src/net_server.c.i:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/net_server.c.i
+.PHONY : __/net/src/net_server.c.i
 
-__/net/src/server.s: __/net/src/server.c.s
-.PHONY : __/net/src/server.s
+__/net/src/net_server.s: __/net/src/net_server.c.s
+.PHONY : __/net/src/net_server.s
 
 # target to generate assembly for a file
-__/net/src/server.c.s:
-	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/server.c.s
-.PHONY : __/net/src/server.c.s
+__/net/src/net_server.c.s:
+	cd /mnt/hgfs/linux_share/net_server && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/net_server.c.s
+.PHONY : __/net/src/net_server.c.s
 
 __/net/src/socket.o: __/net/src/socket.c.o
 .PHONY : __/net/src/socket.o
@@ -244,9 +244,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... server"
-	@echo "... __/net/src/server.o"
-	@echo "... __/net/src/server.i"
-	@echo "... __/net/src/server.s"
+	@echo "... __/net/src/net_server.o"
+	@echo "... __/net/src/net_server.i"
+	@echo "... __/net/src/net_server.s"
 	@echo "... __/net/src/socket.o"
 	@echo "... __/net/src/socket.i"
 	@echo "... __/net/src/socket.s"

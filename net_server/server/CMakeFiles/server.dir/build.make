@@ -75,28 +75,28 @@ server/CMakeFiles/server.dir/main.c.o.provides: server/CMakeFiles/server.dir/mai
 
 server/CMakeFiles/server.dir/main.c.o.provides.build: server/CMakeFiles/server.dir/main.c.o
 
-server/CMakeFiles/server.dir/__/net/src/server.c.o: server/CMakeFiles/server.dir/flags.make
-server/CMakeFiles/server.dir/__/net/src/server.c.o: net/src/server.c
+server/CMakeFiles/server.dir/__/net/src/net_server.c.o: server/CMakeFiles/server.dir/flags.make
+server/CMakeFiles/server.dir/__/net/src/net_server.c.o: net/src/net_server.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/net_server/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object server/CMakeFiles/server.dir/__/net/src/server.c.o"
-	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/server.dir/__/net/src/server.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/server.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object server/CMakeFiles/server.dir/__/net/src/net_server.c.o"
+	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/server.dir/__/net/src/net_server.c.o   -c /mnt/hgfs/linux_share/net_server/net/src/net_server.c
 
-server/CMakeFiles/server.dir/__/net/src/server.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/server.dir/__/net/src/server.c.i"
-	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/server.c > CMakeFiles/server.dir/__/net/src/server.c.i
+server/CMakeFiles/server.dir/__/net/src/net_server.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/server.dir/__/net/src/net_server.c.i"
+	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/net_server/net/src/net_server.c > CMakeFiles/server.dir/__/net/src/net_server.c.i
 
-server/CMakeFiles/server.dir/__/net/src/server.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/server.dir/__/net/src/server.c.s"
-	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/server.c -o CMakeFiles/server.dir/__/net/src/server.c.s
+server/CMakeFiles/server.dir/__/net/src/net_server.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/server.dir/__/net/src/net_server.c.s"
+	cd /mnt/hgfs/linux_share/net_server/server && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/net_server/net/src/net_server.c -o CMakeFiles/server.dir/__/net/src/net_server.c.s
 
-server/CMakeFiles/server.dir/__/net/src/server.c.o.requires:
-.PHONY : server/CMakeFiles/server.dir/__/net/src/server.c.o.requires
+server/CMakeFiles/server.dir/__/net/src/net_server.c.o.requires:
+.PHONY : server/CMakeFiles/server.dir/__/net/src/net_server.c.o.requires
 
-server/CMakeFiles/server.dir/__/net/src/server.c.o.provides: server/CMakeFiles/server.dir/__/net/src/server.c.o.requires
-	$(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/server.c.o.provides.build
-.PHONY : server/CMakeFiles/server.dir/__/net/src/server.c.o.provides
+server/CMakeFiles/server.dir/__/net/src/net_server.c.o.provides: server/CMakeFiles/server.dir/__/net/src/net_server.c.o.requires
+	$(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/net/src/net_server.c.o.provides.build
+.PHONY : server/CMakeFiles/server.dir/__/net/src/net_server.c.o.provides
 
-server/CMakeFiles/server.dir/__/net/src/server.c.o.provides.build: server/CMakeFiles/server.dir/__/net/src/server.c.o
+server/CMakeFiles/server.dir/__/net/src/net_server.c.o.provides.build: server/CMakeFiles/server.dir/__/net/src/net_server.c.o
 
 server/CMakeFiles/server.dir/__/net/src/socket.c.o: server/CMakeFiles/server.dir/flags.make
 server/CMakeFiles/server.dir/__/net/src/socket.c.o: net/src/socket.c
@@ -170,7 +170,7 @@ server/CMakeFiles/server.dir/__/net/src/socket_event.c.o.provides.build: server/
 # Object files for target server
 server_OBJECTS = \
 "CMakeFiles/server.dir/main.c.o" \
-"CMakeFiles/server.dir/__/net/src/server.c.o" \
+"CMakeFiles/server.dir/__/net/src/net_server.c.o" \
 "CMakeFiles/server.dir/__/net/src/socket.c.o" \
 "CMakeFiles/server.dir/__/net/src/socket_epoll.c.o" \
 "CMakeFiles/server.dir/__/net/src/socket_event.c.o"
@@ -179,7 +179,7 @@ server_OBJECTS = \
 server_EXTERNAL_OBJECTS =
 
 /mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/main.c.o
-/mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/__/net/src/server.c.o
+/mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/__/net/src/net_server.c.o
 /mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/__/net/src/socket.c.o
 /mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/__/net/src/socket_epoll.c.o
 /mnt/hgfs/linux_share/bin/server: server/CMakeFiles/server.dir/__/net/src/socket_event.c.o
@@ -193,7 +193,7 @@ server/CMakeFiles/server.dir/build: /mnt/hgfs/linux_share/bin/server
 .PHONY : server/CMakeFiles/server.dir/build
 
 server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/main.c.o.requires
-server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/__/net/src/server.c.o.requires
+server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/__/net/src/net_server.c.o.requires
 server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/__/net/src/socket.c.o.requires
 server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/__/net/src/socket_epoll.c.o.requires
 server/CMakeFiles/server.dir/requires: server/CMakeFiles/server.dir/__/net/src/socket_event.c.o.requires

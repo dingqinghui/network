@@ -1,6 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/server.dir/main.c.o"
-  "CMakeFiles/server.dir/__/net/src/server.c.o"
+  "CMakeFiles/server.dir/__/net/src/net_server.c.o"
   "CMakeFiles/server.dir/__/net/src/socket.c.o"
   "CMakeFiles/server.dir/__/net/src/socket_epoll.c.o"
   "CMakeFiles/server.dir/__/net/src/socket_event.c.o"

@@ -1,5 +1,3 @@
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -8,11 +6,11 @@
 #include <sys/socket.h>
 #include <errno.h>
 
-#include "../include/server.h"
+#include "../include/net_server.h"
 
-server* server_create(int maxfd)
+net_server* net_server_create(int maxfd,void* connect_callback,void* accept_callback, void* recv_callback, void* close_callback, void* error_callback)
 {
-	s = malloc(sizeof(server));
+	s = malloc(sizeof(net_server));
 	if (!s) {
 		exit(1);
 		return;
@@ -45,11 +43,17 @@ server* server_create(int maxfd)
 	s->event_index = 0;
 	s->event_n = 0;
 
+	s->connect_callback = connect_callback;
+	s->accept_callback = accept_callback;
+	s->recv_callback = recv_callback;
+	s->close_callback = close_callback;
+	s->error_callback = error_callback;
+
 	return s;
 }
 
 
-void server_release()
+void net_server_release()
 {
 	if (!s)
 		return;
@@ -69,7 +73,7 @@ void server_release()
 }
 
 //todo
-int server_reverse_id() {
+static int on_reverse_id() {
 	for (int i = 0; i < s->maxfd; ++i) {
 		st_socket* so = s->socket_slot[i];
 		if (!so) {
@@ -80,11 +84,11 @@ int server_reverse_id() {
 	return -1;
 }
 
-int server_add_socket(st_socket* so) {
+static int on_add_socket(st_socket* so) {
 	if (!so)
 		return -1;
 
-	int id = server_reverse_id();
+	int id = on_reverse_id();
 	if (id < 0)
 		return -1;
 
@@ -94,59 +98,55 @@ int server_add_socket(st_socket* so) {
 
 	return 0;
 }
-int server_del_socket(id) {
+
+
+static int on_del_socket(id) {
 	s->socket_slot[id] = NULL;
 }
 
-int server_lisent(char* IP, int port, void* callback) {
+int net_server_lisent(char* IP, int port) {
 	st_socket* so = socket_lisent(IP, port);
 	if (!so) {
 		printf("lisent fail errno:%d msg:%s\n", errno, strerror(errno));
 		return -1;
 	}
 	//save socket to server
-	if (server_add_socket(so) < 0) {
+	if (on_add_socket(so) < 0) {
 		socket_release(so);
 		return -1;
 	}
 
 	//add to epoll
 	if (sp_add(s->epfd, so->fd, so) < 0) {
-		server_del_socket(so->id);
+		on_del_socket(so->id);
 		socket_release(so);
 		return -1;
 	}
-
-	//register socket event callback
-
-	socket_register_event(so, SOCKET_EVENT_ACCPET, callback);
 
 	printf("lisent success  ip:%s port:%d   id:%d \n", IP, port, so->id);
 	return so->id;
 }
 
 
-int server_connect(char* IP, int port, void* callback) {
+int net_server_connect(char* IP, int port) {
 	st_socket* so = socket_connect(IP, port);
 	if (so) {
-		if (server_add_socket(so) < 0) {
+		if (on_add_socket(so) < 0) {
 			socket_release(so);
 			return -1;
 		}
 
 		//add to epoll
 		if (sp_add(s->epfd, so->fd, so) < 0) {
-			server_del_socket(so->id);
+			on_del_socket(so->id);
 			socket_release(so);
 			return -1;
 		}
-		//register event
-		socket_register_event(so, SOCKET_EVENT_CONNECTED, callback);
 
 		if (socket_is_connecting(so)) {
 
 			if (sp_write(s->epfd, so->fd, so, true) < 0) {
-				server_del_socket(so->id);
+				on_del_socket(so->id);
 				socket_release(so);
 
 				return -1;
@@ -155,7 +155,9 @@ int server_connect(char* IP, int port, void* callback) {
 			return so->id;
 		}
 		else {
-			socket_emit_event(so, SOCKET_EVENT_CONNECTED, NULL);
+			if (s->connect_callback)
+				((connect_fun)(s->connect_callback))(so->id);
+
 			printf("connect success ip:%s port:%d\n", IP, port);
 			return so->id;
 		}
@@ -168,7 +170,7 @@ int server_connect(char* IP, int port, void* callback) {
 }
 
 
-int  server_send(int id, char* buffer, int size) {
+int  net_server_send(int id, char* buffer, int size) {
 	st_socket* so = s->socket_slot[id];
 	if (!so)
 		return 0;
@@ -178,8 +180,11 @@ int  server_send(int id, char* buffer, int size) {
 		if (errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN) {
 		}
 		else {
+			if (s->error_callback)
+				((error_fun)(s->error_callback))(so->id);
+
 			sp_del(s->epfd, so->fd);
-			server_del_socket(so->id);
+			on_del_socket(so->id);
 			socket_release(so);
 			return ret;
 		}
@@ -187,14 +192,112 @@ int  server_send(int id, char* buffer, int size) {
 	return ret;
 }
 
-void on_network()
-{
-	int ret = on_server_epoll(&event);
+
+
+static  int on_report_error(st_socket* so) {
+
+	if (s->error_callback)
+		((error_fun)(s->error_callback))(so->id);
+	printf("epoll wait error event  id:%d\n", so->id);
+	return 0;
 }
 
-int on_server_epoll()
-{
+static int on_report_connect(st_socket* so) {
+	int error;
+	int len = sizeof(error);
+	int code = getsockopt(so->fd, SOL_SOCKET, SO_ERROR, &error, &len);
 
+	if (code < 0 || error) {
+		char* strerr = NULL;
+		int err = 0;
+		if (code >= 0) {
+			strerr = strerror(error);
+			err = error;
+		}
+		else {
+			strerr = strerror(errno);
+			err = errno;
+		}
+
+		sp_del(s->epfd, so->fd);
+		on_del_socket(so->id);
+		socket_release(so);
+
+		if (s->close_callback)
+			((close_fun)(s->close_callback))(so->id);
+
+		printf("connect fail errno:%d msg:%s\n", err, strerr);
+		return 0;
+	}
+	else {
+		socket_set_stat(so, SOCKET_STAT_ESTABLISHED);
+
+		sp_write(s->epfd, so->fd, so, false);
+
+		if (s->connect_callback)
+			((connect_fun)(s->connect_callback))(so->id);
+
+		printf("connect success \n");
+		return 0;
+	}
+}
+
+static int on_report_accpet(st_socket* l_so) {
+
+	st_socket* n_so = socket_accept(l_so);
+	if (l_so) {
+
+		if (on_add_socket(n_so) < 0) {
+			socket_release(n_so);
+			return -1;
+		}
+
+		//add to epoll
+		if (sp_add(s->epfd, n_so->fd, n_so) < 0) {
+			on_del_socket(n_so->id);
+			socket_release(n_so);
+			return -1;
+		}
+
+		if (s->accept_callback)
+			((accpet_fun)(s->accept_callback))(n_so->id);
+
+		return 0;
+	}
+	return -1;
+}
+
+
+static int on_report_read(st_socket* so) {
+	char* buffer = malloc(sizeof(char) * 65535);
+
+	int nread = socket_read(so, buffer, 65535);
+	if (nread <= 0) {
+		int err = errno;
+		if (errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN) {
+			return -1;
+		}
+		if (s->close_callback)
+			((close_fun)(s->close_callback))(so->id);
+
+		printf("read size = 0 close fd:%d id:%d errno:%d  \n", so->fd, so->id, errno);
+
+		sp_del(s->epfd, so->fd);
+		on_del_socket(so->id);
+		socket_release(so);
+	}
+	else {
+		if (s->recv_callback)
+			((recv_fun)(s->recv_callback))(so->id,buffer,nread);
+
+		printf("on_report_read buffer:%s\n", buffer);
+	}
+	return 0;
+}
+
+
+static int on_server_epoll()
+{
 	if (s->event_index >= s->event_n) {
 		int cnt = sp_wait(s->epfd, s->events, s->maxfd);
 		s->event_index = 0;
@@ -233,136 +336,10 @@ int on_server_epoll()
 	}
 }
 
-int on_report_error(st_socket* so) {
 
-	socket_emit_event(so, SOCKET_EVENT_ERROR, NULL);
-
-	printf("epoll wait error event  id:%d\n", so->id);
-	return 0;
-}
-
-int on_report_connect(st_socket* so) {
-	int error;
-	int len = sizeof(error);
-	int code = getsockopt(so->fd, SOL_SOCKET, SO_ERROR, &error, &len);
-
-	if (code < 0 || error) {
-		char* strerr = NULL;
-		int err = 0;
-		if (code >= 0) {
-			strerr = strerror(error);
-			err = error;
-		}
-		else {
-			strerr = strerror(errno);
-			err = errno;
-		}
-
-		sp_del(s->epfd, so->fd);
-		server_del_socket(so->id);
-		socket_release(so);
-
-		socket_emit_event(so, SOCKET_EVENT_CLOSE, NULL);
-
-		printf("connect fail errno:%d msg:%s\n", err, strerr);
-		return 0;
-	}
-	else {
-		socket_set_stat(so, SOCKET_STAT_ESTABLISHED);
-
-		sp_write(s->epfd, so->fd, so, false);
-
-
-		socket_emit_event(so, SOCKET_EVENT_CONNECTED, NULL);
-
-		printf("connect success %s\n", socket_print(so));
-		return 0;
-	}
-}
-
-int on_report_accpet(st_socket* l_so) {
-
-	st_socket* n_so = socket_accept(l_so);
-	if (l_so) {
-
-		if (server_add_socket(n_so) < 0) {
-			socket_release(n_so);
-			return -1;
-		}
-
-		//add to epoll
-		if (sp_add(s->epfd, n_so->fd, n_so) < 0) {
-			server_del_socket(n_so->id);
-			socket_release(n_so);
-			return -1;
-		}
-
-		event_param param;
-		param.ud = n_so->id;
-		socket_emit_event(l_so, SOCKET_EVENT_ACCPET, &param);
-
-		return 0;
-	}
-	return -1;
-}
-
-
-int on_report_read(st_socket* so) {
-	char* buffer = malloc(sizeof(char) * 65535);
-
-	int nread = socket_read(so, buffer, 65535);
-	if (nread <= 0) {
-		int err = errno;
-		if (errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN) {
-			return -1;
-		}
-
-		sp_del(s->epfd, so->fd);
-		server_del_socket(so->id);
-		socket_release(so);
-
-		socket_emit_event(so, SOCKET_EVENT_CLOSE, NULL);
-
-		//strerror(errno)
-		printf("read size = 0 close fd:%d id:%d errno:%d  \n", so->fd, so->id, errno);
-	}
-	else {
-		event_param param;
-		param.ud = buffer;
-		param.size = nread;
-		socket_emit_event(so, SOCKET_EVENT_RECV, &param);
-
-		printf("on_report_read buffer:%s\n", buffer);
-	}
-	return 0;
-}
-
-
-int server_register_event(int id, int event_type, void* callback) {
-	st_socket* so = s->socket_slot[id];
-	if (!so)
-		return -1;
-	return socket_register_event(so, event_type, callback);
-}
-
-
-
-void on_work()
+void net_server_run()
 {
-
-}
-
-
-void server_run()
-{
-	while (true)
-	{
-		//socket处理
-		on_network();
-		//逻辑处理
-
-		sleep(1);
-	}
+	on_server_epoll();
 }
 
 

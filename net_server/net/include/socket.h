@@ -17,7 +17,6 @@ typedef struct st_socket
 	int fd;
 	int stat;
 	int id;
-	struct st_callback* sc;
 }st_socket;
 
 

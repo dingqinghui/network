@@ -7,12 +7,18 @@ add_compile_options(-std=gnu99)
 #Make 最低版本号要求
 cmake_minimum_required (VERSION 2.8)
 
+
+
 # 项目信息
 
 project (Demo1)
 
 # 指定生成目标
 aux_source_directory(./../net/src DIR_SRCS)
+
 # 指定生成目标
-add_executable(client main.c ${DIR_SRCS})
+aux_source_directory(./../common COMM_SRCS)
+
+# 指定生成目标
+add_executable(client main.c ${DIR_SRCS} ${COMM_SRCS} )
 

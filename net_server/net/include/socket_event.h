@@ -15,7 +15,9 @@
 typedef int (*accpet_fun)(int id);
 typedef int (*connect_fun)(int id);
 typedef int (*close_fun)(int id);
-typedef int (*recv_fun)(int id,void* buffer,int size);
+typedef int (*recv_fun)(int id, void* buffer, int size);
+typedef int (*error_fun)(int id);
+
 
 
 

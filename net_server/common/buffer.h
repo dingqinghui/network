@@ -89,6 +89,7 @@ typedef struct
 	st_block* head;
 	st_block* tail;
 	st_block* free;
+	int nsize;
 }st_buffer;
 
 st_buffer* create_buffer() {
@@ -127,6 +128,7 @@ int write_to_buffer(st_buffer* buffer, const char* pdata, int nsize) {
 	if (buffer->free)
 	{
 		nwrite = write_to_block(buffer->free, pdata, nsize);
+		buffer->nsize += nwrite;
 		if (nwrite < nsize) {
 			//free block out of memory
 			pdata = pdata + nwrite;
@@ -143,7 +145,7 @@ int write_to_buffer(st_buffer* buffer, const char* pdata, int nsize) {
 		return nwrite;
 
 	nwrite += write_to_block(block, pdata, nsize);
-
+	buffer->nsize += nwrite;
 	if (buffer->tail) {
 		buffer->tail->next = block;
 		buffer->tail = block;
@@ -168,18 +170,22 @@ int read_from_buffer(st_buffer* buffer, char* pdata, int nsize) {
 	if (buffer->head == NULL)
 		return 0;
 
+	int nread = 0;
 	if (buffer->head == buffer->tail) {
-		return read_from_block(buffer->head, pdata, nsize);
+		nread = read_from_block(buffer->head, pdata, nsize);
+		buffer->nsize -= nread;
+		return nread;
 	}
 
 	//traverse buffer list  read data.  buffer->free->next must not have data
-	int nread = 0;
+	
 	st_block* block = buffer->head;
 	while (nread <  nsize) {
 		if (is_empty_block(block))
 			break;
 
 		nread += read_from_block(block, pdata + nread, nsize - nread);
+		buffer->nsize -= nread;
 
 		st_block* o_block = block;
 		block = block->next;

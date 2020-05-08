@@ -6,7 +6,35 @@
 
 #IncludeRegexTransform: 
 
-/mnt/hgfs/linux_share/net_server/net/include/server.h
+/mnt/hgfs/linux_share/net_server/common/buffer.h
+stdlib.h
+-
+string.h
+-
+
+/mnt/hgfs/linux_share/net_server/common/connection_mgr.h
+stdlib.h
+-
+buffer.h
+/mnt/hgfs/linux_share/net_server/common/buffer.h
+
+/mnt/hgfs/linux_share/net_server/common/dispatch.h
+connection_mgr.h
+/mnt/hgfs/linux_share/net_server/common/connection_mgr.h
+
+/mnt/hgfs/linux_share/net_server/common/net_callback.h
+connection_mgr.h
+/mnt/hgfs/linux_share/net_server/common/connection_mgr.h
+dispatch.h
+/mnt/hgfs/linux_share/net_server/common/dispatch.h
+
+/mnt/hgfs/linux_share/net_server/common/server_mgr.h
+../net/include/net_server.h
+/mnt/hgfs/linux_share/net_server/net/include/net_server.h
+net_callback.h
+/mnt/hgfs/linux_share/net_server/common/net_callback.h
+
+/mnt/hgfs/linux_share/net_server/net/include/net_server.h
 socket_epoll.h
 /mnt/hgfs/linux_share/net_server/net/include/socket_epoll.h
 socket.h
@@ -26,21 +54,9 @@ stdbool.h
 socket.h
 /mnt/hgfs/linux_share/net_server/net/include/socket.h
 
-/mnt/hgfs/linux_share/net_server/net/src/server.c
-stdlib.h
--
+/mnt/hgfs/linux_share/net_server/server/main.c
 stdio.h
 -
-stdbool.h
--
-unistd.h
--
-sys/types.h
--
-sys/socket.h
--
-errno.h
--
-../include/server.h
-/mnt/hgfs/linux_share/net_server/net/include/server.h
+../common/server_mgr.h
+/mnt/hgfs/linux_share/net_server/common/server_mgr.h
 

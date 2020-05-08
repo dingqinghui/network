@@ -37,12 +37,10 @@ st_socket* socket_create()
 		return NULL;
 	}
 
-	so->sc = malloc(sizeof(st_callback));
-
 	so->id = 0;
 	so->fd = 0;
 	so->stat = SOCKET_STAT_CLOSE;
-	so->sc->so = so;
+
 	return so;
 }
 
@@ -50,7 +48,6 @@ void socket_release(st_socket* so)
 {
 	if (so) {
 		socket_close(so);
-		free(so->sc);
 		free(so);
 	}
 }
@@ -235,20 +232,5 @@ int socket_write(st_socket* so, char* buffer, int size) {
 	if (nwrite < 0)
 		return -1;
 	return nwrite;
-}
-
-int socket_register_event(st_socket* so, int event_type, void* con_call) {
-	if (!so)
-		return -1;
-
-	return register_event(so->sc, event_type, con_call);
-}
-
-
-int socket_emit_event(st_socket* so, int event_type, event_param* param) {
-	if (!so)
-		return -1;
-
-	return emit_event(so->sc, event_type, param);
 }
 
