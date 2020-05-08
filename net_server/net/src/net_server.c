@@ -5,6 +5,7 @@
 #include <sys/types.h>          /* See NOTES */
 #include <sys/socket.h>
 #include <errno.h>
+#include <string.h>
 
 #include "../include/net_server.h"
 

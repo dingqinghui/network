@@ -6,7 +6,7 @@ int main()
 {
 	create_server_mgr(1024);
 
-	server_mgr_lisent("127.0.0.1", 8888);
+	server_mgr_lisent("192.168.2.100", 8888);
 
 	server_mgr_run();
 

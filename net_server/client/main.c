@@ -6,9 +6,9 @@ int main()
 	 
 	create_server_mgr(1024);
 
-	for (int index = 0; index < 100; ++index)
+	for (int index = 0; index < 1000; ++index)
 	{
-		server_mgr_connect("127.0.0.1", 8888);
+		server_mgr_connect("192.168.2.100", 8888);
 	}
 
 	server_mgr_run();
