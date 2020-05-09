@@ -1,8 +1,11 @@
 #ifndef __server_mgr_h__
 #define __server_mgr_h__
 
+#include <time.h>
+
 #include "../net/include/net_server.h"
 #include "net_callback.h"
+#include "timer.h"
 
 
 typedef struct 
@@ -23,6 +26,8 @@ server_mgr* create_server_mgr(int maxfd) {
 
 	create_connect_mgr(maxfd);
 	net_server_create(maxfd, Connect, Accept, Recv, Close, Error);
+
+	create_h_t_mgr(100);
 }
 
 void release_server_mgr() {
@@ -31,13 +36,15 @@ void release_server_mgr() {
 	}
 	net_server_release();
 	release_connect_mgr();
-
+	release_h_t_mgr();
 	free(ser_mgr);
 }
 
 server_mgr* server_mgr_run() {
 	while (1) {
 		net_server_run();
+		h_t_mgr_tick();
+		usleep(10);
 	}
 }
 
