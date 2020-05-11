@@ -9,7 +9,7 @@
 
 #include "../include/net_server.h"
 
-net_server* net_server_create(int maxfd,void* connect_callback,void* accept_callback, void* recv_callback, void* close_callback, void* error_callback)
+net_server* net_server_create(int maxfd,void* connect_callback,void* accept_callback, void* recv_callback, void* close_callback, void* error_callback, void* timeout_callback)
 {
 	s = malloc(sizeof(net_server));
 	if (!s) {
@@ -39,6 +39,12 @@ net_server* net_server_create(int maxfd,void* connect_callback,void* accept_call
 		s->socket_slot[i] = NULL;
 	}
 
+	if (pipe(s->pipes) < 0) {
+		exit(1);
+		return;
+	}
+		
+
 
 	s->maxfd = maxfd;
 	s->event_index = 0;
@@ -49,7 +55,9 @@ net_server* net_server_create(int maxfd,void* connect_callback,void* accept_call
 	s->recv_callback = recv_callback;
 	s->close_callback = close_callback;
 	s->error_callback = error_callback;
+	s->timeout_callback = timeout_callback;
 
+	sp_add(s->epfd,s->pipes[0],NULL);
 	return s;
 }
 
@@ -58,6 +66,9 @@ void net_server_release()
 {
 	if (!s)
 		return;
+
+	close(s->pipes[0]);
+	close(s->pipes[1]);
 
 	sp_release(s->epfd);
 
@@ -296,51 +307,54 @@ static int on_report_read(st_socket* so) {
 	return 0;
 }
 
+static int on_report_timeout() {
+	((timeout_fun)s->timeout_callback)();
+}
 
-static int on_server_epoll()
-{
-	if (s->event_index >= s->event_n) {
-		int cnt = sp_wait(s->epfd, s->events, s->maxfd);
-		s->event_index = 0;
-		s->event_n = cnt;
+int net_server_epoll(int timeout){
+	timeout = timeout == 0 ? -1 : timeout;
+	int cnt = sp_wait(s->epfd, s->events, s->maxfd, timeout);
+	s->event_index = 0;
+	s->event_n = cnt;
+	if (s->event_n < 0){
+		return s->event_n;
+	}
+	//timeout
+	else if (s->event_n == 0){
+		on_report_timeout();
 	}
 	else {
-
-		for (; ; ) {
+		for (; s->event_index < s->event_n; ) {
 			struct event  e = s->events[s->event_index];
 			s->event_index++;
 
 			st_socket* so = (st_socket*)e.udata;
 			if (!so) {
-				printf("deal epoll event fail st_socket not exist");
+				printf("deal epoll event fail st_socket not exist\n");
 				continue;
 			}
 
 			if (e.write) {
 				if (socket_is_connecting(so)) {
-					return on_report_connect(so);
+					on_report_connect(so);
 				}
 			}
 			if (e.read) {
 				if (socket_is_lisent(so)) {
-					return on_report_accpet(so);
+					on_report_accpet(so);
 				}
 				else if (socket_is_esta(so)) {
-					return on_report_read(so);
+					on_report_read(so);
 				}
 			}
 			if (e.error)
 			{
-				return on_report_read(so);
+				on_report_error(so);
 			}
 		}
 	}
 }
 
 
-void net_server_run()
-{
-	on_server_epoll();
-}
 
 

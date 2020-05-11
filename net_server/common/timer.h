@@ -7,14 +7,21 @@
 #include <unistd.h>
 #include <string.h>
 #include <signal.h>
-#include <time.h>
 
+#include <sys/time.h>
 typedef void (*cb_func)(void*);
+
+
+long long get_millisecond() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return  tv.tv_sec * 1000 + tv.tv_usec / 1000;
+}
 
 ///////////////////////////////////////////////////////////////////TIMER////////////////////////////////////////////////////////////////////////////////////////
 typedef struct heap_timer {
 	//加的设置的定时器到时秒数
-	int timeout;
+	long long timeout;
 	//到时回调函数
 	cb_func callback;
 	//回调函数参数
@@ -28,7 +35,7 @@ heap_timer* create_timer(int timeout, cb_func cb, void* udata) {
 	if (!timer)
 		return NULL;
 
-	int seconds = time(NULL);
+	long long seconds = get_millisecond();
 	timer->timeout = seconds + timeout;
 	timer->callback = cb;
 	timer->user_data = udata;
@@ -195,14 +202,12 @@ int h_t_mgr_pop_timer()
 	return 0;
 }
 
-heap_timer* h_t_mgr_top()
+int  h_t_mgr_min_timeout()
 {
 	if (h_t_mgr_empty(tmanager))
-	{
-		printf("!!!!!!!top->empty cur size\n");
-		return NULL;
-	}
-	return tmanager->array[0];
+		return 0;
+
+	return tmanager->array[0]->timeout - get_millisecond();
 }
 
 
@@ -210,7 +215,7 @@ heap_timer* h_t_mgr_top()
 void h_t_mgr_tick()
 {
 	heap_timer* tmp = tmanager->array[0];
-	time_t cur = time(NULL);
+	long long cur = get_millisecond();
 	while (!h_t_mgr_empty(tmanager))
 	{
 		if (!tmp)

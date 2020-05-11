@@ -42,10 +42,10 @@ int sp_write(int efd, int socket, void* ud, bool bwrite)
 	return epoll_ctl(efd, EPOLL_CTL_MOD, socket, &e);
 }
 
-int sp_wait(int epfd, struct event* e, const int max)
+int sp_wait(int epfd, struct event* e, const int max, int timeout)
 {
 	struct epoll_event events[max];
-	int cnt = epoll_wait(epfd, events, max, 0);
+	int cnt = epoll_wait(epfd, events, max, timeout);
 
 	for (size_t i = 0; i < cnt; i++)
 	{

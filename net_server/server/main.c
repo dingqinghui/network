@@ -15,7 +15,7 @@ int main()
 
 	for (int index = 1; index <= 10; ++index)
 	{
-		heap_timer* timer = create_timer(index + index * 2, Timer_Callback,index);
+		heap_timer* timer = create_timer(1000 + 1000 * index * 2, Timer_Callback,index);
 		if (timer)
 			h_t_mgr_add_timer(timer);
 	}

@@ -49,4 +49,8 @@ int Error(int id) {
 }
 
 
+int TimeOut() {
+	h_t_mgr_tick();
+}
+
 #endif

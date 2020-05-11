@@ -17,17 +17,14 @@ typedef struct
 server_mgr* ser_mgr = NULL;
 
 server_mgr* create_server_mgr(int maxfd) {
-
 	ser_mgr = malloc(sizeof(server_mgr));
 	if (!ser_mgr) {
 		exit(1);
 		return NULL;
 	}
-
-	create_connect_mgr(maxfd);
-	net_server_create(maxfd, Connect, Accept, Recv, Close, Error);
-
 	create_h_t_mgr(100);
+	create_connect_mgr(maxfd);
+	net_server_create(maxfd, Connect, Accept, Recv, Close, Error,TimeOut);
 }
 
 void release_server_mgr() {
@@ -42,9 +39,8 @@ void release_server_mgr() {
 
 server_mgr* server_mgr_run() {
 	while (1) {
-		net_server_run();
-		h_t_mgr_tick();
-		usleep(10);
+		int timeout = h_t_mgr_min_timeout();
+		net_server_epoll(timeout);
 	}
 }
 
