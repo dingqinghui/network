@@ -23,6 +23,7 @@ server/CMakeFiles/server.dir/main.c.o: common/connection_mgr.h
 server/CMakeFiles/server.dir/main.c.o: common/dispatch.h
 server/CMakeFiles/server.dir/main.c.o: common/net_callback.h
 server/CMakeFiles/server.dir/main.c.o: common/server_mgr.h
+server/CMakeFiles/server.dir/main.c.o: common/timer.h
 server/CMakeFiles/server.dir/main.c.o: net/include/net_server.h
 server/CMakeFiles/server.dir/main.c.o: net/include/socket.h
 server/CMakeFiles/server.dir/main.c.o: net/include/socket_epoll.h

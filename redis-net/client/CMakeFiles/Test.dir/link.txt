@@ -1,0 +1,1 @@
+/usr/bin/cc  -g    CMakeFiles/Test.dir/__/common/src/buffer.c.o CMakeFiles/Test.dir/__/anet/src/handler.c.o CMakeFiles/Test.dir/__/anet/src/mp.c.o CMakeFiles/Test.dir/__/anet/src/mp_epoll.c.o CMakeFiles/Test.dir/__/anet/src/net.c.o CMakeFiles/Test.dir/__/anet/src/netserver.c.o CMakeFiles/Test.dir/main.c.o  -o /mnt/hgfs/linux_share/bin/Test -rdynamic 

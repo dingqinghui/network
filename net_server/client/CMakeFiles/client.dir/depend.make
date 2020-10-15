@@ -24,6 +24,7 @@ client/CMakeFiles/client.dir/main.c.o: common/connection_mgr.h
 client/CMakeFiles/client.dir/main.c.o: common/dispatch.h
 client/CMakeFiles/client.dir/main.c.o: common/net_callback.h
 client/CMakeFiles/client.dir/main.c.o: common/server_mgr.h
+client/CMakeFiles/client.dir/main.c.o: common/timer.h
 client/CMakeFiles/client.dir/main.c.o: net/include/net_server.h
 client/CMakeFiles/client.dir/main.c.o: net/include/socket.h
 client/CMakeFiles/client.dir/main.c.o: net/include/socket_epoll.h
