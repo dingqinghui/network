@@ -3,7 +3,45 @@
 #include "../include/netserver.h"
 #include "../include/handler.h"
 #include "../include/netapi.h"
+
+
+
+
 static netserver* server;
+
+
+
+int  closeConnction(connection* con) {
+    if(!con){
+        return -1;
+    }
+    if(con->fd < 0 || con->fd > server->cfg.maxclient){
+        return -1;
+    }
+
+    netClose(con->fd);
+
+    server->conslot[con->fd] = 0;
+    delEvent(server->loop, con->fd, EV_WRITE | EV_READ | EV_ERROR) ;
+    freeConnection(con);
+    return 0;
+}
+
+
+connection* getConnection(int fd){
+    if(fd < 0 || fd > server->cfg.maxclient){
+        return 0;
+    }
+    return server->conslot[fd];
+}
+
+void  addConnction(connection* con) {
+    if(con->fd < 0 || con->fd > server->cfg.maxclient){
+        return ;
+    }
+	server->conslot[con->fd] = con;
+    return ;
+}
 
 
 
@@ -30,6 +68,7 @@ int createServer(config* cfg){
 		return -1;
 	}
 
+    server->msgcb = 0;
     server->conslot = malloc(sizeof(void*) * server->cfg.maxclient);
 
     return 0;
@@ -75,7 +114,7 @@ connection*  passiveConnect(int fd){
         return 0;
     }
 
-    addEvent(server->loop, con->fd, EV_WRITE, writeHandler);
+    //addEvent(server->loop, con->fd, EV_WRITE, writeHandler);
 	addEvent(server->loop, con->fd, EV_READ, readHandler) ;
 
 
@@ -83,7 +122,6 @@ connection*  passiveConnect(int fd){
 
     addConnction(con);
 
-    printf("passiveConnect fd:%d\n",fd);
     return con;
 }
 
@@ -120,45 +158,31 @@ connection* driveConnect(char* ip,int port,int block)
     setConnectState( con,CON_CONNECTING);
 
     addConnction(con);
-
-    printf("driveConnect fd:%d\n",fd);
     return con;
 }
 
 
-void  addConnction(connection* con) {
-    if(con->fd < 0 || con->fd > server->cfg.maxclient){
-        return ;
+
+
+void dispatchMessage(connection* con,char* buf,int size){
+    if(server->msgcb){
+        server->msgcb(con,buf,size);
     }
-	server->conslot[con->fd] = con;
-    return ;
 }
 
 
-int  closeConnction(connection* con) {
-    printf("closeConnction fd:%d\n",con->fd);
-    if(!con){
-        return -1;
-    }
-    if(con->fd < 0 || con->fd > server->cfg.maxclient){
-        return -1;
-    }
-    
-    netClose(con->fd);
+void initMessageCallback(MessageCallback* cb)
+{
+    server->msgcb = cb;
+}
 
-    server->conslot[con->fd] = 0;
-    delEvent(server->loop, con->fd, EV_WRITE | EV_READ | EV_ERROR) ;
-    freeConnection(con);
+int tcpSend(connection* con,char* buf,int size){
+    // 写入connection缓冲区 
+    if( writeSendBuf(con,buf,size) < 0 ){
+        printf("tcpSend:write buf to conntion fail.\n");
+        return -1
+    }
+    // 注册事件
+    addEvent()
     return 0;
 }
-
-
-
-connection* getConnection(int fd){
-    if(fd < 0 || fd > server->cfg.maxclient){
-        return 0;
-    }
-    return server->conslot[fd];
-}
-
-

@@ -34,6 +34,7 @@ server/CMakeFiles/server.dir/__/common/src/buffer.c.o: common/src/buffer.c
 
 server/CMakeFiles/server.dir/main.c.o: anet/include/connction.h
 server/CMakeFiles/server.dir/main.c.o: anet/include/iomp.h
+server/CMakeFiles/server.dir/main.c.o: anet/include/netapi.h
 server/CMakeFiles/server.dir/main.c.o: anet/include/netserver.h
 server/CMakeFiles/server.dir/main.c.o: server/main.c
 

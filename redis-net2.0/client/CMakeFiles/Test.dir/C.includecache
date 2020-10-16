@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/linux_share/redis-net/anet/include/mp.h
+
+/mnt/hgfs/linux_share/redis-net/anet/include/netserver.h
+../include/mp.h
+/mnt/hgfs/linux_share/redis-net/anet/include/mp.h
+../../common/include/buffer.h
+/mnt/hgfs/linux_share/redis-net/common/include/buffer.h
+
+/mnt/hgfs/linux_share/redis-net/common/include/buffer.h
+
+/mnt/hgfs/linux_share/redis-net/test/main.c
+stdio.h
+-
+../anet/include/netserver.h
+/mnt/hgfs/linux_share/redis-net/anet/include/netserver.h
+

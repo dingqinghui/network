@@ -5,7 +5,7 @@
 #include "../include/iomp.h"
 #include "../include/connction.h"
 
-
+typedef void  MessageCallback(connection* con,char* buf,int size);
 
 typedef struct config
 {
@@ -21,6 +21,7 @@ typedef struct netserver {
 	connection** conslot;
 	config cfg;
 	int lfd;
+	MessageCallback* msgcb;
 }netserver;
 
 
@@ -36,4 +37,10 @@ connection*  passiveConnect(int fd);
 connection* driveConnect(char* ip,int port,int block);
 
 void runLoop(int mod);
+
+void initMessageCallback(MessageCallback* cb);
+void dispatchMessage(connection*,char* buf,int size);
+
+
+int tcpSend(connection* con,char* buf,int size);
 #endif

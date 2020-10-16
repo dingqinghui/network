@@ -35,5 +35,6 @@ server/CMakeFiles/server.dir/__/common/src/buffer.c.o
 server/CMakeFiles/server.dir/main.c.o
  /mnt/hgfs/linux_share/redis-net/anet/include/connction.h
  /mnt/hgfs/linux_share/redis-net/anet/include/iomp.h
+ /mnt/hgfs/linux_share/redis-net/anet/include/netapi.h
  /mnt/hgfs/linux_share/redis-net/anet/include/netserver.h
  /mnt/hgfs/linux_share/redis-net/server/main.c

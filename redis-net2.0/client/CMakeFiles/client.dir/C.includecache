@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/handler.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/netserver.h
+../include/iomp.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
+../include/connction.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/src/netserver.c
+stdlib.h
+-
+../include/netserver.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/netserver.h
+../include/handler.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/handler.h
+../include/netapi.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
+
