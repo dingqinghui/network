@@ -18,7 +18,7 @@ int mpDel(int fd,int oldmask,int delmask);
 int mpAdd(int fd, int oldmask,int addmask);
 
 int mpWait(int w);
-fireEvent* getFireEvents();
+fireEvent* mpGetFireEvents();
 
 
 #endif

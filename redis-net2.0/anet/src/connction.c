@@ -2,7 +2,7 @@
 #include "../include/connction.h"
 
 
-connection* createConnection(int fd){
+connection* connectionCreate(int fd){
     connection* con = malloc(sizeof(connection));
     if(!con){
         return 0;
@@ -13,15 +13,12 @@ connection* createConnection(int fd){
     con->fd = fd;
     con->rbuffer = malloc(sizeof(char)*CON_BUF_MAX_LEN);
     con->sbuffer = malloc(sizeof(char)*CON_BUF_MAX_LEN);
-
-    setConnectState(con,CON_INIT);
-
     return con;
 }
 
 
 
-void freeConnection(connection* con){
+void connectionFree(connection* con){
     if(!con){
          return ;
     }
@@ -33,16 +30,6 @@ void freeConnection(connection* con){
         free(con->sbuffer);
     }
     free(con);
-}
-
-
-int setConnectState(connection* con,int state){
-    con->state = state;
-}
-
-
-int isConnnecting(connection* con){
-    return con->state == CON_CONNECTING;
 }
 
 
@@ -60,16 +47,16 @@ int setReadBuf(connection* con,char* buf,int size){
     return 0;
 }
 
-int getSendBuf(connection* con,char* buf){
+int connectionGetSendBuf(connection* con,char* buf){
     memcpy(buf,con->sbuffer,con->css);
     return con->css;
 }
 
-void setSendBufSize(connection* con,int size){
+void connectionSetSendBufSize(connection* con,int size){
      con->css = size;
 }
 
-int writeSendBuf(connection* con,char* buf,int size){
+int connectionWriteSendBuf(connection* con,char* buf,int size){
     if(size < 0 || size + con->css > CON_BUF_MAX_LEN){
         return -1;
     }
@@ -77,3 +64,6 @@ int writeSendBuf(connection* con,char* buf,int size){
     con->css  += size;
     return 0;
 }
+
+
+

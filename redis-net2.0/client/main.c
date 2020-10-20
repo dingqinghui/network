@@ -1,32 +1,27 @@
 
 #include <stdio.h>
-#include "../anet/include/netserver.h"
-#include "../anet/include/netapi.h"
+#include "../anet/include/tcpserver.h"
+#include "../anet/include/tcpclient.h"
 
-void  onMessage(connection* con,char* buf,int size){
-	tcpSend(con,buf,size);
+void  onMessage(tcpClient* cli,connection* con,char* buf,int size){
+	tcpClientSend(cli,buf,size);
 	printf("%s \n",buf);
 }
 
 
 int main()
 {
+	evLoopCraete(1000);
 
-	createServer(0);
-	initMessageCallback(onMessage);
-	for (size_t i = 0; i < 1; i++)
-	{
-
-		connection* con =  driveConnect("127.0.0.1", 8001,1);
-		if( con )
-		{
-			printf("send:%d\n",tcpSend(con,"123456789\n",10));
-		}
-		
-	}
-	
-	runLoop(EV_WAIT_FPS) ;
+	tcpClient* cli = tcpClientCreate("127.0.0.1",8001 , 1);
+	tcpClientCallback callback;
+	callback.msgcb = onMessage;
+	callback.connectcb = 0;
+	callback.closecb = 0;
+	tcpClientInitCallBack(cli,callback);
+	tcpClientStart( cli );
 
 
+	evLoopRun( EV_WAIT_FPS );
     return 0;
 }

@@ -5,12 +5,11 @@ SET(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/connction.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/connction.c.o"
-  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/connmgr.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/connmgr.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/epollmp.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/epollmp.c.o"
-  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/handler.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/handler.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/iomp.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/iomp.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/netapi.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/netapi.c.o"
-  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/netserver.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/netserver.c.o"
+  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpclient.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o"
+  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpserver.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/server/main.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/main.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")

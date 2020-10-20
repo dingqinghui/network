@@ -19,17 +19,21 @@
 #define FRAME_LOOP   10
 
 
-typedef void evCallBack(int);
+typedef void evCallBack(int fd,void* udata);
 
 
-int createEventLoop(int maxEv);
-void freeEventLoop();
 
-int registerEvent(int fd,int mask,void* cb);
-int removeEvent(int fd,int mask);
 
-int runEventLoop(int mod);
-void stopEventLoop();
+
+
+int evLoopCraete(int maxEv);
+void evLoopFree();
+
+int evLoopRegister(int fd,int mask,void* cb,void* udata);
+int evLoopUnregister(int fd,int mask);
+
+int evLoopRun(int mod);
+void evLoopStop();
 
 
 #endif

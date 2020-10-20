@@ -45,6 +45,9 @@ void mpRelease()
 int mpAdd( int fd, int oldmask,int addmask)
 {
 	int mask = oldmask | addmask;
+	if(mask == oldmask){
+		return 0;
+	}
 
 	struct epoll_event ee;
 	ee.data.fd = fd;
@@ -71,6 +74,9 @@ int mpDel(int fd,int oldmask,int delmask)
 	ee.events = 0;
 	
 	int mask = oldmask & (~delmask);
+	if(mask == oldmask){
+		return 0;
+	}
 	if(mask == EV_NONE){
 		return epoll_ctl(state->epfd, EPOLL_CTL_DEL, fd, 0);
 	}

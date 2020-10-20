@@ -77,7 +77,7 @@ client/preinstall:
 client/CMakeFiles/client.dir/all:
 	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/depend
 	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles  1 2 3 4 5 6 7 8
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles  1 2 3 4 5 6 7
 	@echo "Built target client"
 .PHONY : client/CMakeFiles/client.dir/all
 
@@ -87,7 +87,7 @@ all: client/CMakeFiles/client.dir/all
 
 # Build rule for subdir invocation for target.
 client/CMakeFiles/client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 client/CMakeFiles/client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 0
 .PHONY : client/CMakeFiles/client.dir/rule
@@ -127,7 +127,7 @@ server/preinstall:
 server/CMakeFiles/server.dir/all:
 	$(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/depend
 	$(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles  9 10 11 12 13 14 15 16
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles  8 9 10 11 12 13 14
 	@echo "Built target server"
 .PHONY : server/CMakeFiles/server.dir/all
 
@@ -137,7 +137,7 @@ all: server/CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
 server/CMakeFiles/server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 server/CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/hgfs/linux_share/redis-net2.0/CMakeFiles 0
 .PHONY : server/CMakeFiles/server.dir/rule

@@ -4,20 +4,9 @@
 client/CMakeFiles/client.dir/__/anet/src/connction.c.o: anet/include/connction.h
 client/CMakeFiles/client.dir/__/anet/src/connction.c.o: anet/src/connction.c
 
-client/CMakeFiles/client.dir/__/anet/src/connmgr.c.o: anet/include/connction.h
-client/CMakeFiles/client.dir/__/anet/src/connmgr.c.o: anet/include/connmgr.h
-client/CMakeFiles/client.dir/__/anet/src/connmgr.c.o: anet/src/connmgr.c
-
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/include/epollmp.h
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/src/epollmp.c
-
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/include/connction.h
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/include/handler.h
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/include/iomp.h
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/include/netapi.h
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/include/netserver.h
-client/CMakeFiles/client.dir/__/anet/src/handler.c.o: anet/src/handler.c
 
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/include/epollmp.h
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/include/iomp.h
@@ -26,16 +15,23 @@ client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/src/iomp.c
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/include/netapi.h
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/src/netapi.c
 
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/include/connction.h
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/include/handler.h
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/include/iomp.h
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/include/netapi.h
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/include/netserver.h
-client/CMakeFiles/client.dir/__/anet/src/netserver.c.o: anet/src/netserver.c
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/connction.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/iomp.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/netapi.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/tcpcallback.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/tcpclient.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/src/tcpclient.c
+
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/connction.h
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/iomp.h
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/netapi.h
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/tcpserver.h
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/src/tcpserver.c
 
 client/CMakeFiles/client.dir/main.c.o: anet/include/connction.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/iomp.h
-client/CMakeFiles/client.dir/main.c.o: anet/include/netapi.h
-client/CMakeFiles/client.dir/main.c.o: anet/include/netserver.h
+client/CMakeFiles/client.dir/main.c.o: anet/include/tcpcallback.h
+client/CMakeFiles/client.dir/main.c.o: anet/include/tcpclient.h
+client/CMakeFiles/client.dir/main.c.o: anet/include/tcpserver.h
 client/CMakeFiles/client.dir/main.c.o: client/main.c
 

@@ -139,30 +139,6 @@ __/anet/src/connction.c.s:
 	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/connction.c.s
 .PHONY : __/anet/src/connction.c.s
 
-__/anet/src/connmgr.o: __/anet/src/connmgr.c.o
-.PHONY : __/anet/src/connmgr.o
-
-# target to build an object file
-__/anet/src/connmgr.c.o:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/connmgr.c.o
-.PHONY : __/anet/src/connmgr.c.o
-
-__/anet/src/connmgr.i: __/anet/src/connmgr.c.i
-.PHONY : __/anet/src/connmgr.i
-
-# target to preprocess a source file
-__/anet/src/connmgr.c.i:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/connmgr.c.i
-.PHONY : __/anet/src/connmgr.c.i
-
-__/anet/src/connmgr.s: __/anet/src/connmgr.c.s
-.PHONY : __/anet/src/connmgr.s
-
-# target to generate assembly for a file
-__/anet/src/connmgr.c.s:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/connmgr.c.s
-.PHONY : __/anet/src/connmgr.c.s
-
 __/anet/src/epollmp.o: __/anet/src/epollmp.c.o
 .PHONY : __/anet/src/epollmp.o
 
@@ -186,30 +162,6 @@ __/anet/src/epollmp.s: __/anet/src/epollmp.c.s
 __/anet/src/epollmp.c.s:
 	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/epollmp.c.s
 .PHONY : __/anet/src/epollmp.c.s
-
-__/anet/src/handler.o: __/anet/src/handler.c.o
-.PHONY : __/anet/src/handler.o
-
-# target to build an object file
-__/anet/src/handler.c.o:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/handler.c.o
-.PHONY : __/anet/src/handler.c.o
-
-__/anet/src/handler.i: __/anet/src/handler.c.i
-.PHONY : __/anet/src/handler.i
-
-# target to preprocess a source file
-__/anet/src/handler.c.i:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/handler.c.i
-.PHONY : __/anet/src/handler.c.i
-
-__/anet/src/handler.s: __/anet/src/handler.c.s
-.PHONY : __/anet/src/handler.s
-
-# target to generate assembly for a file
-__/anet/src/handler.c.s:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/handler.c.s
-.PHONY : __/anet/src/handler.c.s
 
 __/anet/src/iomp.o: __/anet/src/iomp.c.o
 .PHONY : __/anet/src/iomp.o
@@ -259,29 +211,53 @@ __/anet/src/netapi.c.s:
 	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/netapi.c.s
 .PHONY : __/anet/src/netapi.c.s
 
-__/anet/src/netserver.o: __/anet/src/netserver.c.o
-.PHONY : __/anet/src/netserver.o
+__/anet/src/tcpclient.o: __/anet/src/tcpclient.c.o
+.PHONY : __/anet/src/tcpclient.o
 
 # target to build an object file
-__/anet/src/netserver.c.o:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/netserver.c.o
-.PHONY : __/anet/src/netserver.c.o
+__/anet/src/tcpclient.c.o:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o
+.PHONY : __/anet/src/tcpclient.c.o
 
-__/anet/src/netserver.i: __/anet/src/netserver.c.i
-.PHONY : __/anet/src/netserver.i
+__/anet/src/tcpclient.i: __/anet/src/tcpclient.c.i
+.PHONY : __/anet/src/tcpclient.i
 
 # target to preprocess a source file
-__/anet/src/netserver.c.i:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/netserver.c.i
-.PHONY : __/anet/src/netserver.c.i
+__/anet/src/tcpclient.c.i:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.i
+.PHONY : __/anet/src/tcpclient.c.i
 
-__/anet/src/netserver.s: __/anet/src/netserver.c.s
-.PHONY : __/anet/src/netserver.s
+__/anet/src/tcpclient.s: __/anet/src/tcpclient.c.s
+.PHONY : __/anet/src/tcpclient.s
 
 # target to generate assembly for a file
-__/anet/src/netserver.c.s:
-	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/netserver.c.s
-.PHONY : __/anet/src/netserver.c.s
+__/anet/src/tcpclient.c.s:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.s
+.PHONY : __/anet/src/tcpclient.c.s
+
+__/anet/src/tcpserver.o: __/anet/src/tcpserver.c.o
+.PHONY : __/anet/src/tcpserver.o
+
+# target to build an object file
+__/anet/src/tcpserver.c.o:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o
+.PHONY : __/anet/src/tcpserver.c.o
+
+__/anet/src/tcpserver.i: __/anet/src/tcpserver.c.i
+.PHONY : __/anet/src/tcpserver.i
+
+# target to preprocess a source file
+__/anet/src/tcpserver.c.i:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.i
+.PHONY : __/anet/src/tcpserver.c.i
+
+__/anet/src/tcpserver.s: __/anet/src/tcpserver.c.s
+.PHONY : __/anet/src/tcpserver.s
+
+# target to generate assembly for a file
+__/anet/src/tcpserver.c.s:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.s
+.PHONY : __/anet/src/tcpserver.c.s
 
 main.o: main.c.o
 .PHONY : main.o
@@ -319,24 +295,21 @@ help:
 	@echo "... __/anet/src/connction.o"
 	@echo "... __/anet/src/connction.i"
 	@echo "... __/anet/src/connction.s"
-	@echo "... __/anet/src/connmgr.o"
-	@echo "... __/anet/src/connmgr.i"
-	@echo "... __/anet/src/connmgr.s"
 	@echo "... __/anet/src/epollmp.o"
 	@echo "... __/anet/src/epollmp.i"
 	@echo "... __/anet/src/epollmp.s"
-	@echo "... __/anet/src/handler.o"
-	@echo "... __/anet/src/handler.i"
-	@echo "... __/anet/src/handler.s"
 	@echo "... __/anet/src/iomp.o"
 	@echo "... __/anet/src/iomp.i"
 	@echo "... __/anet/src/iomp.s"
 	@echo "... __/anet/src/netapi.o"
 	@echo "... __/anet/src/netapi.i"
 	@echo "... __/anet/src/netapi.s"
-	@echo "... __/anet/src/netserver.o"
-	@echo "... __/anet/src/netserver.i"
-	@echo "... __/anet/src/netserver.s"
+	@echo "... __/anet/src/tcpclient.o"
+	@echo "... __/anet/src/tcpclient.i"
+	@echo "... __/anet/src/tcpclient.s"
+	@echo "... __/anet/src/tcpserver.o"
+	@echo "... __/anet/src/tcpserver.i"
+	@echo "... __/anet/src/tcpserver.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
