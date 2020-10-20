@@ -8,9 +8,17 @@
 
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
 
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/epollmp.h
+../include/error.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
+
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
+
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
 
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
+../include/error.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
 
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpcallback.h
 
@@ -26,6 +34,20 @@
 ../include/connction.h
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
 
+/mnt/hgfs/linux_share/redis-net2.0/anet/src/iomp.c
+unistd.h
+-
+fcntl.h
+-
+stdlib.h
+-
+errno.h
+-
+../include/epollmp.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/epollmp.h
+../include/iomp.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
+
 /mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpclient.c
 ../include/tcpclient.h
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpclient.h
@@ -36,11 +58,11 @@
 ../include/iomp.h
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
 
-/mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpserver.c
-stdlib.h
+/mnt/hgfs/linux_share/redis-net2.0/server/main.c
+stdio.h
 -
-../include/tcpserver.h
+../anet/include/tcpserver.h
 /mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpserver.h
-../include/netapi.h
-/mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
+../anet/include/tcpclient.h
+/mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpclient.h
 

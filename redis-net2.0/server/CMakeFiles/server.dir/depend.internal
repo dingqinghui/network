@@ -6,17 +6,24 @@ server/CMakeFiles/server.dir/__/anet/src/connction.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/src/connction.c
 server/CMakeFiles/server.dir/__/anet/src/epollmp.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/epollmp.h
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/src/epollmp.c
+server/CMakeFiles/server.dir/__/anet/src/error.c.o
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
+ /mnt/hgfs/linux_share/redis-net2.0/anet/src/error.c
 server/CMakeFiles/server.dir/__/anet/src/iomp.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/epollmp.h
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/src/iomp.c
 server/CMakeFiles/server.dir/__/anet/src/netapi.c.o
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/src/netapi.c
 server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpcallback.h
@@ -24,6 +31,7 @@ server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpclient.c
 server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/connction.h
+ /mnt/hgfs/linux_share/redis-net2.0/anet/include/error.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/iomp.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/netapi.h
  /mnt/hgfs/linux_share/redis-net2.0/anet/include/tcpserver.h

@@ -5,17 +5,24 @@ client/CMakeFiles/client.dir/__/anet/src/connction.c.o: anet/include/connction.h
 client/CMakeFiles/client.dir/__/anet/src/connction.c.o: anet/src/connction.c
 
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/include/epollmp.h
+client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/include/error.h
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/src/epollmp.c
 
+client/CMakeFiles/client.dir/__/anet/src/error.c.o: anet/include/error.h
+client/CMakeFiles/client.dir/__/anet/src/error.c.o: anet/src/error.c
+
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/include/epollmp.h
+client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/include/error.h
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/src/iomp.c
 
+client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/include/error.h
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/include/netapi.h
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/src/netapi.c
 
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/connction.h
+client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/error.h
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/netapi.h
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/tcpcallback.h
@@ -23,6 +30,7 @@ client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/include/tcpclient.h
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/src/tcpclient.c
 
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/connction.h
+client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/error.h
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/netapi.h
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/tcpserver.h

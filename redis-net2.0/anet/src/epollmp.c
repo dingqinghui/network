@@ -1,8 +1,11 @@
 
 
 #include<sys/epoll.h>
+#include <errno.h>
 #include "../include/epollmp.h"
 #include "../include/iomp.h"
+
+#define mpSetError setError
 
 typedef struct mpState
 {
@@ -16,22 +19,23 @@ typedef struct mpState
 static mpState* state = 0;
 
 
-void mpCreate(int maxEv)
+int  mpCreate(char*err,int maxEv)
 {
 	state =  malloc(sizeof(mpState));
 	if(!state)
-		return -1;
+		return MP_ERR;
 	//Since Linux 2.6.8, the size argument is ignored, but must be greater than zero; see NOTES below.
 	state->epfd = epoll_create(maxEv);
 	if(state->epfd == -1){
 		free(state);
-		return -1;
+		mpSetError(err, "epoll_create: %s\n", strerror(errno));
+		return MP_ERR;
 	}
 
 	state->events = malloc(sizeof(struct epoll_event) * maxEv);
 	state->fevents = malloc(sizeof(fireEvent) * maxEv);
 	state->maxEv = maxEv;
-	return 0;
+	return MP_OK;
 }
 
 void mpRelease()
@@ -42,13 +46,13 @@ void mpRelease()
 	free(state);
 }
 
-int mpAdd( int fd, int oldmask,int addmask)
+int mpAdd( char* err,int fd, int oldmask,int addmask)
 {
 	int mask = oldmask | addmask;
 	if(mask == oldmask){
 		return 0;
 	}
-
+	
 	struct epoll_event ee;
 	ee.data.fd = fd;
 
@@ -58,16 +62,23 @@ int mpAdd( int fd, int oldmask,int addmask)
     if (mask & EV_ERROR) ee.events |= EPOLLERR;
 
 	if(oldmask == EV_NONE){
-		return epoll_ctl(state->epfd, EPOLL_CTL_ADD, fd, &ee);
+		if( epoll_ctl(state->epfd, EPOLL_CTL_ADD, fd, &ee) < 0 ){
+			mpSetError(err, "mpAdd(epoll_ctl-EPOLL_CTL_ADD): %s\n", strerror(errno));
+			return MP_ERR;
+		}
 	}
 	else{
-		return epoll_ctl(state->epfd, EPOLL_CTL_MOD, fd, &ee);
-	}
+		if( epoll_ctl(state->epfd, EPOLL_CTL_MOD, fd, &ee) < 0 ){
+			mpSetError(err, "mpAdd(epoll_ctl-EPOLL_CTL_MOD): %s\n", strerror(errno));
+			return MP_ERR;
+		}
+	}	
+	return MP_OK;
 }
 
 
 
-int mpDel(int fd,int oldmask,int delmask)
+int mpDel(char* err,int fd,int oldmask,int delmask)
 {
 	struct epoll_event ee;
 	ee.data.fd = fd;
@@ -78,21 +89,31 @@ int mpDel(int fd,int oldmask,int delmask)
 		return 0;
 	}
 	if(mask == EV_NONE){
-		return epoll_ctl(state->epfd, EPOLL_CTL_DEL, fd, 0);
+		if( epoll_ctl(state->epfd, EPOLL_CTL_DEL, fd, 0) < 0){
+			mpSetError(err, "mpDel(epoll_ctl-EPOLL_CTL_DEL): %s\n", strerror(errno));
+			return MP_ERR;
+		}
 	}
 	else{
 		if (mask & EV_READ) ee.events |= EPOLLIN;
 		if (mask & EV_WRITE) ee.events |= EPOLLOUT;
 		if (mask & EV_ERROR) ee.events |= EPOLLERR;
-
-		return epoll_ctl(state->epfd, EPOLL_CTL_MOD, fd, &ee);
+		if( epoll_ctl(state->epfd, EPOLL_CTL_MOD, fd, &ee) < 0) {
+			mpSetError(err, "mpDel(epoll_ctl-EPOLL_CTL_MOD): %s\n", strerror(errno));
+			return MP_ERR;
+		}
 	}
+	return MP_OK;
 }
 
 
-int mpWait(int w)
+int mpWait(char* err,int w)
 {
 	int cnt = epoll_wait(state->epfd, state->events, state->maxEv, w);
+	if(cnt < 0){
+		mpSetError(err, "mpWait(epoll_wait): %s\n", strerror(errno));
+		return MP_ERR;
+	}
 
 	for (size_t i = 0; i < cnt; i++)
 	{
@@ -114,6 +135,7 @@ int mpWait(int w)
 		state->fevents[i].mask = mask;
 		state->fevents[i].fd = e->data.fd;
 
+		
 	}
 	return cnt;
 }

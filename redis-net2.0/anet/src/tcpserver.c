@@ -32,7 +32,6 @@ int onTcpServerAcceptHandler(int lfd,void* udata){
 	char err[NET_ERR_LEN];
 	int fd = netAccept(err,lfd);
 
-	printf("onTcpServerAcceptHandler fd:%d\n",fd);
 	if (fd == NET_ERR)
 	{
 		printf("accpet client connect %s",err);
@@ -47,6 +46,9 @@ int onTcpServerWriteHandler(int fd,void* udata)
 {
     tcpServer* server = udata;
     connection* con =  onTcpServerGetConnection(server,fd);
+    if(!con){
+        return ;
+    }
 	int size = connectionGetSendBuf(con,g_sendBuf);
 	if(size > 0){
 		int n = netWrite(con->fd,g_sendBuf,size);
@@ -72,6 +74,9 @@ int onTcpServerReadHandler(int fd,void* udata)
 {
 	tcpServer* server = udata;
     connection* con =  onTcpServerGetConnection(server,fd);
+    if(!con){
+        return ;
+    }
 	int n = netRead(con->fd,g_readBuf,65535);
 	if(n <= 0){
 		char err[NET_ERR_LEN];
@@ -89,13 +94,16 @@ int onTcpServerReadHandler(int fd,void* udata)
 
 void onTcpServerCloseCon(tcpServer* server,int fd){
     connection* con = onTcpServerGetConnection(server,fd);
+    if(!con){
+        return ;
+    }
     if( server->callback.closecb ){
         server->callback.closecb(server,con);
     }
-    close(con->fd);
     evLoopUnregister(con->fd,EV_READ|EV_WRITE|EV_ERROR);
     connectionFree(con);
     onTcpServerDelConnection(server,fd);
+    close(fd);
 }
 
 

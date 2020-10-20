@@ -92,9 +92,11 @@ void onTcpClientClose(tcpClient* cli){
     if( cli->callback.closecb ){
         cli->callback.closecb(cli,con);
     }
-    netClose(con->fd);
     evLoopUnregister(con->fd,EV_READ|EV_WRITE|EV_ERROR);
+
+    netClose(con->fd);
     connectionFree(con);
+    cli->con = 0;
 }
 
 void onTcpClientConnect(tcpClient* cli){

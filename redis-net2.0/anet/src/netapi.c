@@ -10,26 +10,11 @@
 #include <errno.h>
 #include <netinet/tcp.h>
 #include <string.h>
-#include <stdarg.h>
 
+#include "../include/error.h"
 #include "../include/netapi.h"
 
-char* getErrStr(){
-	return  strerror(errno);
-}
-
-
-static void netSetError(char *err, const char *fmt, ...)
-{
-    va_list ap;
-
-    if (!err) return;
-    va_start(ap, fmt);
-    vsnprintf(err, NET_ERR_LEN, fmt, ap);
-    va_end(ap);
-}
-
-
+#define netSetError setError
 
 int netClose(int fd){
 	close(fd);
@@ -184,7 +169,6 @@ int netRead(int fd,void* buf,int size){
 }
 
 int netWrite(int fd,void* buf,int size){
-	printf("%s  %d\n",buf,size);
 	return write(fd,buf,size);
 }
 
@@ -203,7 +187,7 @@ int netAccept(char* err,int lfd) {
 	int nAddrlen = sizeof(remoteAddr);
 
 	int fd = accept(lfd, (struct sockaddr*) & remoteAddr, &nAddrlen);
-	if (fd < 0) {
+	if (fd <= 0) {
 		if (errno != EAGAIN && errno != EWOULDBLOCK) {
 			netSetError(err, "accept: %s\n", strerror(errno));
 			return NET_ERR;

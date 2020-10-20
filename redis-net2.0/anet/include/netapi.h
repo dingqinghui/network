@@ -1,11 +1,11 @@
 #ifndef _NET_H__
 #define _NET_H__
 
+#include "../include/error.h"
 
 #define NET_SK_BLOCK		1 
 #define NET_SK_NOBLOCK		2
 
-#define NET_ERR_LEN         256
 
 #define NET_ERR             -1
 #define NET_OK              0

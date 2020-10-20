@@ -1,2 +1,4 @@
 .vs
-**/CMakeFiles:
+redis-net2.0/CMakeFiles
+redis-net2.0/client/CMakeFiles
+redis-net2.0/server/CMakeFiles

@@ -6,6 +6,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 SET(CMAKE_DEPENDS_CHECK_C
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/connction.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/connction.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/epollmp.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/epollmp.c.o"
+  "/mnt/hgfs/linux_share/redis-net2.0/anet/src/error.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/error.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/iomp.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/iomp.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/netapi.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/netapi.c.o"
   "/mnt/hgfs/linux_share/redis-net2.0/anet/src/tcpclient.c" "/mnt/hgfs/linux_share/redis-net2.0/server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o"

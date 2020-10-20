@@ -163,6 +163,30 @@ __/anet/src/epollmp.c.s:
 	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/epollmp.c.s
 .PHONY : __/anet/src/epollmp.c.s
 
+__/anet/src/error.o: __/anet/src/error.c.o
+.PHONY : __/anet/src/error.o
+
+# target to build an object file
+__/anet/src/error.c.o:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/error.c.o
+.PHONY : __/anet/src/error.c.o
+
+__/anet/src/error.i: __/anet/src/error.c.i
+.PHONY : __/anet/src/error.i
+
+# target to preprocess a source file
+__/anet/src/error.c.i:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/error.c.i
+.PHONY : __/anet/src/error.c.i
+
+__/anet/src/error.s: __/anet/src/error.c.s
+.PHONY : __/anet/src/error.s
+
+# target to generate assembly for a file
+__/anet/src/error.c.s:
+	cd /mnt/hgfs/linux_share/redis-net2.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/error.c.s
+.PHONY : __/anet/src/error.c.s
+
 __/anet/src/iomp.o: __/anet/src/iomp.c.o
 .PHONY : __/anet/src/iomp.o
 
@@ -298,6 +322,9 @@ help:
 	@echo "... __/anet/src/epollmp.o"
 	@echo "... __/anet/src/epollmp.i"
 	@echo "... __/anet/src/epollmp.s"
+	@echo "... __/anet/src/error.o"
+	@echo "... __/anet/src/error.i"
+	@echo "... __/anet/src/error.s"
 	@echo "... __/anet/src/iomp.o"
 	@echo "... __/anet/src/iomp.i"
 	@echo "... __/anet/src/iomp.s"
