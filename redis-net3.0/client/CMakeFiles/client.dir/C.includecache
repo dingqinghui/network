@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/epollmp.h
+../include/error.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/error.h
+
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/error.h
+
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
+
+/mnt/hgfs/linux_share/redis-net3.0/anet/src/epollmp.c
+sys/epoll.h
+-
+errno.h
+-
+../include/epollmp.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/epollmp.h
+../include/iomp.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
+
+/mnt/hgfs/linux_share/redis-net3.0/anet/src/iomp.c
+unistd.h
+-
+fcntl.h
+-
+stdlib.h
+-
+errno.h
+-
+../include/epollmp.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/epollmp.h
+../include/iomp.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
+
