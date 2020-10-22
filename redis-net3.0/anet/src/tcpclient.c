@@ -46,7 +46,7 @@ int tcpClientStart(tcpClient* cli){
         fd = netTcpNoBlockConnect( err, cli->ip, cli->port);
     }
 
-    if(fd < NET_ERR){
+    if(fd ==  NET_RET_ERROR){
         PRINT_ERR(err)
         return NET_RET_ERROR;
     }

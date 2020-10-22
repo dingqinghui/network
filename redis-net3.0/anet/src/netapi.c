@@ -131,7 +131,7 @@ int netTcpCommonConnect(char* err,char* ip, int port,int flags)
 	addr.sin_addr.s_addr = inet_addr(ip);
 	addr.sin_port = htons(port);
 
-	if (flags & NET_SK_NOBLOCK != 0) 
+	if (flags ==  NET_SK_NOBLOCK ) 
     {
 		if (netSetNoblock(err,cfd) == NET_ERR) {
 			close(cfd);
@@ -144,12 +144,12 @@ int netTcpCommonConnect(char* err,char* ip, int port,int flags)
 				return NET_ERR;
 			}
 		}
-		else {
-			if (connect(cfd, (struct sockaddr_in*) & addr, sizeof(addr)) < 0) {
-				close(cfd);
-				netSetError(err, "connect: %s\n", strerror(errno));
-				return NET_ERR;
-			}
+	}
+	else {
+		if (connect(cfd, (struct sockaddr_in*) & addr, sizeof(addr)) < 0) {
+			close(cfd);
+			netSetError(err, "connect: %s\n", strerror(errno));
+			return NET_ERR;
 		}
 	}
 	return cfd;

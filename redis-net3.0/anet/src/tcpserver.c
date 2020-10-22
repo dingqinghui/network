@@ -4,12 +4,13 @@
 #include "../include/netapi.h"
 #include "../include/iomp.h"
 
-#define CHECK_SER_FD_ERR(server,fd) \ 
-if (fd < 0 || fd > server->cfg.maxfd   ) \ 
-{\
-    return -1; \
-}
 
+#define CHECK_SER_FD_ERR(server,fd)  \
+if(fd < 0 || fd > server->cfg.maxfd )\
+{ \
+    PRINT_ERR("fd is over size")\
+    return NET_RET_ERROR; \
+} 
 
 static int onTcpServerAcceptHandler(int lfd,void* udata);
 static int onPassiveConnect(tcpServer* server,int fd);
