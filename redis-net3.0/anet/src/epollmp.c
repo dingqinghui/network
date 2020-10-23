@@ -136,6 +136,11 @@ int mpWait(char* err,int w)
 		state->fevents[i].write = e->events & EPOLLOUT ? 1 : 0;
 		state->fevents[i].error = e->events & EPOLLERR? 1 : 0;
 		state->fevents[i].fd = e->data.fd;
+
+		int mask = 0;
+		if(e->events & EPOLLIN )   mask |=  EV_MASK_READ;
+		if(e->events & EPOLLOUT )  mask |=  EV_MASK_WRITE;
+		if(e->events & EPOLLERR )  mask |=  EV_MASK_ERROR;
 	}
 	return cnt;
 }

@@ -2,6 +2,8 @@
 #ifndef __ERROR_H__
 #define __ERROR_H__
 
+#include <errno.h>
+
 #define NET_RET_NULL 0
 
 #define NET_RET_ERROR  -1
@@ -27,7 +29,7 @@ if(ptr == 0) \
     return NET_RET_NULL; \
 } 
 
-
+#define ERR_STR   strerror(errno)
 
 void setError(char *err, const char *fmt, ...);
 

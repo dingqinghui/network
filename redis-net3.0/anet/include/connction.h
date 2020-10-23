@@ -2,12 +2,11 @@
 #define __CONNECTION_H__
 
 
-
-#define CON_INIT 1
-#define CON_CONNECTING 2 
-#define CON_CONNECTED 3
-
 #define CON_BUF_MAX_LEN  65535
+
+#define CON_STATE_CONNECTED 	1
+#define CON_STATE_CLOSING   	2
+#define CON_STATE_CLOSED		3
 
 
 struct connection;
@@ -20,10 +19,11 @@ typedef void  ConnectCallback(struct connection*);
 typedef struct connection
 {
 	int fd;
-	char* sbuffer;     		  //send cache
-	char* rbuffer;     		  //read cache
-	int css;                  //cur send size
-	int crs;                  //cur read size
+	char* sbuffer;     		  
+	char* rbuffer;     		 
+	int css;                  
+	int crs;                  
+	int state;				
 
 	ConnectCallback*    connectCallback;
 	MessageCallback*    messageCallback;
@@ -36,11 +36,11 @@ int  connectionFree(connection* con);
 
 int connectionInitCallBack(connection* con, ConnectCallback* connectCallback,
 		MessageCallback* messageCallback,DisConnectCallback*  disconnectCallback);
-int connectionConnect(connection* con, char* ip,int port,int block);
+
 
 int connectionSend(connection* con,char* buf,int size);
 int connectionEstablished(connection* con );
-int connectionClose(connection* con );
+int connectionShutdown(connection* con );
 
 
 int getReadBuf(connection* con,char* buf);

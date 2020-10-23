@@ -45,4 +45,5 @@ client/CMakeFiles/client.dir/main.c.o
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpcallback.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpclient.h
+ /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpserver.h
  /mnt/hgfs/linux_share/redis-net3.0/client/main.c

@@ -14,6 +14,7 @@ void  onMessage(connection* con,char* buf,int size){
 
 void onClose(connection* con){
 	printf("close:%d \n",con->fd);
+	connectionSend(con,"1234",5);
 	tcpServerDelConnection(server,con);
 }
 

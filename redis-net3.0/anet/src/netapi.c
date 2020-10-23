@@ -16,8 +16,11 @@
 
 #define netSetError setError
 
-int netClose(int fd){
-	close(fd);
+int netClose(char* err,int fd){
+	if( close(fd) < 0){
+		netSetError(err, "close: fd:%d %s\n", fd,strerror(errno));
+		return NET_ERR;
+	}
 }
 
 
@@ -25,7 +28,7 @@ int netGetSocketErr(char* err,int fd) {
 	int error;
 	int len = sizeof(error);
 	if( getsockopt(fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0){
-		netSetError(err, "getsockopt: %s\n", strerror(errno));
+		netSetError(err, "getsockopt: fd:%d  %s\n",fd, strerror(errno));
 		return NET_ERR;
 	}
 	return error;
@@ -35,7 +38,7 @@ int netIsNoblock(char* err,int fd)
 {
 	int flag = fcntl(fd, F_GETFL, 0);
 	if (flag < 0) {
-		netSetError(err, "fcntl(F_GETFL): %s\n", strerror(errno));
+		netSetError(err, "fcntl(F_GETFL):fd:%d  %s\n",fd, strerror(errno));
 		return NET_ERR;
 	}
 	return flag | O_NONBLOCK;
@@ -45,11 +48,11 @@ int netSetNoblock(char* err,int fd)
 {
 	int flag = fcntl(fd, F_GETFL, 0);
 	if (flag < 0) {
-		netSetError(err, "fcntl(F_GETFL): %s\n", strerror(errno));
+		netSetError(err, "fcntl(F_GETFL):fd:%d %s\n", fd,strerror(errno));
 		return NET_ERR;
 	}
 	if( fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0){
-		netSetError(err, "fcntl(F_SETFL:O_NONBLOCK): %s\n", strerror(errno));
+		netSetError(err, "fcntl(F_SETFL:O_NONBLOCK): fd:%d %s\n",fd, strerror(errno));
 		return NET_ERR;
 	}
 	return NET_OK;
@@ -59,7 +62,7 @@ int netSetNoblock(char* err,int fd)
 int netSetTcpReuse(char* err,int fd) {
 	int reuse = 1;
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) < 0) {
-		netSetError(err, "setsockopt(SOL_SOCKET:SO_REUSEADDR): %s\n", strerror(errno));
+		netSetError(err, "setsockopt(SOL_SOCKET:SO_REUSEADDR): fd:%d  %s\n", fd,strerror(errno));
 		return NET_ERR;
 	}
 	return NET_OK;
@@ -70,7 +73,7 @@ int netTcpNoDelay(char* err, int fd)
     int yes = 1;
     if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &yes, sizeof(yes)) < 0)
     {
-        netSetError(err, "setsockopt(IPPROTO_TCP:TCP_NODELAY): %s\n", strerror(errno));
+        netSetError(err, "setsockopt(IPPROTO_TCP:TCP_NODELAY): fd:%d %s\n",fd, strerror(errno));
 		return NET_ERR;
     }
     return NET_OK;
@@ -81,7 +84,7 @@ int netTcpServer(char*err,char* ip, int port)
 {
 	int lfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (lfd < 0) {
-		netSetError(err, "socket: %s\n", strerror(errno));
+		netSetError(err, "socket: fd:%d %s\n", strerror(errno));
 		return NET_ERR;
 	}
 
@@ -104,13 +107,13 @@ int netTcpServer(char*err,char* ip, int port)
 
 	if (bind(lfd, (struct sockaddr*) & addr, sizeof(addr)) < 0) {
 		close(lfd);
-		netSetError(err, "bind: %s\n", strerror(errno));
+		netSetError(err, "bind:fd: fd%d %s\n",lfd, strerror(errno));
 		return NET_ERR;
 	}
 
 	if (listen(lfd, 500) < 0) {
 		close(lfd);
-		netSetError(err, "listen: %s\n", strerror(errno));
+		netSetError(err, "listen:  fd%d ,%s\n",lfd, strerror(errno));
 		return NET_ERR;
 	}
 	return lfd;
@@ -121,7 +124,7 @@ int netTcpCommonConnect(char* err,char* ip, int port,int flags)
 {
 	int cfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (cfd < 0) {
-		netSetError(err, "socket: %s\n", strerror(errno));
+		netSetError(err, "socket: fd%d ,%s\n", cfd,strerror(errno));
 		return NET_ERR;
 	}
 
@@ -140,7 +143,7 @@ int netTcpCommonConnect(char* err,char* ip, int port,int flags)
 		if (connect(cfd, (struct sockaddr_in*) & addr, sizeof(addr)) < 0) {
 			if (errno != EINPROGRESS) {
 				close(cfd);
-				netSetError(err, "connect: %s\n", strerror(errno));
+				netSetError(err, "connect: fd%d %s\n", cfd,strerror(errno));
 				return NET_ERR;
 			}
 		}
@@ -148,7 +151,7 @@ int netTcpCommonConnect(char* err,char* ip, int port,int flags)
 	else {
 		if (connect(cfd, (struct sockaddr_in*) & addr, sizeof(addr)) < 0) {
 			close(cfd);
-			netSetError(err, "connect: %s\n", strerror(errno));
+			netSetError(err, "connect: fd%d  %s\n", cfd,strerror(errno));
 			return NET_ERR;
 		}
 	}
@@ -179,6 +182,7 @@ int netIoError(char* err,int fd){
 			return NET_OK;
 		}
 	}
+	err = strerror(errno);
 	return NET_ERR;
 }
 
@@ -189,7 +193,7 @@ int netAccept(char* err,int lfd) {
 	int fd = accept(lfd, (struct sockaddr*) & remoteAddr, &nAddrlen);
 	if (fd <= 0) {
 		if (errno != EAGAIN && errno != EWOULDBLOCK) {
-			netSetError(err, "accept: %s\n", strerror(errno));
+			netSetError(err, "accept: fd:%d %s\n",fd, strerror(errno));
 			return NET_ERR;
 		}
 	}

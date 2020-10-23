@@ -1,8 +1,9 @@
 
-#include "../include/error.h"
+
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "../include/error.h"
 
 void setError(char *err, const char *fmt, ...)
 {

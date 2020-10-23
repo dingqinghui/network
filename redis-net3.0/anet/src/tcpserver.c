@@ -79,11 +79,13 @@ int  onPassiveConnect(tcpServer* server,int fd){
     char err[NET_ERR_LEN];
 	if( netSetNoblock(err,fd) == NET_ERR){
         PRINT_ERR(err)
-        netClose(fd);
+        netClose(err,fd);
+        return NET_RET_ERROR;
     }
     if( netTcpNoDelay(err,fd) == NET_ERR){
         PRINT_ERR(err)
-        netClose(fd);
+        netClose(err,fd);
+        return NET_RET_ERROR;
     }
 
     connection* con = connectionCreate(fd);
