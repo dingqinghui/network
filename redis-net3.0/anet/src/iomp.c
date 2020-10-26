@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-
+#include <signal.h>
 #include <errno.h>
 
 #include "../include/epollmp.h"
@@ -80,6 +80,8 @@ int evLoopCraete(int maxEv){
     }
     LOOP->maxev = maxEv;
 
+
+	signal(SIGPIPE, SIG_IGN);
     return NET_RET_OK;
 }
 
@@ -194,8 +196,6 @@ int onPollEvent(int mod){
     }
     return fireCnt;
 }
-
-
 
 int evLoopRun(int mod){
     CHECK_PTR_ERR(LOOP)
