@@ -4,13 +4,15 @@
 #include "../anet/include/tcpclient.h"
 #include "../anet/include/connction.h"
 #include "../anet/include/tcpserver.h"
-
+#include "../anet/include/buffer.h"
 
 
 
 
 //tcpClient* cli = 0;
-void  onMessage(connection* con,char* buf,int size){
+void  onMessage(connection* con,buffer* input){
+	char buf[65535];
+	int size = bufferRead(input, buf,65535);
 	printf("onMessage:buf:%s size:%d\n",buf,size);
 	connectionSend(con,buf,size);
 }
@@ -25,8 +27,8 @@ void  OnConnect(connection* con){
 
 	char sbuf[] = "122345679ss";
 
-	shutdown(con->fd,SHUT_WR);
-	//connectionSend(con,sbuf,sizeof(sbuf));
+	
+	connectionSend(con,sbuf,sizeof(sbuf));
 }
 
  #include <signal.h>
@@ -47,3 +49,43 @@ int main()
 	evLoopRun( EV_WAIT_FPS );
     return 0;
 }
+
+
+//#include "../anet/include/buffer.h"
+//int main()
+//{
+//	buffer* buff = bufferCreate(10);
+//	for (int index = 0;index < 5;++index)
+//	{
+//		bufferWrite(buff, "1234,", 5);
+//		bufferPrint(buff);
+//	}
+//	printf("========================================================\n");
+//	int n = 0;
+//	do 
+//	{
+//		char b[2];
+//		n = bufferRead(buff, b, 2);
+//		printf("%c%c\n", b[0], b[1]);
+//		bufferPrint(buff);
+//	} while (n > 0);
+//
+//	printf("========================================================\n");
+//	for (int index = 0; index < 5; ++index)
+//	{
+//		bufferWrite(buff, "1234,", 5);
+//		bufferPrint(buff);
+//	}
+//
+//	printf("========================================================\n");
+//	do
+//	{
+//		char b[2];
+//		n = bufferRead(buff, b, 2);
+//		printf("%c%c\n", b[0],b[1]);
+//		bufferPrint(buff);
+//	} while (n > 0);
+//
+//	printf("%c%c\n", buff->data[39], buff->data[40]);
+//	return 0;
+//}

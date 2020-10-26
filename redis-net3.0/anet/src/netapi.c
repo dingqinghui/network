@@ -179,11 +179,11 @@ int netWrite(int fd,void* buf,int size){
 int netIoError(char* err,int fd){
 	if(netIsNoblock(err,fd)){
 		if(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR){
-			return NET_OK;
+			return NET_RET_OK;
 		}
 	}
 	err = strerror(errno);
-	return NET_ERR;
+	return NET_RET_ERROR;
 }
 
 int netAccept(char* err,int lfd) {

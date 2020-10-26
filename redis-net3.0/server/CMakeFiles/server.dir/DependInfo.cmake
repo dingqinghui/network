@@ -4,6 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
+  "/mnt/hgfs/linux_share/redis-net3.0/anet/src/buffer.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/buffer.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/connction.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/connction.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/epollmp.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/epollmp.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/error.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/error.c.o"

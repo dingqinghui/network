@@ -6,11 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/mnt/hgfs/linux_share/redis-net3.0/anet/include/connction.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/buffer.h
 
-/mnt/hgfs/linux_share/redis-net3.0/anet/include/epollmp.h
-../include/error.h
-/mnt/hgfs/linux_share/redis-net3.0/anet/include/error.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/connction.h
 
 /mnt/hgfs/linux_share/redis-net3.0/anet/include/error.h
 errno.h
@@ -31,14 +29,34 @@ string.h
 /mnt/hgfs/linux_share/redis-net3.0/anet/include/netapi.h
 ../include/iomp.h
 /mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
+../include/buffer.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/buffer.h
 
-/mnt/hgfs/linux_share/redis-net3.0/anet/src/epollmp.c
-sys/epoll.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/src/netapi.c
+sys/types.h
+-
+sys/socket.h
+-
+stdio.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+string.h
+-
+fcntl.h
+-
+string.h
 -
 errno.h
 -
-../include/epollmp.h
-/mnt/hgfs/linux_share/redis-net3.0/anet/include/epollmp.h
-../include/iomp.h
-/mnt/hgfs/linux_share/redis-net3.0/anet/include/iomp.h
+netinet/tcp.h
+-
+string.h
+-
+../include/error.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/error.h
+../include/netapi.h
+/mnt/hgfs/linux_share/redis-net3.0/anet/include/netapi.h
 

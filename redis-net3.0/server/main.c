@@ -2,19 +2,20 @@
 #include <stdio.h>
 #include "../anet/include/iomp.h"
 #include "../anet/include/tcpserver.h"
-
+#include "../anet/include/buffer.h"
 
 
 tcpServer* server;
 
-void  onMessage(connection* con,char* buf,int size){
-	printf("onMessage %s %d\n",buf,size);
-	connectionSend(con,buf,size);
+void  onMessage(connection* con, buffer* input) {
+	char buf[65535];
+	int size = bufferRead(input, buf, 65535);
+	printf("onMessage:buf:%s size:%d\n", buf, size);
+	connectionSend(con, buf, size);
 }
 
 void onClose(connection* con){
-	printf("close:%d \n",con->fd);
-	connectionSend(con,"1234",5);
+	printf("onClose:%d \n",con->fd);
 	tcpServerDelConnection(server,con);
 }
 

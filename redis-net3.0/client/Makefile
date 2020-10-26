@@ -115,6 +115,30 @@ client/fast:
 	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+__/anet/src/buffer.o: __/anet/src/buffer.c.o
+.PHONY : __/anet/src/buffer.o
+
+# target to build an object file
+__/anet/src/buffer.c.o:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/buffer.c.o
+.PHONY : __/anet/src/buffer.c.o
+
+__/anet/src/buffer.i: __/anet/src/buffer.c.i
+.PHONY : __/anet/src/buffer.i
+
+# target to preprocess a source file
+__/anet/src/buffer.c.i:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/buffer.c.i
+.PHONY : __/anet/src/buffer.c.i
+
+__/anet/src/buffer.s: __/anet/src/buffer.c.s
+.PHONY : __/anet/src/buffer.s
+
+# target to generate assembly for a file
+__/anet/src/buffer.c.s:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/buffer.c.s
+.PHONY : __/anet/src/buffer.c.s
+
 __/anet/src/connction.o: __/anet/src/connction.c.o
 .PHONY : __/anet/src/connction.o
 
@@ -316,6 +340,9 @@ help:
 	@echo "... client"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... __/anet/src/buffer.o"
+	@echo "... __/anet/src/buffer.i"
+	@echo "... __/anet/src/buffer.s"
 	@echo "... __/anet/src/connction.o"
 	@echo "... __/anet/src/connction.i"
 	@echo "... __/anet/src/connction.s"

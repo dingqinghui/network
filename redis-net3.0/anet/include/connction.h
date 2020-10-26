@@ -2,16 +2,17 @@
 #define __CONNECTION_H__
 
 
-#define CON_BUF_MAX_LEN  65535
+#define SEND_BUF_INIT_VAL 4096
+#define RECV_BUF_INIT_VAL 4096
 
 #define CON_STATE_CONNECTED 	1
 #define CON_STATE_CLOSING   	2
 #define CON_STATE_CLOSED		3
 
-
+struct buffer;
 struct connection;
 
-typedef void  MessageCallback(struct connection*,char* buf,int size);
+typedef void  MessageCallback(struct connection*, struct buffer* buf);
 typedef void  DisConnectCallback(struct connection*);
 typedef void  ConnectCallback(struct connection*);
 
@@ -19,10 +20,8 @@ typedef void  ConnectCallback(struct connection*);
 typedef struct connection
 {
 	int fd;
-	char* sbuffer;     		  
-	char* rbuffer;     		 
-	int css;                  
-	int crs;                  
+	struct buffer* outputBuf;     		  
+	struct buffer* inputBuf;
 	int state;				
 
 	ConnectCallback*    connectCallback;

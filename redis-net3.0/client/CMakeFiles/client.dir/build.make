@@ -52,9 +52,32 @@ include client/CMakeFiles/client.dir/progress.make
 # Include the compile flags for this target's objects.
 include client/CMakeFiles/client.dir/flags.make
 
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.o: client/CMakeFiles/client.dir/flags.make
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.o: anet/src/buffer.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/buffer.c.o"
+	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/buffer.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/buffer.c
+
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/client.dir/__/anet/src/buffer.c.i"
+	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/redis-net3.0/anet/src/buffer.c > CMakeFiles/client.dir/__/anet/src/buffer.c.i
+
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/client.dir/__/anet/src/buffer.c.s"
+	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/redis-net3.0/anet/src/buffer.c -o CMakeFiles/client.dir/__/anet/src/buffer.c.s
+
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.requires:
+.PHONY : client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.requires
+
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.provides: client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.requires
+	$(MAKE) -f client/CMakeFiles/client.dir/build.make client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.provides.build
+.PHONY : client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.provides
+
+client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.provides.build: client/CMakeFiles/client.dir/__/anet/src/buffer.c.o
+
 client/CMakeFiles/client.dir/__/anet/src/connction.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/connction.c.o: anet/src/connction.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/connction.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/connction.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/connction.c
 
@@ -77,7 +100,7 @@ client/CMakeFiles/client.dir/__/anet/src/connction.c.o.provides.build: client/CM
 
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o: anet/src/epollmp.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/epollmp.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/epollmp.c
 
@@ -100,7 +123,7 @@ client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o.provides.build: client/CMak
 
 client/CMakeFiles/client.dir/__/anet/src/error.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/error.c.o: anet/src/error.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/error.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/error.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/error.c
 
@@ -123,7 +146,7 @@ client/CMakeFiles/client.dir/__/anet/src/error.c.o.provides.build: client/CMakeF
 
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/iomp.c.o: anet/src/iomp.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/iomp.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/iomp.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/iomp.c
 
@@ -146,7 +169,7 @@ client/CMakeFiles/client.dir/__/anet/src/iomp.c.o.provides.build: client/CMakeFi
 
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/netapi.c.o: anet/src/netapi.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/netapi.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/netapi.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/netapi.c
 
@@ -169,7 +192,7 @@ client/CMakeFiles/client.dir/__/anet/src/netapi.c.o.provides.build: client/CMake
 
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o: anet/src/tcpclient.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/tcpclient.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/tcpclient.c
 
@@ -192,7 +215,7 @@ client/CMakeFiles/client.dir/__/anet/src/tcpclient.c.o.provides.build: client/CM
 
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/src/tcpserver.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/__/anet/src/tcpserver.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/anet/src/tcpserver.c
 
@@ -215,7 +238,7 @@ client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o.provides.build: client/CM
 
 client/CMakeFiles/client.dir/main.c.o: client/CMakeFiles/client.dir/flags.make
 client/CMakeFiles/client.dir/main.c.o: client/main.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/redis-net3.0/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object client/CMakeFiles/client.dir/main.c.o"
 	cd /mnt/hgfs/linux_share/redis-net3.0/client && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/client.dir/main.c.o   -c /mnt/hgfs/linux_share/redis-net3.0/client/main.c
 
@@ -238,6 +261,7 @@ client/CMakeFiles/client.dir/main.c.o.provides.build: client/CMakeFiles/client.d
 
 # Object files for target client
 client_OBJECTS = \
+"CMakeFiles/client.dir/__/anet/src/buffer.c.o" \
 "CMakeFiles/client.dir/__/anet/src/connction.c.o" \
 "CMakeFiles/client.dir/__/anet/src/epollmp.c.o" \
 "CMakeFiles/client.dir/__/anet/src/error.c.o" \
@@ -250,6 +274,7 @@ client_OBJECTS = \
 # External object files for target client
 client_EXTERNAL_OBJECTS =
 
+bin/client: client/CMakeFiles/client.dir/__/anet/src/buffer.c.o
 bin/client: client/CMakeFiles/client.dir/__/anet/src/connction.c.o
 bin/client: client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o
 bin/client: client/CMakeFiles/client.dir/__/anet/src/error.c.o
@@ -267,6 +292,7 @@ bin/client: client/CMakeFiles/client.dir/link.txt
 client/CMakeFiles/client.dir/build: bin/client
 .PHONY : client/CMakeFiles/client.dir/build
 
+client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/anet/src/buffer.c.o.requires
 client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/anet/src/connction.c.o.requires
 client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/anet/src/epollmp.c.o.requires
 client/CMakeFiles/client.dir/requires: client/CMakeFiles/client.dir/__/anet/src/error.c.o.requires

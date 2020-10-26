@@ -30,8 +30,6 @@ static int onTcpServerAcceptHandler(int lfd,void* udata){
 	return onPassiveConnect( server, fd);
 }
 
-
-
 tcpServer* tcpServerCreate(config* cfg){
     tcpServer* server = malloc(sizeof(tcpServer) );
     CHECK_PTR_RET_NULL(server)

@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/server.dir/__/anet/src/buffer.c.o"
   "CMakeFiles/server.dir/__/anet/src/connction.c.o"
   "CMakeFiles/server.dir/__/anet/src/epollmp.c.o"
   "CMakeFiles/server.dir/__/anet/src/error.c.o"
