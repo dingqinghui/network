@@ -44,7 +44,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 	}
 	int remain = pBuf->capMax - pBuf->curSize;
 	if (remain < size) {
-		if (bufferExpand() == NET_RET_ERROR)
+		if (bufferExpand(pBuf) == NET_RET_ERROR)
 			return 0;
 	}
 	if (pBuf->writeIndex + size > pBuf->capMax) {
@@ -61,7 +61,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 		pBuf->writeIndex -= pBuf->capMax;
 	}
 	pBuf->curSize += size;
-	bufferPrint(pBuf);
+	//bufferPrint(pBuf);
 	return size;
 }
 
@@ -120,7 +120,7 @@ int bufferRead(buffer* pBuf, char* buf, int size) {
 		pBuf->writeIndex -= pBuf->capMax;
 	}
 	pBuf->curSize -= maxCopy;
-	bufferPrint(pBuf);
+	//bufferPrint(pBuf);
 	return maxCopy;
 }
 
