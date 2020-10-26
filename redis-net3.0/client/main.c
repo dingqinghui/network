@@ -28,13 +28,13 @@ void  OnConnect(connection* con){
 	char sbuf[] = "122345679ss";
 
 	
-	connectionSend(con,sbuf,sizeof(sbuf));
+	//connectionSend(con,sbuf,sizeof(sbuf));
 }
 
- #include <signal.h>
+
 int main()
 {
-	int n = signal(SIGPIPE, SIG_IGN);
+
 	evLoopCraete(1000);
 
 	for (size_t i = 0; i < 1; i++)

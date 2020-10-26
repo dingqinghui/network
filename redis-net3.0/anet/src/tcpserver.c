@@ -69,6 +69,7 @@ int  tcpServerStart(tcpServer* server) {
         evLoopRegister(server->lfd, EV_MASK_READ, onTcpServerAcceptHandler,server)){
         return NET_RET_ERROR;
     }
+    PRINT_DEBUG("server start succese lisent addr-ip:%s:%d\n",server->cfg.ip,server->cfg.port);
     return NET_RET_OK;
 }
 
@@ -91,7 +92,7 @@ int  onPassiveConnect(tcpServer* server,int fd){
     }
 
     connection* con = connectionCreate(fd);
-    CHECK_PTR_ERR(server)
+    CHECK_PTR_ERR(con)
 
     if( NET_RET_ERROR == 
      connectionInitCallBack( con,server->connectCallback, server->messageCallback, server->disconnectCallback)){
@@ -105,6 +106,7 @@ int  onPassiveConnect(tcpServer* server,int fd){
     if( NET_RET_ERROR == tcpServerAddConnection(server,con) ){
         return NET_RET_ERROR;
     }
+
     return NET_RET_OK;
 }
 

@@ -17,6 +17,9 @@ typedef void  DisConnectCallback(struct connection*);
 typedef void  ConnectCallback(struct connection*);
 
 
+
+
+
 typedef struct connection
 {
 	int fd;

@@ -12,6 +12,9 @@
 #define NET_ERR_LEN 256
 
 
+#define PRINT_DEBUG(format,...) \
+printf(format,__VA_ARGS__);
+
 #define PRINT_ERR(msg) \
 printf("%s.function:%s file:%s line:%d\n",msg,__FUNCTION__,__FILE__,__LINE__);
 

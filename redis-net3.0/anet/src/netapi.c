@@ -206,9 +206,8 @@ struct sockaddr_in6 netGetLocalAddr(int sockfd)
 	struct sockaddr_in6 localaddr;
 	memset(&localaddr, 0, sizeof localaddr);
 	socklen_t addrlen = (socklen_t)sizeof(localaddr);
-	if (getsockname(sockfd, (struct sockaddr*)(&localaddr), &addrlen) < 0)
-	{
-		
+	if (getsockname(sockfd, (struct sockaddr*)(&localaddr), &addrlen) < 0){
+		PRINT_DEBUG("getsockname fail:fd:%d  %s\n", sockfd, strerror(errno));
 	}
 	return localaddr;
 }
@@ -219,9 +218,39 @@ struct sockaddr_in6 netGetPeerAddr(int sockfd)
 	memset(&peeraddr, 0,sizeof peeraddr);
 	socklen_t addrlen = (socklen_t)sizeof(peeraddr);
 	if (getpeername(sockfd, (struct sockaddr*)(&peeraddr), &addrlen) < 0){
-
+		PRINT_DEBUG("getpeername fail:fd:%d  %s\n", sockfd, strerror(errno));
 	}
 	return peeraddr;
+}
+
+int netGetPeerInfo(int sockfd,char* ip,int* port) {
+	struct sockaddr_in6 peeraddr = netGetPeerAddr(sockfd);
+	if (peeraddr.sin6_family == AF_INET6)
+	{
+		inet_ntop(peeraddr.sin6_family, &peeraddr.sin6_addr, ip, IP_MAX_LEN);
+		*port = ntohs(peeraddr.sin6_port);
+	}
+	else
+	{
+		const struct sockaddr_in* raddr4 = (struct sockaddr_in*)(&peeraddr);
+		inet_ntop(raddr4->sin_family, &raddr4->sin_addr, ip, IP_MAX_LEN);
+		*port = ntohs(raddr4->sin_port);
+	}
+}
+
+int netGetLocalInfo(int sockfd,char* ip,int* port) {
+	struct sockaddr_in6 localaddr = netGetLocalAddr(sockfd);
+	if (localaddr.sin6_family == AF_INET6)
+	{
+		inet_ntop(localaddr.sin6_family, &localaddr.sin6_addr, ip, IP_MAX_LEN);
+		*port = ntohs(localaddr.sin6_port);
+	}
+	else
+	{
+		const struct sockaddr_in* raddr4 = (struct sockaddr_in*)(&localaddr);
+		inet_ntop(raddr4->sin_family, &raddr4->sin_addr, ip, IP_MAX_LEN);
+		*port = ntohs(raddr4->sin_port);
+	}
 }
 
 

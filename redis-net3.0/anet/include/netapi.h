@@ -6,6 +6,7 @@
 #define NET_SK_BLOCK		1 
 #define NET_SK_NOBLOCK		2
 
+#define IP_MAX_LEN        32
 
 #define NET_ERR             -1
 #define NET_OK              0

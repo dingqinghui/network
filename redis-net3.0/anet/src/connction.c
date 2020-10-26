@@ -4,6 +4,8 @@
 #include  "../include/iomp.h"
 #include "../include/buffer.h"
 
+static int  onReportInfo(connection* con, char* actStr);
+
 char G_READBUF[65535];
 char G_SENDBUF[65535];
 
@@ -136,6 +138,9 @@ connection* connectionCreate(int fd){
 		free(con);
         return NET_RET_NULL;
     }
+
+	onReportInfo( con,"create new connection");
+
     return con;
 }
 
@@ -193,6 +198,8 @@ int connectionShutdown(connection* con ){
         return onForceClose(con);
     }
     onSetState(con,CON_STATE_CLOSING);
+
+	onReportInfo(con, "shutdown connection");
     return NET_RET_OK;
 }
 
@@ -201,6 +208,8 @@ int connectionShutdown(connection* con ){
 static int onForceClose(connection* con){
     CHECK_PTR_ERR(con)
     CHECK_PTR_ERR(con->disconnectCallback);
+    
+    onReportInfo(con, "close connection");
     //callback user logic
     con->disconnectCallback(con);
     //del event
@@ -213,5 +222,28 @@ static int onForceClose(connection* con){
 
     onSetState(con,CON_STATE_CLOSED);
     connectionFree(con);
+
+	return NET_RET_OK;
 }
 
+
+
+static int  onReportInfo(connection* con,char* actStr) {
+	CHECK_PTR_ERR(con)
+
+    char err[NET_ERR_LEN];
+
+	char localIp[IP_MAX_LEN];
+	int localPort;
+	netGetLocalInfo(con->fd, localIp, &localPort);
+
+
+	char peerIp[IP_MAX_LEN];
+	int peerPort;
+	netGetPeerInfo(con->fd, peerIp, &peerPort);
+
+	PRINT_DEBUG("%s.<fd:%d localAddr-%s:%d peerAddr-%s:%d>\n",
+		actStr,con->fd, localIp, localPort, peerIp, peerPort);
+
+	return NET_RET_OK;
+}
