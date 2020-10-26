@@ -1,15 +1,15 @@
 
-#include <sys/types.h>         
-#include <sys/socket.h>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <string.h>
 #include <fcntl.h>
-#include <string.h>
 #include <errno.h>
+#include <stdio.h>
+
+#include <sys/types.h>         
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <netinet/tcp.h>
-#include <string.h>
+
 
 #include "../include/error.h"
 #include "../include/netapi.h"
@@ -198,4 +198,50 @@ int netAccept(char* err,int lfd) {
 		}
 	}
 	return fd;
+}
+
+
+struct sockaddr_in6 netGetLocalAddr(int sockfd)
+{
+	struct sockaddr_in6 localaddr;
+	memset(&localaddr, 0, sizeof localaddr);
+	socklen_t addrlen = (socklen_t)sizeof(localaddr);
+	if (getsockname(sockfd, (struct sockaddr*)(&localaddr), &addrlen) < 0)
+	{
+		
+	}
+	return localaddr;
+}
+
+struct sockaddr_in6 netGetPeerAddr(int sockfd)
+{
+	struct sockaddr_in6 peeraddr;
+	memset(&peeraddr, 0,sizeof peeraddr);
+	socklen_t addrlen = (socklen_t)sizeof(peeraddr);
+	if (getpeername(sockfd, (struct sockaddr*)(&peeraddr), &addrlen) < 0){
+
+	}
+	return peeraddr;
+}
+
+
+int netIsSelfConnect(int sockfd) {
+	struct sockaddr_in6 localaddr = netGetLocalAddr(sockfd);
+	struct sockaddr_in6 peeraddr = netGetPeerAddr(sockfd);
+	if (localaddr.sin6_family == AF_INET)
+	{
+		const struct sockaddr_in* laddr4 = (struct sockaddr_in*)(&localaddr);
+		const struct sockaddr_in* raddr4 = (struct sockaddr_in*)(&peeraddr);
+		return laddr4->sin_port == raddr4->sin_port
+			&& laddr4->sin_addr.s_addr == raddr4->sin_addr.s_addr;
+	}
+	else if (localaddr.sin6_family == AF_INET6)
+	{
+		return localaddr.sin6_port == peeraddr.sin6_port
+			&& memcmp(&localaddr.sin6_addr, &peeraddr.sin6_addr, sizeof localaddr.sin6_addr) == 0;
+	}
+	else
+	{
+		return 0;
+	}
 }

@@ -14,6 +14,7 @@ static int onConnectHandler(int fd,void* udata){
     if( evLoopUnregister( fd, EV_MASK_WRITE)  == NET_RET_ERROR ){
         return NET_RET_ERROR;
     }
+
     if( connectedFinish( cli, fd) == NET_RET_ERROR){
         return NET_RET_ERROR;
     }
@@ -51,6 +52,11 @@ int tcpClientStart(tcpClient* cli){
         return NET_RET_ERROR;
     }
 
+	if (netIsSelfConnect(fd)) {
+		netClose(err,fd);
+		return NET_RET_OK;
+	}
+
     if(!cli->block){
         if( evLoopRegister( fd, EV_MASK_WRITE, onConnectHandler,cli) == NET_RET_ERROR ){
             return NET_RET_ERROR;
@@ -61,7 +67,7 @@ int tcpClientStart(tcpClient* cli){
             return NET_RET_ERROR;
         }
     }
-    return 0;
+    return NET_RET_OK;
 }
 
 
@@ -87,7 +93,7 @@ int tcpClientInitCallBack(tcpClient* cli, ConnectCallback* connectCallback,Messa
     cli->connectCallback = connectCallback;
     cli->disconnectCallback = messageCallback;
     cli->messageCallback = disconnectCallback;
-    return 0;
+    return NET_RET_OK;
 }
 
 

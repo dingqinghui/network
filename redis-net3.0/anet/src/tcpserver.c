@@ -26,7 +26,10 @@ static int onTcpServerAcceptHandler(int lfd,void* udata){
 		PRINT_ERR(err);
 		return NET_RET_ERROR;
 	}
-    
+	if (netIsSelfConnect(fd)) {
+		netClose(err,fd);
+		return NET_RET_OK;
+	}
 	return onPassiveConnect( server, fd);
 }
 
@@ -72,6 +75,7 @@ int  tcpServerStart(tcpServer* server) {
 
 
 int  onPassiveConnect(tcpServer* server,int fd){
+
     CHECK_PTR_ERR(server)
 
     char err[NET_ERR_LEN];
