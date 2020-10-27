@@ -44,6 +44,9 @@ server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o: anet/include/netapi.h
 server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o: anet/include/tcpserver.h
 server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o: anet/src/tcpserver.c
 
+server/CMakeFiles/server.dir/__/anet/src/timerheap.c.o: anet/include/timerheap.h
+server/CMakeFiles/server.dir/__/anet/src/timerheap.c.o: anet/src/timerheap.c
+
 server/CMakeFiles/server.dir/main.c.o: anet/include/buffer.h
 server/CMakeFiles/server.dir/main.c.o: anet/include/connction.h
 server/CMakeFiles/server.dir/main.c.o: anet/include/iomp.h

@@ -44,6 +44,9 @@ client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/netapi.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpserver.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/src/tcpserver.c
+client/CMakeFiles/client.dir/__/anet/src/timerheap.c.o
+ /mnt/hgfs/linux_share/redis-net3.0/anet/include/timerheap.h
+ /mnt/hgfs/linux_share/redis-net3.0/anet/src/timerheap.c
 client/CMakeFiles/client.dir/main.c.o
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/buffer.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/connction.h
@@ -52,4 +55,5 @@ client/CMakeFiles/client.dir/main.c.o
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpcallback.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpclient.h
  /mnt/hgfs/linux_share/redis-net3.0/anet/include/tcpserver.h
+ /mnt/hgfs/linux_share/redis-net3.0/anet/include/timerheap.h
  /mnt/hgfs/linux_share/redis-net3.0/client/main.c

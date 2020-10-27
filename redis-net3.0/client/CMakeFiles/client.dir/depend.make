@@ -44,6 +44,9 @@ client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/netapi.h
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/include/tcpserver.h
 client/CMakeFiles/client.dir/__/anet/src/tcpserver.c.o: anet/src/tcpserver.c
 
+client/CMakeFiles/client.dir/__/anet/src/timerheap.c.o: anet/include/timerheap.h
+client/CMakeFiles/client.dir/__/anet/src/timerheap.c.o: anet/src/timerheap.c
+
 client/CMakeFiles/client.dir/main.c.o: anet/include/buffer.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/connction.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/error.h
@@ -51,5 +54,6 @@ client/CMakeFiles/client.dir/main.c.o: anet/include/iomp.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/tcpcallback.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/tcpclient.h
 client/CMakeFiles/client.dir/main.c.o: anet/include/tcpserver.h
+client/CMakeFiles/client.dir/main.c.o: anet/include/timerheap.h
 client/CMakeFiles/client.dir/main.c.o: client/main.c
 

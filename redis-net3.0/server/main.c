@@ -36,6 +36,9 @@ int main()
 	tcpServerStart(server);
 
 
-	evLoopRun( EV_WAIT_FPS );
+	while(1){
+		evLoopPoll();
+	}
+	
     return 0;
 }

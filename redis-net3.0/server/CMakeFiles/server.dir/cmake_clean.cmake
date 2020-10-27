@@ -7,6 +7,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/server.dir/__/anet/src/netapi.c.o"
   "CMakeFiles/server.dir/__/anet/src/tcpclient.c.o"
   "CMakeFiles/server.dir/__/anet/src/tcpserver.c.o"
+  "CMakeFiles/server.dir/__/anet/src/timerheap.c.o"
   "CMakeFiles/server.dir/main.c.o"
   "../bin/server.pdb"
   "../bin/server"

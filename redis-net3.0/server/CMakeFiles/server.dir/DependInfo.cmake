@@ -12,6 +12,7 @@ SET(CMAKE_DEPENDS_CHECK_C
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/netapi.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/netapi.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/tcpclient.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/tcpclient.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/anet/src/tcpserver.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.o"
+  "/mnt/hgfs/linux_share/redis-net3.0/anet/src/timerheap.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/__/anet/src/timerheap.c.o"
   "/mnt/hgfs/linux_share/redis-net3.0/server/main.c" "/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir/main.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")

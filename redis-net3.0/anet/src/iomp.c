@@ -45,7 +45,6 @@ typedef struct fileEvent{
 
 typedef struct eventLoop
 {
-    int stop;
     fileEvent * events;      //all fd event    
     void* state;             //epoll
     int maxev;
@@ -79,7 +78,6 @@ int evLoopCraete(int maxEv){
         }
     }
     LOOP->maxev = maxEv;
-
 
 	signal(SIGPIPE, SIG_IGN);
     return NET_RET_OK;
@@ -159,13 +157,11 @@ int evLoopRemove(int fd){
 }
 
 
-int onPollEvent(int mod){
+int onPollEvent(){
     CHECK_PTR_ERR(LOOP)
 
-    int w = mod == mod  == EV_WAIT_BLOCK ? -1 : FRAME_LOOP;
-
     char err[NET_ERR_LEN];
-    int fireCnt = mpWait(err,w);
+    int fireCnt = mpWait(err,FRAME_LOOP);
     if(fireCnt == NET_RET_ERROR){
         PRINT_ERR(err);
         return NET_RET_ERROR;
@@ -197,17 +193,8 @@ int onPollEvent(int mod){
     return fireCnt;
 }
 
-int evLoopRun(int mod){
-    CHECK_PTR_ERR(LOOP)
 
-    LOOP->stop = 0;
-    while(!loop->stop){
-        onPollEvent( mod);
-    }
+int evLoopPoll(){
+   return onPollEvent();
 }
 
-void evLoopStop(){
-    CHECK_PTR_ERR(LOOP)
-
-    LOOP->stop = 1;
-}

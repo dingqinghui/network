@@ -10,7 +10,7 @@
 
 
 #define EV_WAIT_BLOCK 1
-#define EV_WAIT_FPS  2
+
 
 
 #define FRAME_LOOP   10
@@ -25,8 +25,8 @@ int  evLoopRegister(int fd,int mask,void* cb,void* udata);
 int  evLoopUnregister(int fd,int mask);
 int  evLoopRemove(int fd);
 
-int  evLoopRun(int mod);
-void evLoopStop();
+
+int  evLoopPoll();
 
 
 #endif

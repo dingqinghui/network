@@ -307,6 +307,30 @@ __/anet/src/tcpserver.c.s:
 	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/tcpserver.c.s
 .PHONY : __/anet/src/tcpserver.c.s
 
+__/anet/src/timerheap.o: __/anet/src/timerheap.c.o
+.PHONY : __/anet/src/timerheap.o
+
+# target to build an object file
+__/anet/src/timerheap.c.o:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/timerheap.c.o
+.PHONY : __/anet/src/timerheap.c.o
+
+__/anet/src/timerheap.i: __/anet/src/timerheap.c.i
+.PHONY : __/anet/src/timerheap.i
+
+# target to preprocess a source file
+__/anet/src/timerheap.c.i:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/timerheap.c.i
+.PHONY : __/anet/src/timerheap.c.i
+
+__/anet/src/timerheap.s: __/anet/src/timerheap.c.s
+.PHONY : __/anet/src/timerheap.s
+
+# target to generate assembly for a file
+__/anet/src/timerheap.c.s:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f server/CMakeFiles/server.dir/build.make server/CMakeFiles/server.dir/__/anet/src/timerheap.c.s
+.PHONY : __/anet/src/timerheap.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -364,6 +388,9 @@ help:
 	@echo "... __/anet/src/tcpserver.o"
 	@echo "... __/anet/src/tcpserver.i"
 	@echo "... __/anet/src/tcpserver.s"
+	@echo "... __/anet/src/timerheap.o"
+	@echo "... __/anet/src/timerheap.i"
+	@echo "... __/anet/src/timerheap.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

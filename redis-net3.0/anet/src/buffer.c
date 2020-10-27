@@ -5,6 +5,9 @@
 #include "../include/error.h"
 #include "../include/buffer.h"
 
+
+#define APPEND_CAP_SCALE 2
+
 buffer* bufferCreate(int initSize){
 	assert(initSize > 0);
     buffer* buf = malloc(sizeof(buffer));
@@ -67,7 +70,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 
 int bufferExpand(buffer* pBuf) {
 	CHECK_PTR_ERR(pBuf)
-	int cap = pBuf->capMax * 2;
+	int cap = pBuf->capMax * APPEND_CAP_SCALE;
 	char* ptr = malloc(sizeof(char) * cap);
 	CHECK_PTR_ERR(ptr)
 

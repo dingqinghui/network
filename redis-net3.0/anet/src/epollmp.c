@@ -120,11 +120,13 @@ int mpDel(char* err,int fd,int oldmask,int delmask)
 }
 
 
+
 int mpWait(char* err,int w)
 {
 	CHECK_PTR_ERR(state)
 
 	int cnt = epoll_wait(state->epfd, state->events, state->maxEv, w);
+
 	if(cnt < 0){
 		mpSetError(err, "mpWait(epoll_wait): %s\n", strerror(errno));
 		return NET_RET_ERROR;
@@ -142,6 +144,7 @@ int mpWait(char* err,int w)
 		if(e->events & EPOLLOUT )  mask |=  EV_MASK_WRITE;
 		if(e->events & EPOLLERR )  mask |=  EV_MASK_ERROR;
 	}
+
 	return cnt;
 }
 
