@@ -6,29 +6,31 @@
 #include "../anet/include/tcpserver.h"
 #include "../anet/include/buffer.h"
 #include "../anet/include/timerheap.h"
+#include "../anet/include/netapi.h"
 
-
-
+static int clientCnt = 0;
+static int packSize = 0;
+static double sendTotal = 0;
+static int beginTm = 0;
 //tcpClient* cli = 0;
 void  onMessage(connection* con,buffer* input){
 	char buf[65535];
 	int size = bufferRead(input, buf,65535);
-	printf("onMessage:buf:%s size:%d\n",buf,size);
+	//printf("onMessage:buf:%s size:%d\n",buf,size);
 	connectionSend(con,buf,size);
+	sendTotal += size;
 }
 
 void onClose(connection* con){
-	printf("onClose:%d \n",con->fd);
+	//printf("onClose:%d \n",con->fd);
 }
 
 #include <sys/socket.h>
 void  OnConnect(connection* con){
-	printf("OnConnect:%d \n",con->fd);
+	//printf("OnConnect:%d \n",con->fd);
 
-	char sbuf[] = "122345679ss";
-
-	
-	//connectionSend(con,sbuf,sizeof(sbuf));
+	char sbuf[65535] = "122345679ss";
+	connectionSend(con,sbuf,packSize);
 }
 
 static long long  getMillisecond(){
@@ -42,31 +44,44 @@ static long long  getMillisecond(){
 
 
 void onTimer(void* udata){
-	printf("%d\n",getMillisecond());
-	th_add_timer(10,onTimer,0);
-}
+	//long long interval = getMillisecond() - beginTm;
 
-int main()
+	printf("totalSend:%lluM totalRecv:%lluM\n",getWriteByte() / 1024 / 1024,getRecvByte() / 1024 / 1024);
+
+	th_add_timer(1000,onTimer,0);
+}
+int main(int argc,char *argv[])
 {
-	evLoopCraete(1000);
+	if(argc >= 2){
+		clientCnt =  atoi(argv[1]);
+		packSize = atoi(argv[2]);
+	}
+	else{
+		clientCnt = 1;
+		packSize = 1024;
+	}
+
+	evLoopCraete(20000);
 	th_init( 5 );
 
 
-	// for (size_t i = 0; i < 1; i++)
-	// {
-	// 	tcpClient*cli = tcpClientCreate("127.0.0.1",8001 , 1);
+	for (size_t i = 0; i < clientCnt; i++)
+	{
+		tcpClient*cli = tcpClientCreate("127.0.0.1",8001 , 1);
 	
-	// 	tcpClientInitCallBack(cli,OnConnect,onMessage,onClose);
-	// 	tcpClientStart(cli);
+		tcpClientInitCallBack(cli,OnConnect,onMessage,onClose);
+		if( tcpClientStart(cli) == NET_RET_ERROR){
+			printf("-----------------------------\n");
+		}
 
-	// }
+	}
 
-	th_add_timer(10,onTimer,0);
-
+	th_add_timer(1000,onTimer,0);
+	beginTm = getMillisecond();
 
 	while(1){
 		evLoopPoll();
-		//th_tick();
+		th_tick();
 	}
 	th_destroy();
 	evLoopFree();
