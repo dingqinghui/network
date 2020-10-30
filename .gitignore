@@ -2,3 +2,8 @@
 redis-net3.0/CMakeFiles
 redis-net3.0/client/CMakeFiles
 redis-net3.0/server/CMakeFiles
+redis-net3.0/anet/src/CMakeFiles
+redis-net3.0/cmake*
+redis-net3.0/client/cmake*
+redis-net3.0/server/cmake*
+redis-net3.0/anet/src/cmake*
