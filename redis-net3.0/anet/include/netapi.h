@@ -11,6 +11,8 @@
 #define NET_ERR             -1
 #define NET_OK              0
 
+
+
 int netClose(char* err,int fd);
 int netTcpNoDelay( char* err,int fd);
 int netSetNoblock(char* err,int fd);
@@ -21,5 +23,7 @@ int netTcpBlockConnect(char* err,char* ip, int port);
 int netTcpNoBlockConnect(char* err,char* ip, int port);
 int netAccept(char* err,int lfd);
 
+int netSetSendBuf(char* err,int fd,int size);
+int netSetRecvBuf(char* err,int fd,int size);
 
 #endif

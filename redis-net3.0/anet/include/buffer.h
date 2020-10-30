@@ -21,7 +21,6 @@ int bufferWrite(buffer* pBuf,char* buf, int size);
 int bufferRead(buffer* pBuf,char* buf, int size);
 int bufferReadAll(buffer* pBuf, char* buf);
 
-int bufferExpand();
 
 int bufferPrint(buffer* pBuf);
 #endif

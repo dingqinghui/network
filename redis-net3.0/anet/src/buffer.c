@@ -12,11 +12,13 @@ buffer* bufferCreate(int initSize){
 	assert(initSize > 0);
     buffer* buf = malloc(sizeof(buffer));
 	CHECK_PTR_RET_NULL(buf)
+
 	buf->data = malloc(sizeof(char) * initSize);
 	if (! buf->data) {
 		free(buf);
 		return 0;
 	}
+
 	buf->capMax = initSize;
 	buf->readIndex = 0;
 	buf->writeIndex = 0;
@@ -47,7 +49,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 	}
 	int remain = pBuf->capMax - pBuf->curSize;
 	if (remain < size) {
-		if (bufferExpand(pBuf) == NET_RET_ERROR)
+		if (bufferExpand(pBuf,size) == NET_RET_ERROR)
 			return 0;
 	}
 	if (pBuf->writeIndex + size > pBuf->capMax) {
@@ -58,6 +60,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 	}
 	else {
 		memcpy(pBuf->data + pBuf->writeIndex, buf, size);
+
 		pBuf->writeIndex += size;
 	}
 	if (pBuf->writeIndex >= pBuf->capMax) {
@@ -68,9 +71,9 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 	return size;
 }
 
-int bufferExpand(buffer* pBuf) {
+int bufferExpand(buffer* pBuf,int size) {
 	CHECK_PTR_ERR(pBuf)
-	int cap = pBuf->capMax * APPEND_CAP_SCALE;
+	int cap = (pBuf->curSize + size) * APPEND_CAP_SCALE;
 	char* ptr = malloc(sizeof(char) * cap);
 	CHECK_PTR_ERR(ptr)
 
@@ -119,8 +122,8 @@ int bufferRead(buffer* pBuf, char* buf, int size) {
 		memcpy(buf, pBuf->data + pBuf->readIndex, maxCopy);
 		pBuf->readIndex += maxCopy;
 	}
-	if (pBuf->writeIndex >= pBuf->capMax) {
-		pBuf->writeIndex -= pBuf->capMax;
+	if (pBuf->readIndex >= pBuf->capMax) {
+		pBuf->readIndex -= pBuf->capMax;
 	}
 	pBuf->curSize -= maxCopy;
 	//bufferPrint(pBuf);

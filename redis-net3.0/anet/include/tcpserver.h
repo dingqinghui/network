@@ -9,7 +9,7 @@
 typedef struct config
 {
 	char* ip;
-	char* port;
+	int  port;
 	int   maxfd;      
 }config; 
 

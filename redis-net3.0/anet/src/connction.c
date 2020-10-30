@@ -9,6 +9,18 @@ static int  onReportInfo(connection* con, char* actStr);
 char G_READBUF[65535];
 char G_SENDBUF[65535];
 
+static long long  G_SEND_BYTE = 0;
+static long long  G_RECV_BYTE = 0;
+long long getRecvByte(){
+    long long old = G_RECV_BYTE;
+    G_RECV_BYTE = 0;
+    return old;
+}
+long long getWriteByte(){
+    long long old = G_SEND_BYTE;
+    G_SEND_BYTE = 0;
+    return old;
+}
 
 static int onReadHandler(int fd,void* udata);
 static int onWriteHandler(int fd,void* udata);
@@ -39,7 +51,7 @@ static int onReadHandler(int fd,void* udata){
 	if(n < 0){
 		char err[NET_ERR_LEN];
 		if( netIoError(err,con->fd) == NET_RET_ERROR ){
-            PRINT_ERR(err)
+            //PRINT_ERR(err)
 			onForceClose(con);
             return NET_RET_ERROR;
 		}
@@ -49,9 +61,11 @@ static int onReadHandler(int fd,void* udata){
        onForceClose(con);
     }
     else{
+        G_RECV_BYTE += n;
 		bufferWrite(con->inputBuf, G_READBUF, n);
-        CHECK_PTR_ERR(con->messageCallback);
-        con->messageCallback(con, con->inputBuf );
+        if(con->messageCallback){
+            con->messageCallback(con, con->inputBuf );
+        }
     }   
 
     return NET_RET_OK;
@@ -76,6 +90,7 @@ static int onWriteHandler(int fd,void* udata)
 			}
 		}
 		else{
+            G_SEND_BYTE += n;
 			bufferWrite(con->outputBuf, G_SENDBUF + n, size - n);
             if(size <= n){
                 //Send all the data in the half connect state
@@ -139,15 +154,15 @@ connection* connectionCreate(int fd){
         return NET_RET_NULL;
     }
 
-	onReportInfo( con,"create new connection");
+	//onReportInfo( con,"create new connection");
 
     return con;
 }
 
 int connectionFree(connection* con){
     CHECK_PTR_RET_NULL(con)
-    if(con->inputBuf) free(con->inputBuf);
-    if(con->outputBuf) free(con->outputBuf);
+    if(con->inputBuf) bufferFree(con->inputBuf);
+    if(con->outputBuf) bufferFree(con->outputBuf);
     free(con);
     return NET_RET_OK;
 }
@@ -177,14 +192,32 @@ int connectionEstablished(connection* con ){
 
 int connectionSend(connection* con,char* buf,int size){
     CHECK_PTR_ERR(con)
-    if(bufferWrite(con->outputBuf, buf, size) == NET_RET_ERROR ){
-        PRINT_ERR("con write buf fail.");
-        return NET_RET_ERROR;
+    int nsend = 0;
+    if( bufferIsEmpty(con->outputBuf)  ){
+        nsend = netWrite(con->fd, buf,size);
+        if(nsend <= 0){
+            char err[NET_ERR_LEN];
+            if( netIoError(err,con->fd) == NET_ERR 
+                || nsend == 0 ){
+                //write err
+                PRINT_ERR(err)
+                onForceClose(con);
+                return NET_RET_ERROR;
+            }
+        }
     }
-    if(evLoopRegister(con->fd, EV_MASK_WRITE, onWriteHandler,con) == NET_RET_ERROR){
-        PRINT_ERR("con register write event fail.");
-        return NET_RET_ERROR;
+    G_SEND_BYTE += nsend;
+    if(size - nsend){
+        if(bufferWrite(con->outputBuf, buf + nsend, size - nsend) == NET_RET_ERROR ){
+            PRINT_ERR("con write buf fail.");
+            return NET_RET_ERROR;
+        }
+        if(evLoopRegister(con->fd, EV_MASK_WRITE, onWriteHandler,con) == NET_RET_ERROR){
+            PRINT_ERR("con register write event fail.");
+            return NET_RET_ERROR;
+        }
     }
+  
     return NET_RET_OK;
 }
 
@@ -209,7 +242,7 @@ static int onForceClose(connection* con){
     CHECK_PTR_ERR(con)
     CHECK_PTR_ERR(con->disconnectCallback);
     
-    onReportInfo(con, "close connection");
+    //PRINT_DEBUG("close connection fd:%d\n",con->fd);
     //callback user logic
     con->disconnectCallback(con);
     //del event

@@ -20,17 +20,24 @@ static int onTcpServerAcceptHandler(int lfd,void* udata){
     CHECK_PTR_ERR(server)
 
 	char err[NET_ERR_LEN];
-	int fd = netAccept(err,lfd);
-	if (fd == NET_ERR)
-	{
-		PRINT_ERR(err);
-		return NET_RET_ERROR;
-	}
-	if (netIsSelfConnect(fd)) {
-		netClose(err,fd);
-		return NET_RET_OK;
-	}
-	return onPassiveConnect( server, fd);
+    while(1) {
+        int fd = netAccept(err,lfd);
+        if (fd < 0 )
+        {
+            if(netAcceptError(err) ){
+                PRINT_ERR(err);
+                return NET_RET_ERROR;
+            }
+            break;
+        }
+        if (netIsSelfConnect(fd)) {
+            netClose(err,fd);
+            return NET_RET_OK;
+        }
+        onPassiveConnect( server, fd);
+    }
+
+	return NET_RET_OK;
 }
 
 tcpServer* tcpServerCreate(config* cfg){
@@ -39,7 +46,7 @@ tcpServer* tcpServerCreate(config* cfg){
 
 	server->cfg.ip = cfg == 0 ? "127.0.0.1" : cfg->ip;
 	server->cfg.port = cfg == 0 ? 8001 : cfg->port;
-    server->cfg.maxfd = cfg == 0 ? 500 : cfg->maxfd;
+    server->cfg.maxfd = cfg == 0 ? 1024 : cfg->maxfd;
 
     server->connectCallback = 0;
     server->disconnectCallback = 0;
@@ -90,6 +97,18 @@ int  onPassiveConnect(tcpServer* server,int fd){
         netClose(err,fd);
         return NET_RET_ERROR;
     }
+
+    if( netSetSendBuf(err,fd,32768) == NET_ERR){
+        PRINT_ERR(err)
+        netClose(err,fd);
+        return NET_RET_ERROR;
+    }
+    if( netSetRecvBuf(err,fd,32768) == NET_ERR){
+        PRINT_ERR(err)
+        netClose(err,fd);
+        return NET_RET_ERROR;
+    }
+
 
     connection* con = connectionCreate(fd);
     CHECK_PTR_ERR(con)

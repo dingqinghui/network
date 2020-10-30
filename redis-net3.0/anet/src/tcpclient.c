@@ -8,9 +8,10 @@ static int connectedFinish(tcpClient* cli,int fd);
 
 
 static int onConnectHandler(int fd,void* udata){
+    printf("onConnectHandler\n");
     tcpClient* cli = udata;
     CHECK_PTR_ERR(cli)
-
+    
     if( evLoopUnregister( fd, EV_MASK_WRITE)  == NET_RET_ERROR ){
         return NET_RET_ERROR;
     }
@@ -52,10 +53,7 @@ int tcpClientStart(tcpClient* cli){
         return NET_RET_ERROR;
     }
 
-	if (netIsSelfConnect(fd)) {
-		netClose(err,fd);
-		return NET_RET_OK;
-	}
+
 
     if(!cli->block){
         if( evLoopRegister( fd, EV_MASK_WRITE, onConnectHandler,cli) == NET_RET_ERROR ){
@@ -72,6 +70,11 @@ int tcpClientStart(tcpClient* cli){
 
 
 static int connectedFinish(tcpClient* cli,int fd){
+     char err[NET_ERR_LEN];
+    if (netIsSelfConnect(fd)) {
+		netClose(err,fd);
+		return NET_RET_OK;
+	}
     connection* con = connectionCreate(fd);
     CHECK_PTR_ERR(con);
 

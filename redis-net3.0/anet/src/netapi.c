@@ -23,6 +23,24 @@ int netClose(char* err,int fd){
 	}
 }
 
+int netSetRecvBuf(char* err,int fd,int size){
+	int len = sizeof(size);
+	if( setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &size, len) < 0){
+		netSetError(err, "getsockopt(SO_RCVBUF): fd:%d  %s\n",fd, strerror(errno));
+		return NET_ERR;
+	}
+	return NET_OK;
+}
+
+
+int netSetSendBuf(char* err,int fd,int size){
+	int len = sizeof(size);
+	if( setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &size, len) < 0){
+		netSetError(err, "setsockopt(SO_SNDBUF): fd:%d  %s\n",fd, strerror(errno));
+		return NET_ERR;
+	}
+	return NET_OK;
+}
 
 int netGetSocketErr(char* err,int fd) {
 	int error;
@@ -172,7 +190,7 @@ int netRead(int fd,void* buf,int size){
 }
 
 int netWrite(int fd,void* buf,int size){
-	return write(fd,buf,size);
+	return  write(fd,buf,size);
 }
 
 //fd io write/read error
@@ -186,17 +204,19 @@ int netIoError(char* err,int fd){
 	return NET_RET_ERROR;
 }
 
+int netAcceptError(char* err){
+	if(errno == EAGAIN  || errno == EINTR){ 
+		return NET_RET_OK;
+	}
+	err = strerror(errno);
+	return NET_RET_ERROR;
+}
+
 int netAccept(char* err,int lfd) {
 	struct sockaddr_in remoteAddr;
 	int nAddrlen = sizeof(remoteAddr);
 
 	int fd = accept(lfd, (struct sockaddr*) & remoteAddr, &nAddrlen);
-	if (fd <= 0) {
-		if (errno != EAGAIN && errno != EWOULDBLOCK) {
-			netSetError(err, "accept: fd:%d %s\n",fd, strerror(errno));
-			return NET_ERR;
-		}
-	}
 	return fd;
 }
 

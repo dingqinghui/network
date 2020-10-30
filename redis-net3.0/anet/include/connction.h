@@ -19,7 +19,6 @@ typedef void  ConnectCallback(struct connection*);
 
 
 
-
 typedef struct connection
 {
 	int fd;
@@ -51,6 +50,7 @@ int connectionGetSendBuf(connection* con,char* buf);
 int connectionWriteSendBuf(connection* con,char* buf,int size);
 void connectionSetSendBufSize(connection* con,int size);
 
-
+long long  getRecvByte();
+long long  getWriteByte();
 
 #endif
