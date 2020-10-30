@@ -1,2 +1,0 @@
-/mnt/hgfs/linux_share/redis-net3.0/client/CMakeFiles/client.dir
-/mnt/hgfs/linux_share/redis-net3.0/server/CMakeFiles/server.dir
