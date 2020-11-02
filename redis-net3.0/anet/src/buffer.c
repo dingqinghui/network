@@ -2,6 +2,8 @@
 
 #include <string.h>
 #include <assert.h>
+
+#include "../include/zmemory.h"
 #include "../include/error.h"
 #include "../include/buffer.h"
 
@@ -10,15 +12,9 @@
 
 buffer* bufferCreate(int initSize){
 	assert(initSize > 0);
-    buffer* buf = malloc(sizeof(buffer));
-	CHECK_PTR_RET_NULL(buf)
+    buffer* buf = zmalloc(sizeof(buffer));
 
-	buf->data = malloc(sizeof(char) * initSize);
-	if (! buf->data) {
-		free(buf);
-		return 0;
-	}
-
+	buf->data = zmalloc(sizeof(char) * initSize);
 	buf->capMax = initSize;
 	buf->readIndex = 0;
 	buf->writeIndex = 0;
@@ -29,8 +25,8 @@ buffer* bufferCreate(int initSize){
 void bufferFree(buffer* pBuf) {
 	CHECK_PTR_ERR(pBuf)
 	CHECK_PTR_ERR(pBuf->data);
-	free(pBuf->data);
-	free(pBuf);
+	zfree(pBuf->data);
+	zfree(pBuf);
 }
 
 int bufferIsEmpty(buffer* pBuf) {
@@ -74,14 +70,13 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 int bufferExpand(buffer* pBuf,int size) {
 	CHECK_PTR_ERR(pBuf)
 	int cap = (pBuf->curSize + size) * APPEND_CAP_SCALE;
-	char* ptr = malloc(sizeof(char) * cap);
-	CHECK_PTR_ERR(ptr)
+	char* ptr = zmalloc(sizeof(char) * cap);
 
 	int oldCap = pBuf->curSize;
 
 	bufferRead(pBuf, ptr, pBuf->curSize);
 
-	free(pBuf->data);
+	zfree(pBuf->data);
 	pBuf->data = ptr;
 	pBuf->readIndex = 0;
 	pBuf->writeIndex = oldCap;

@@ -9,7 +9,7 @@ cmake_minimum_required (VERSION 2.8)
 
 # 项目信息
 add_definitions(-g)
-add_definitions(-w)
+#add_definitions(-w)
 
 aux_source_directory(./ DIR_SRCS)
 

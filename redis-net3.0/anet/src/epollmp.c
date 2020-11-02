@@ -4,6 +4,7 @@
 #include <errno.h>
 #include "../include/epollmp.h"
 #include "../include/iomp.h"
+#include "../include/zmemory.h"
 
 #define mpSetError setError
 
@@ -21,21 +22,16 @@ static mpState* state = 0;
 
 int  mpCreate(char*err,int maxEv)
 {
-	state =  malloc(sizeof(mpState));
-	CHECK_PTR_ERR(state)
-	
+	state =  zmalloc(sizeof(mpState));
+
 	//Since Linux 2.6.8, the size argument is ignored, but must be greater than zero; see NOTES below.
 	state->epfd = epoll_create(maxEv);
 	if(state->epfd == -1){
 		mpSetError(err, "epoll_create: %s\n", strerror(errno));
 		return NET_RET_ERROR;
 	}
-	state->events = malloc(sizeof(struct epoll_event) * maxEv);
-	CHECK_PTR_ERR(state->events)
-
-	state->fevents = malloc(sizeof(fireEvent) * maxEv);
-	CHECK_PTR_ERR(state->fevents)
-
+	state->events = zmalloc(sizeof(struct epoll_event) * maxEv);
+	state->fevents = zmalloc(sizeof(fireEvent) * maxEv);
 	state->maxEv = maxEv;
 	return NET_RET_OK;
 }
@@ -43,10 +39,10 @@ int  mpCreate(char*err,int maxEv)
 void mpRelease()
 {
 	CHECK_PTR_ERR(state)
-	free(state->events);
-	free(state->fevents);
+	zfree(state->events);
+	zfree(state->fevents);
 	close(state->epfd);
-	free(state);
+	zfree(state);
 	state = 0;
 }
 

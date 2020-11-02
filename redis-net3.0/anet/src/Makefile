@@ -331,6 +331,30 @@ timerheap.c.s:
 	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/timerheap.c.s
 .PHONY : timerheap.c.s
 
+zmemory.o: zmemory.c.o
+.PHONY : zmemory.o
+
+# target to build an object file
+zmemory.c.o:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/zmemory.c.o
+.PHONY : zmemory.c.o
+
+zmemory.i: zmemory.c.i
+.PHONY : zmemory.i
+
+# target to preprocess a source file
+zmemory.c.i:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/zmemory.c.i
+.PHONY : zmemory.c.i
+
+zmemory.s: zmemory.c.s
+.PHONY : zmemory.s
+
+# target to generate assembly for a file
+zmemory.c.s:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/zmemory.c.s
+.PHONY : zmemory.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -367,6 +391,9 @@ help:
 	@echo "... timerheap.o"
 	@echo "... timerheap.i"
 	@echo "... timerheap.s"
+	@echo "... zmemory.o"
+	@echo "... zmemory.i"
+	@echo "... zmemory.s"
 .PHONY : help
 
 

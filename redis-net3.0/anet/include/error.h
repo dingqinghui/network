@@ -3,6 +3,7 @@
 #define __ERROR_H__
 
 #include <errno.h>
+#include <stdio.h>
 
 #define NET_RET_NULL 0
 

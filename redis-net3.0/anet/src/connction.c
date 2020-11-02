@@ -3,6 +3,7 @@
 #include "../include/netapi.h"
 #include  "../include/iomp.h"
 #include "../include/buffer.h"
+#include "../include/zmemory.h"
 
 static int  onReportInfo(connection* con, char* actStr);
 
@@ -120,8 +121,8 @@ static int onSetState(connection* con,int state){
 
 
 connection* connectionCreate(int fd){
-    connection* con = malloc(sizeof(connection));
-    CHECK_PTR_RET_NULL(con)
+    connection* con = zmalloc(sizeof(connection));
+
 
     con->fd = fd;
 	con->connectCallback = 0;
@@ -131,26 +132,26 @@ connection* connectionCreate(int fd){
 
 	con->outputBuf = bufferCreate(SEND_BUF_INIT_VAL);
 	if (!con->outputBuf) {
-		free(con);
+		zfree(con);
 		return NET_RET_NULL;
 	}
 	con->inputBuf = bufferCreate(RECV_BUF_INIT_VAL);
 	if (!con->inputBuf) {
-		free(con->outputBuf);
-		free(con);
+		zfree(con->outputBuf);
+		zfree(con);
 		return NET_RET_NULL;
 	}
 
     if( evLoopRegister( con->fd, EV_MASK_READ, onReadHandler,con) == NET_RET_ERROR){
-		free(con->inputBuf);
-		free(con->outputBuf);
-		free(con);
+		zfree(con->inputBuf);
+		zfree(con->outputBuf);
+		zfree(con);
         return NET_RET_NULL;
     }
     if( evLoopRegister( con->fd, EV_MASK_ERROR, onErrorHandler,con) ){
-		free(con->inputBuf);
-		free(con->outputBuf);
-		free(con);
+		zfree(con->inputBuf);
+		zfree(con->outputBuf);
+		zfree(con);
         return NET_RET_NULL;
     }
 
@@ -163,7 +164,7 @@ int connectionFree(connection* con){
     CHECK_PTR_RET_NULL(con)
     if(con->inputBuf) bufferFree(con->inputBuf);
     if(con->outputBuf) bufferFree(con->outputBuf);
-    free(con);
+    zfree(con);
     return NET_RET_OK;
 }
 

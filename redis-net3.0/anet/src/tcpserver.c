@@ -3,7 +3,7 @@
 #include "../include/tcpserver.h"
 #include "../include/netapi.h"
 #include "../include/iomp.h"
-
+#include "../include/zmemory.h"
 
 #define CHECK_SER_FD_ERR(server,fd)  \
 if(fd < 0 || fd > server->cfg.maxfd )\
@@ -41,8 +41,7 @@ static int onTcpServerAcceptHandler(int lfd,void* udata){
 }
 
 tcpServer* tcpServerCreate(config* cfg){
-    tcpServer* server = malloc(sizeof(tcpServer) );
-    CHECK_PTR_RET_NULL(server)
+    tcpServer* server = zmalloc(sizeof(tcpServer) );
 
 	server->cfg.ip = cfg == 0 ? "127.0.0.1" : cfg->ip;
 	server->cfg.port = cfg == 0 ? 8001 : cfg->port;
@@ -52,8 +51,7 @@ tcpServer* tcpServerCreate(config* cfg){
     server->disconnectCallback = 0;
     server->messageCallback = 0;
 
-    server->conlist = malloc(sizeof(void*) * server->cfg.maxfd);
-    CHECK_PTR_RET_NULL(server->conlist)
+    server->conlist = zmalloc(sizeof(void*) * server->cfg.maxfd);
 
     for(int index = 0;index < server->cfg.maxfd;++index){
 		server->conlist[index] = 0;

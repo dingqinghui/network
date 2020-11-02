@@ -3,6 +3,7 @@
 #include "../include/netapi.h"
 #include "../include/connction.h"
 #include "../include/iomp.h"
+#include "../include/zmemory.h"
 
 static int connectedFinish(tcpClient* cli,int fd);
 
@@ -25,9 +26,7 @@ static int onConnectHandler(int fd,void* udata){
 
 tcpClient* tcpClientCreate(char* ip,int port,int block)
 {
-    tcpClient* cli = malloc(sizeof(tcpClient));
-    CHECK_PTR_RET_NULL(cli)
-
+    tcpClient* cli = zmalloc(sizeof(tcpClient));
     cli->ip = ip;
     cli->port = port;
     cli->block =block;

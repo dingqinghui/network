@@ -25,5 +25,6 @@ int netAccept(char* err,int lfd);
 
 int netSetSendBuf(char* err,int fd,int size);
 int netSetRecvBuf(char* err,int fd,int size);
-
+int netAcceptError(char* err);
+int netIsSelfConnect(int sockfd);
 #endif

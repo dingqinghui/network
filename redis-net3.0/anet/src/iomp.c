@@ -4,13 +4,13 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <errno.h>
-
+#include "../include/zmemory.h"
 #include "../include/epollmp.h"
 #include "../include/iomp.h"
 
 #define EV_MASK_ALL  (EV_MASK_READ | EV_MASK_WRITE | EV_MASK_ERROR)
 
-#define EV_MASK_MAX      (EV_MASK_ERROR + 1)
+#define EV_MASK_MAX      ( EV_MASK_ERROR + 1 )
 
 #define LOOP  loop
 
@@ -46,21 +46,20 @@ typedef struct fileEvent{
 typedef struct eventLoop
 {
     fileEvent * events;      //all fd event    
-    void* state;             //epoll
     int maxev;
 } eventLoop;
+
 
 
 static eventLoop* loop = 0;
 
 int evLoopCraete(int maxEv){
 
-    LOOP = malloc(sizeof(eventLoop));
-    CHECK_PTR_ERR(LOOP)
-
-    LOOP->events = malloc(sizeof(fileEvent)*maxEv);
-    CHECK_PTR_ERR(LOOP->events)
-
+    LOOP = (eventLoop*)zmalloc(sizeof(eventLoop));
+   
+    LOOP->events = (fileEvent*)zmalloc( sizeof(fileEvent) * maxEv );
+    printf("loop->events:%p\n",LOOP->events);
+    
     char err[NET_ERR_LEN];
     if( mpCreate(err,maxEv) == NET_RET_ERROR){
         PRINT_ERR(err);
@@ -73,8 +72,8 @@ int evLoopCraete(int maxEv){
         LOOP->events[i].mask = EV_MASK_NONE;
         for (size_t j = 0; j < EV_MASK_MAX; ++j)
         {
-            LOOP->events[i].evlist[j].udata = 0;
-            LOOP->events[i].evlist[j].cb = 0;
+            (LOOP->events)[i].evlist[j].udata = 0;
+            (LOOP->events)[i].evlist[j].cb = 0;
         }
     }
     LOOP->maxev = maxEv;
@@ -87,9 +86,9 @@ int evLoopCraete(int maxEv){
 
 void evLoopFree(){
     CHECK_PTR_ERR(LOOP)
-    free(LOOP->events);
+    zfree(LOOP->events);
     mpRelease();
-    free(LOOP);
+    zfree(LOOP);
     LOOP = 0;
 }
 

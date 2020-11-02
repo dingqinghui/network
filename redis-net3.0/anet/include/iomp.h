@@ -5,8 +5,8 @@
 
 #define EV_MASK_NONE     0
 #define EV_MASK_WRITE    1
-#define EV_MASK_READ     1<<1
-#define EV_MASK_ERROR    1<<2
+#define EV_MASK_READ     ( 1<<1 )
+#define EV_MASK_ERROR    ( 1<<2 )
 
 
 #define EV_WAIT_BLOCK 1
