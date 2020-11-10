@@ -1,0 +1,83 @@
+OPENMP=1
+USE_PNG=1
+USE_JPEG=1
+DEBUG=0
+
+CC = gcc
+LIB = ar
+LIBDIR = ./lib/x64/mingw
+REMOVE = rm -rf
+
+CCFLAGS = -O2 -fPIC -Wall
+ifeq ($(OPENMP), 1)
+CCFLAGS += -fopenmp
+endif
+ifeq ($(DEBUG), 1) 
+CCFLAGS += -DDEBUG
+endif
+
+WRAPDEF = 
+DEPENDLIB = -lopenblas -lm
+
+ifeq ($(USE_PNG),1)
+WRAPDEF += -DMORN_USE_PNG
+DEPENDLIB += -lpng -lz
+endif
+
+ifeq ($(USE_JPEG),1)
+WRAPDEF += -DMORN_USE_JPEG
+DEPENDLIB += -ljpeg
+endif
+
+STATICLIB = $(LIBDIR)/libmorn.a
+SHAREDLIB = ./tool/libmorn.so
+
+TOOLSOURCES = $(wildcard ./tool/*.c)
+TOOLEXE = $(patsubst %.c,%.exe,$(TOOLSOURCES))
+
+SOURCES  = $(wildcard ./src/util/*.c)
+SOURCES += $(wildcard ./src/math/*.c)
+SOURCES += $(wildcard ./src/wave/*.c)
+SOURCES += $(wildcard ./src/image/*.c)
+SOURCES += $(wildcard ./src/deep_learning/*.c)
+OBJS = $(patsubst %.c,%.ob,$(SOURCES))
+
+WRAPSOURCES = $(wildcard ./src/wrap/*.c)
+WRAPOBJS = $(patsubst %.c,%.ob,$(WRAPSOURCES))
+
+INCLUDEDIR = -I ./include -I ./lib/include
+
+all:$(STATICLIB) $(TOOLEXE)
+
+tool:$(TOOLEXE)
+
+%.exe:%.c $(STATICLIB)
+	$(CC) $(CCFLAGS) $(INCLUDEDIR) $< $(STATICLIB) -L $(LIBDIR) $(DEPENDLIB) -o $@
+
+static:$(STATICLIB)
+
+$(STATICLIB):$(OBJS) $(WRAPOBJS)
+	$(LIB) -rc $(STATICLIB) $(OBJS) $(WRAPOBJS)
+
+shared:$(SHAREDLIB)
+
+$(SHAREDLIB):$(OBJS) $(WRAPOBJS)
+	$(CC) $(CCFLAGS) -shared $(OBJS) -L $(LIBDIR) $(DEPENDLIB) -o $(SHAREDLIB)
+
+$(WRAPOBJS):%.ob:%.c 
+	$(CC) $(CCFLAGS) $(WRAPDEF) $(INCLUDEDIR) -c $< -o $@
+	
+$(OBJS):%.ob:%.c
+	$(CC) $(CCFLAGS) $(INCLUDEDIR) -c $< -o $@
+
+#clean:
+#	del /a /s .\src\*.ob
+#	del /a .\tool\*.exe
+#	del /a .\tool\libmorn.so
+#	del /a .\lib\x64\mingw\libmorn.a
+    
+#clean:
+#	rddd -rf $(OBJS)
+#	rddd -rf $(STATICLIB)
+#	rddd -rf $(SHAREDLIB)
+#	rddd -rf $(TOOLEXE)

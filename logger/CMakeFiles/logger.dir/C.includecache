@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/linux_share/logger/main.c
+stdio.h
+-
+stdarg.h
+-
+time.h
+-
+sys/time.h
+-
+zlog.h
+/mnt/hgfs/linux_share/logger/zlog.h
+
+/usr/local/include/zlog.h
+stdarg.h
+-
+stdio.h
+-
+

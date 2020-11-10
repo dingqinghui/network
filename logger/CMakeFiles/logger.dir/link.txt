@@ -1,0 +1,1 @@
+/usr/bin/cc  -g    CMakeFiles/logger.dir/main.c.o  -o logger  -L/usr/local/lib -rdynamic -lzlog -Wl,-rpath,/usr/local/lib 

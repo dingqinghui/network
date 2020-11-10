@@ -1,0 +1,22 @@
+SET(EXECUTABLE_OUTPUT_PATH ./)       #设置可执行文件的输出目录
+SET(LIBRARY_OUTPUT_PATH ./)             #设置库文件的输出目录
+set(CMAKE_BUILD_TYPE "Debug")
+
+add_compile_options(-std=gnu99)
+
+#Make 最低版本号要求
+cmake_minimum_required (VERSION 2.8)
+
+# 项目信息
+add_definitions(-g)
+
+
+include_directories(/usr/local/include)
+LINK_DIRECTORIES(/usr/local/lib)
+
+project (logger)
+
+
+# 指定生成目标
+add_executable(logger   main.c )
+TARGET_LINK_LIBRARIES(logger zlog)
