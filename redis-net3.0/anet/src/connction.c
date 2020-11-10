@@ -39,7 +39,7 @@ static int isClosing(connection* con);
 static int onErrorHandler(int fd,void* udata){
     connection* con = udata;
 	CHECK_PTR_ERR(con)
-    PRINT_ERR(ERR_STR)
+    NET_LOG_ERROR(ERR_STR);
     onForceClose(con);
 }
 
@@ -52,7 +52,6 @@ static int onReadHandler(int fd,void* udata){
 	if(n < 0){
 		char err[NET_ERR_LEN];
 		if( netIoError(err,con->fd) == NET_RET_ERROR ){
-            //PRINT_ERR(err)
 			onForceClose(con);
             return NET_RET_ERROR;
 		}
@@ -85,7 +84,7 @@ static int onWriteHandler(int fd,void* udata)
 			if( netIoError(err,con->fd) == NET_ERR 
                 || n == 0 ){
                 //write err
-                PRINT_ERR(err)
+                NET_LOG_ERROR(err);
 				onForceClose(con);
                 return NET_RET_ERROR;
 			}
@@ -201,7 +200,7 @@ int connectionSend(connection* con,char* buf,int size){
             if( netIoError(err,con->fd) == NET_ERR 
                 || nsend == 0 ){
                 //write err
-                PRINT_ERR(err)
+                NET_LOG_ERROR(err);
                 onForceClose(con);
                 return NET_RET_ERROR;
             }
@@ -210,11 +209,11 @@ int connectionSend(connection* con,char* buf,int size){
     G_SEND_BYTE += nsend;
     if(size - nsend){
         if(bufferWrite(con->outputBuf, buf + nsend, size - nsend) == NET_RET_ERROR ){
-            PRINT_ERR("con write buf fail.");
+            NET_LOG_ERROR("con write buf fail.");
             return NET_RET_ERROR;
         }
         if(evLoopRegister(con->fd, EV_MASK_WRITE, onWriteHandler,con) == NET_RET_ERROR){
-            PRINT_ERR("con register write event fail.");
+            NET_LOG_ERROR("con register write event fail.");
             return NET_RET_ERROR;
         }
     }
@@ -243,7 +242,6 @@ static int onForceClose(connection* con){
     CHECK_PTR_ERR(con)
     CHECK_PTR_ERR(con->disconnectCallback);
     
-    //PRINT_DEBUG("close connection fd:%d\n",con->fd);
     //callback user logic
     con->disconnectCallback(con);
     //del event
@@ -251,7 +249,7 @@ static int onForceClose(connection* con){
     //close fd
     char err[NET_ERR_LEN];
     if( netClose(err,con->fd) == NET_RET_ERROR){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
     }
 
     onSetState(con,CON_STATE_CLOSED);
@@ -276,7 +274,7 @@ static int  onReportInfo(connection* con,char* actStr) {
 	int peerPort;
 	netGetPeerInfo(con->fd, peerIp, &peerPort);
 
-	PRINT_DEBUG("%s.<fd:%d localAddr-%s:%d peerAddr-%s:%d>\n",
+	NET_LOG_DEBUG("%s.<fd:%d localAddr-%s:%d peerAddr-%s:%d>\n",
 		actStr,con->fd, localIp, localPort, peerIp, peerPort);
 
 	return NET_RET_OK;

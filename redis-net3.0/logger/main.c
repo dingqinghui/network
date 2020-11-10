@@ -28,6 +28,7 @@ int main(int argc,char* argv[])
 
     for(int i = 0;i < cnt;++i){
         LOG_DEBUG(log,format,i);
+        LOG_DEBUG(log,"1111111 %d %d",12,34);
         //nlog_format2(log,NLOG_LVL_DEBUG,format,i);
     }
 

@@ -6,7 +6,7 @@
 #include "../include/zmemory.h"
 #include "../include/error.h"
 #include "../include/buffer.h"
-
+#include "../include/netlogger.h"
 
 #define APPEND_CAP_SCALE 2
 
@@ -22,7 +22,7 @@ buffer* bufferCreate(int initSize){
 
     return buf;
 }
-void bufferFree(buffer* pBuf) {
+int bufferFree(buffer* pBuf) {
 	CHECK_PTR_ERR(pBuf)
 	CHECK_PTR_ERR(pBuf->data);
 	zfree(pBuf->data);
@@ -34,6 +34,25 @@ int bufferIsEmpty(buffer* pBuf) {
 }
 int bufferIsFull(buffer* pBuf) {
 	return pBuf->curSize == pBuf->capMax;
+}
+
+int bufferExpand(buffer* pBuf,int size) {
+	CHECK_PTR_ERR(pBuf)
+	int cap = (pBuf->curSize + size) * APPEND_CAP_SCALE;
+	char* ptr = zmalloc(sizeof(char) * cap);
+
+	int oldCap = pBuf->curSize;
+
+	bufferRead(pBuf, ptr, pBuf->curSize);
+
+	zfree(pBuf->data);
+	pBuf->data = ptr;
+	pBuf->readIndex = 0;
+	pBuf->writeIndex = oldCap;
+	pBuf->capMax = cap;
+	pBuf->curSize = oldCap;
+
+	return NET_RET_OK;
 }
 
 int bufferWrite(buffer* pBuf, char* buf, int size) {
@@ -67,24 +86,7 @@ int bufferWrite(buffer* pBuf, char* buf, int size) {
 	return size;
 }
 
-int bufferExpand(buffer* pBuf,int size) {
-	CHECK_PTR_ERR(pBuf)
-	int cap = (pBuf->curSize + size) * APPEND_CAP_SCALE;
-	char* ptr = zmalloc(sizeof(char) * cap);
 
-	int oldCap = pBuf->curSize;
-
-	bufferRead(pBuf, ptr, pBuf->curSize);
-
-	zfree(pBuf->data);
-	pBuf->data = ptr;
-	pBuf->readIndex = 0;
-	pBuf->writeIndex = oldCap;
-	pBuf->capMax = cap;
-	pBuf->curSize = oldCap;
-
-	return NET_RET_OK;
-}
 
 int bufferReadAll(buffer* pBuf, char* buf) {
 	return bufferRead(pBuf, buf, pBuf->curSize);
@@ -126,5 +128,5 @@ int bufferRead(buffer* pBuf, char* buf, int size) {
 }
 
 int bufferPrint(buffer* pBuf) {
-	printf("cap:%d cur:%d readIndex:%d writeIndex:%d \n", pBuf->capMax, pBuf->curSize, pBuf->readIndex, pBuf->writeIndex);
+	NET_LOG_DEBUG("cap:%d cur:%d readIndex:%d writeIndex:%d \n", pBuf->capMax, pBuf->curSize, pBuf->readIndex, pBuf->writeIndex);
 }

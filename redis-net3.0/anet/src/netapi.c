@@ -228,7 +228,7 @@ struct sockaddr_in6 netGetLocalAddr(int sockfd)
 	memset(&localaddr, 0, sizeof localaddr);
 	socklen_t addrlen = (socklen_t)sizeof(localaddr);
 	if (getsockname(sockfd, (struct sockaddr*)(&localaddr), &addrlen) < 0){
-		PRINT_DEBUG("getsockname fail:fd:%d  %s\n", sockfd, strerror(errno));
+		NET_LOG_DEBUG("getsockname fail:fd:%d  %s\n", sockfd, strerror(errno));
 	}
 	return localaddr;
 }
@@ -239,7 +239,7 @@ struct sockaddr_in6 netGetPeerAddr(int sockfd)
 	memset(&peeraddr, 0,sizeof peeraddr);
 	socklen_t addrlen = (socklen_t)sizeof(peeraddr);
 	if (getpeername(sockfd, (struct sockaddr*)(&peeraddr), &addrlen) < 0){
-		PRINT_DEBUG("getpeername fail:fd:%d  %s\n", sockfd, strerror(errno));
+		NET_LOG_DEBUG("getpeername fail:fd:%d  %s\n", sockfd, strerror(errno));
 	}
 	return peeraddr;
 }

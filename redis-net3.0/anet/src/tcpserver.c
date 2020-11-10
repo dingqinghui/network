@@ -8,7 +8,7 @@
 #define CHECK_SER_FD_ERR(server,fd)  \
 if(fd < 0 || fd > server->cfg.maxfd )\
 { \
-    PRINT_ERR("fd is over size")\
+    NET_LOG_ERROR("fd is over size");\
     return NET_RET_ERROR; \
 } 
 
@@ -25,7 +25,7 @@ static int onTcpServerAcceptHandler(int lfd,void* udata){
         if (fd < 0 )
         {
             if(netAcceptError(err) ){
-                PRINT_ERR(err);
+                NET_LOG_ERROR(err);
                 return NET_RET_ERROR;
             }
             break;
@@ -67,14 +67,14 @@ int  tcpServerStart(tcpServer* server) {
 	char err[NET_ERR_LEN];
 	server->lfd = netTcpServer(err,server->cfg.ip,server->cfg.port);
     if(server->lfd ==  NET_RET_ERROR){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
 	if( NET_RET_ERROR == 
         evLoopRegister(server->lfd, EV_MASK_READ, onTcpServerAcceptHandler,server)){
         return NET_RET_ERROR;
     }
-    PRINT_DEBUG("server start succese lisent addr-ip:%s:%d\n",server->cfg.ip,server->cfg.port);
+    NET_LOG_DEBUG("server start succese lisent addr-ip:%s:%d\n",server->cfg.ip,server->cfg.port);
     return NET_RET_OK;
 }
 
@@ -86,23 +86,23 @@ int  onPassiveConnect(tcpServer* server,int fd){
 
     char err[NET_ERR_LEN];
 	if( netSetNoblock(err,fd) == NET_ERR){
-        PRINT_ERR(err)
+        NET_LOG_ERROR(err);
         netClose(err,fd);
         return NET_RET_ERROR;
     }
     if( netTcpNoDelay(err,fd) == NET_ERR){
-        PRINT_ERR(err)
+        NET_LOG_ERROR(err);
         netClose(err,fd);
         return NET_RET_ERROR;
     }
 
     if( netSetSendBuf(err,fd,32768) == NET_ERR){
-        PRINT_ERR(err)
+        NET_LOG_ERROR(err);
         netClose(err,fd);
         return NET_RET_ERROR;
     }
     if( netSetRecvBuf(err,fd,32768) == NET_ERR){
-        PRINT_ERR(err)
+        NET_LOG_ERROR(err);
         netClose(err,fd);
         return NET_RET_ERROR;
     }

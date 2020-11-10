@@ -9,7 +9,6 @@ static int connectedFinish(tcpClient* cli,int fd);
 
 
 static int onConnectHandler(int fd,void* udata){
-    printf("onConnectHandler\n");
     tcpClient* cli = udata;
     CHECK_PTR_ERR(cli)
     
@@ -48,7 +47,7 @@ int tcpClientStart(tcpClient* cli){
     }
 
     if(fd ==  NET_RET_ERROR){
-        PRINT_ERR(err)
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
 

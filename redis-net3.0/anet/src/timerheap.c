@@ -6,8 +6,10 @@
 #include <assert.h>
 #include <unistd.h>
 
+
 #include "../include/timerheap.h"
 #include "../include/zmemory.h"
+#include "../include/netlogger.h"
 
 static long long  getMillisecond(){
     long long t = 0;
@@ -177,6 +179,6 @@ void _th_resize() {
 
 void th_print(){
     for(int i = 0;i < T->size;++i){
-        printf("index:%d expire:%d  hole:%d\n",i,(T->array[i])->expire,(T->array[i])->hole);
+        NET_LOG_DEBUG("index:%d expire:%d  hole:%d\n",i,(T->array[i])->expire,(T->array[i])->hole);
     }
 } 

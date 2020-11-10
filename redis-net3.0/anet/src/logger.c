@@ -10,14 +10,16 @@
  #include <unistd.h>
 #include <fcntl.h>
 #include <assert.h>
-#include "logger.h"
 
+#include "../include/logger.h"
+#include "../include/zmemory.h"
 
 #define FILE_PATH_MAX 5000
 #define FILE_NAME_MAX 255
 
-#define MALLOC malloc
+#define MALLOC zmalloc
 #define BUFFER_SIZE 65535
+
 
 static char* levelName[] = {
     [NLOG_LVL_DEBUG] = "DEBUG",

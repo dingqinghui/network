@@ -12,7 +12,7 @@ typedef struct buffer
 
 
 buffer* bufferCreate(int initSize);
-void bufferFree(buffer* pBuf);
+int bufferFree(buffer* pBuf);
 
 int bufferIsEmpty(buffer* pBuf);
 int bufferIsFull(buffer* pBuf);

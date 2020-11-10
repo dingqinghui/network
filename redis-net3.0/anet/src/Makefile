@@ -235,6 +235,30 @@ iomp.c.s:
 	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/iomp.c.s
 .PHONY : iomp.c.s
 
+logger.o: logger.c.o
+.PHONY : logger.o
+
+# target to build an object file
+logger.c.o:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/logger.c.o
+.PHONY : logger.c.o
+
+logger.i: logger.c.i
+.PHONY : logger.i
+
+# target to preprocess a source file
+logger.c.i:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/logger.c.i
+.PHONY : logger.c.i
+
+logger.s: logger.c.s
+.PHONY : logger.s
+
+# target to generate assembly for a file
+logger.c.s:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/logger.c.s
+.PHONY : logger.c.s
+
 netapi.o: netapi.c.o
 .PHONY : netapi.o
 
@@ -258,6 +282,30 @@ netapi.s: netapi.c.s
 netapi.c.s:
 	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/netapi.c.s
 .PHONY : netapi.c.s
+
+netlogger.o: netlogger.c.o
+.PHONY : netlogger.o
+
+# target to build an object file
+netlogger.c.o:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/netlogger.c.o
+.PHONY : netlogger.c.o
+
+netlogger.i: netlogger.c.i
+.PHONY : netlogger.i
+
+# target to preprocess a source file
+netlogger.c.i:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/netlogger.c.i
+.PHONY : netlogger.c.i
+
+netlogger.s: netlogger.c.s
+.PHONY : netlogger.s
+
+# target to generate assembly for a file
+netlogger.c.s:
+	cd /mnt/hgfs/linux_share/redis-net3.0 && $(MAKE) -f anet/src/CMakeFiles/reactornet.dir/build.make anet/src/CMakeFiles/reactornet.dir/netlogger.c.s
+.PHONY : netlogger.c.s
 
 tcpclient.o: tcpclient.c.o
 .PHONY : tcpclient.o
@@ -379,9 +427,15 @@ help:
 	@echo "... iomp.o"
 	@echo "... iomp.i"
 	@echo "... iomp.s"
+	@echo "... logger.o"
+	@echo "... logger.i"
+	@echo "... logger.s"
 	@echo "... netapi.o"
 	@echo "... netapi.i"
 	@echo "... netapi.s"
+	@echo "... netlogger.o"
+	@echo "... netlogger.i"
+	@echo "... netlogger.s"
 	@echo "... tcpclient.o"
 	@echo "... tcpclient.i"
 	@echo "... tcpclient.s"

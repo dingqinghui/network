@@ -4,6 +4,7 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include "../include/netlogger.h"
 
 #define NET_RET_NULL 0
 
@@ -13,23 +14,17 @@
 #define NET_ERR_LEN 256
 
 
-#define PRINT_DEBUG(format,...) \
-printf(format,__VA_ARGS__);
-
-#define PRINT_ERR(msg) \
-printf("%s.function:%s file:%s line:%d\n",msg,__FUNCTION__,__FILE__,__LINE__);
-
 #define CHECK_PTR_ERR(ptr)  \
 if(ptr == 0) \
 { \
-    PRINT_ERR("")\
+    NET_LOG_ERROR("ptr is null");\
     return NET_RET_ERROR; \
 } 
 
 #define CHECK_PTR_RET_NULL(ptr)  \
 if(ptr == 0) \
 { \
-    PRINT_ERR("")\
+    NET_LOG_ERROR("ptr is null");\
     return NET_RET_NULL; \
 } 
 

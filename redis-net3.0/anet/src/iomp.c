@@ -18,7 +18,7 @@
 #define CHECK_FD_VALUE(fd)  \
 if(LOOP->maxev <= fd)\
 { \
-    PRINT_ERR("fd is over loop size")\
+    NET_LOG_ERROR("fd is over loop size");\
     return NET_RET_ERROR; \
 } 
 
@@ -26,7 +26,7 @@ if(LOOP->maxev <= fd)\
 if(mask != EV_MASK_READ &&  mask != EV_MASK_WRITE \
     &&  mask != EV_MASK_ERROR ) \
 {\
-    PRINT_ERR("invaild mask")\
+    NET_LOG_ERROR("invaild mask");\
     return NET_RET_ERROR;\
 }
 
@@ -58,11 +58,10 @@ int evLoopCraete(int maxEv){
     LOOP = (eventLoop*)zmalloc(sizeof(eventLoop));
    
     LOOP->events = (fileEvent*)zmalloc( sizeof(fileEvent) * maxEv );
-    printf("loop->events:%p\n",LOOP->events);
-    
+
     char err[NET_ERR_LEN];
     if( mpCreate(err,maxEv) == NET_RET_ERROR){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
 
@@ -107,7 +106,7 @@ int evLoopRegister(int fd,int mask,void* cb,void* udata){
     fileEvent* event = &(LOOP->events[fd]);
     char err[NET_ERR_LEN];
     if(NET_RET_ERROR == mpAdd(err,fd,event->mask,mask) ){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
 
@@ -127,7 +126,7 @@ int evLoopUnregister(int fd,int mask){
 
     char err[NET_ERR_LEN];
     if(NET_RET_ERROR == mpDel(err,fd,event->mask,mask) ){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
     event->mask &= ~mask;
@@ -147,7 +146,7 @@ int evLoopRemove(int fd){
     char err[NET_ERR_LEN];
     fileEvent* event = &(LOOP->events[fd]);
     if(NET_RET_ERROR == mpDel(err,fd,event->mask,EV_MASK_ALL) ){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
     event->fd = -1;
@@ -162,7 +161,7 @@ int onPollEvent(){
     char err[NET_ERR_LEN];
     int fireCnt = mpWait(err,FRAME_LOOP);
     if(fireCnt == NET_RET_ERROR){
-        PRINT_ERR(err);
+        NET_LOG_ERROR(err);
         return NET_RET_ERROR;
     }
 

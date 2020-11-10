@@ -66,9 +66,14 @@ void onTimer(void* udata){
 
 int main()
 {
+
+	netloger_init();
+
 	evLoopCraete(20000);
 	th_init( 5 );
 	th_add_timer(1000,onTimer,0);
+
+
 
 	config cfg;
 	cfg.ip = "127.0.0.1";

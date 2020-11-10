@@ -52,6 +52,8 @@ void onTimer(void* udata){
 }
 int main(int argc,char *argv[])
 {
+	netloger_init();
+
 	if(argc >= 2){
 		clientCnt =  atoi(argv[1]);
 		packSize = atoi(argv[2]);
@@ -64,6 +66,7 @@ int main(int argc,char *argv[])
 	evLoopCraete(20000);
 	th_init( 5 );
 
+	
 
 	for (size_t i = 0; i < clientCnt; i++)
 	{
