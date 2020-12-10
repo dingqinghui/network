@@ -1,0 +1,1 @@
+/usr/bin/cc  -g    CMakeFiles/mtclient.dir/client.c.o CMakeFiles/mtclient.dir/zkcli.c.o  -o /mnt/hgfs/linux_share/zookeeper/bin/mtclient  -L../lib -rdynamic -lpthread -lzookeeper_mt -lm -Wl,-rpath,../lib 

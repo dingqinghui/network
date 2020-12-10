@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <unistd.h>
+#include "zkcli.h"
+
+#include <pthread.h>
+
+      
+
+void session_wacher(zkclient* cli){
+    pthread_t id = pthread_self();
+    if( zkclient_is_expire() ){
+        printf("session expire %lu.\n",id);
+    }
+    else if( zkclient_is_connected() ){
+        printf("session connected %lu.\n",id);
+    }
+    else{
+        printf("session connecting %lu.\n",id);
+    }
+}
+
+
+void create_wacher(struct wacher_context* wcc){
+    assert(wcc);
+    printf("path:%s rc:%s rvalue:%s expored:%d connected:%d \n",
+        wcc->path,
+        zerror(wcc->rc) ,
+        wcc->rvalue,
+        wcc->cli->expired,
+        wcc->cli->connected);
+}
+
+int main(int argc,const char*argv[])
+{
+    pthread_t id = pthread_self();
+    printf("main thread id:%lu\n",id);
+    char*host="127.0.0.1:2183,127.0.0.1:2184,127.0.0.1:2185";
+
+    zkclient* zkcli  = zkclient_create();
+    assert(zkcli);
+    if( zkclient_init(zkcli ,host,15000,session_wacher) < 0){
+
+    }
+
+    int value = 0;
+    if( zkclient_create_node(zkcli,"/test",&value,sizeof(value),create_wacher,0) < 0){
+
+    }
+
+    while(1){
+        sleep(1);
+    }
+    zkclient_free(zkcli);
+
+    
+
+    return 0;
+}
+     

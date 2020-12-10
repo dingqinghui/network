@@ -1,0 +1,8 @@
+FROM centos
+
+WORKDIR /tmp
+
+COPY ./bin  /server/
+
+EXPOSE 8001
+#ENTRYPOINT ./server/server

@@ -35,14 +35,12 @@ static int isClosing(connection* con);
     关闭：对于所有被动关闭，我们都默认对方使用了close而不是shutdown触发，所以本端对等执行close即可。
     主动关闭：将应用层发送缓冲区中的内容发送完毕即可，close后一定不可读了。
 */
-
 static int onErrorHandler(int fd,void* udata){
     connection* con = udata;
 	CHECK_PTR_ERR(con)
     NET_LOG_ERROR(ERR_STR);
     onForceClose(con);
 }
-
 
 static int onReadHandler(int fd,void* udata){
     connection* con = udata;
@@ -118,7 +116,6 @@ static int onSetState(connection* con,int state){
     return NET_RET_OK;
 }
 
-
 connection* connectionCreate(int fd){
     connection* con = zmalloc(sizeof(connection));
 
@@ -167,9 +164,6 @@ int connectionFree(connection* con){
     return NET_RET_OK;
 }
 
-
-
-
 int connectionInitCallBack(connection* con,ConnectCallback* connectCallback,
                 MessageCallback* messageCallback,DisConnectCallback*  disconnectCallback){
     CHECK_PTR_ERR(con)
@@ -180,7 +174,6 @@ int connectionInitCallBack(connection* con,ConnectCallback* connectCallback,
     return NET_RET_OK;
 }
 
-
 int connectionEstablished(connection* con ){
     CHECK_PTR_ERR(con)
     CHECK_PTR_ERR(con->connectCallback);
@@ -188,7 +181,6 @@ int connectionEstablished(connection* con ){
     con->connectCallback(con);
     return NET_RET_OK;
 }
-
 
 int connectionSend(connection* con,char* buf,int size){
     CHECK_PTR_ERR(con)
@@ -236,8 +228,6 @@ int connectionShutdown(connection* con ){
     return NET_RET_OK;
 }
 
-
-
 static int onForceClose(connection* con){
     CHECK_PTR_ERR(con)
     CHECK_PTR_ERR(con->disconnectCallback);
@@ -257,8 +247,6 @@ static int onForceClose(connection* con){
 
 	return NET_RET_OK;
 }
-
-
 
 static int  onReportInfo(connection* con,char* actStr) {
 	CHECK_PTR_ERR(con)
