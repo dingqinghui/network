@@ -6,18 +6,50 @@
 #include "zkcli.h"
 
 
+void nodeChangeEventHandler(zkclient* cli,int eventType,const char* path,void* context){
+    printf("nodeChangeEventHandler path:%s eventType:%d\n",path,eventType);
+}
+
+
+void getRTHandler(zkclient* cli,int errCode,const char* path,const char* buff,int bufflen,const struct Stat *stat,void* context){
+
+    printf("nodepath:%s data:%s\n",path,buff);
+}
+
+void getChildrenRTHandler(zkclient* cli,int errCode,const char* path,const struct String_vector *strings,void* context){
+    printf("parentNode path:%s\n",path);
+    char childPath [256];
+    for(int i = 0;i < strings->count;++i){
+         sprintf(childPath,"%s/%s",path,strings->data[i]);
+         printf("childnode path:%s\n",childPath);
+         if( zkclientGetNode(cli,childPath,getRTHandler,cli)  < 0){
+
+         }
+    }
+}
+
 
 
 void createRTHandler(zkclient* cli,int errCode,const char* path,const char* value,void* context){
     if(errCode == ZKRT_SUCCESS || errCode == ZKRT_NODEEXIST){
-        if(strcmp("/parent",path) == 0){
-            for (size_t i = 0; i < 10; i++)
+        const char* parentPath = "/parent";
+        const char* childPath = "/parent/child";
+        //父节点创建成功 创建10个子节点
+        if(strcmp(parentPath,path) == 0){
+            for (size_t i = 0; i < 1; i++)
             {
                 char* val[30];
                 sprintf(val,"this is child :%d",i) ;
-                zkclientCreateNode(cli,"/parent/child",val,strlen(val),1,1,createRTHandler,0);
+                zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,1,createRTHandler,0);
+
+                zkclientSubscribeEvent(cli,childPath,EventNodeCreated,nodeChangeEventHandler,cli);
+
+                zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,0,createRTHandler,0);
             }
+
+            zkclientGetChildrens(cli,parentPath,getChildrenRTHandler,cli);
         }
+
     }
 }
 
@@ -29,8 +61,14 @@ void sessionHandler(zkclient* cli,void* context){
     }
     if( zkclientIsConnected(cli) ){
         printf("session connected \n");
-        const char* val = "this is parent";
-        zkclientCreateNode(cli,"/parent",val,strlen(val),0,0,createRTHandler,0);
+        //const char* val = "this is parent";
+        //zkclientCreateNode(cli,"/parent",val,strlen(val) + 1,0,0,createRTHandler,0);
+
+        const char* childPath = "/parent/child";
+        zkclientSubscribeEvent(cli,childPath,EventNodeCreated,nodeChangeEventHandler,cli);
+
+        zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
+
         return ;
     }
     else{

@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <zookeeper.h>
-#include <zookeeper_log.h>
+
 #include <string.h>
 #include <errno.h>
 #include <stdarg.h>
@@ -301,7 +300,7 @@ int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,i
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
-    rtCx->path = path;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
     rtCx->context = context;
     rtCx->createRTHandler = watcher;
     
@@ -332,6 +331,8 @@ static void createNodeCompletion(int rc, const char *value, const void *data) {
     if(rtCx->createRTHandler){
        rtCx->createRTHandler(rtCx->cli,code,rtCx->path,value,rtCx->context);
     }
+
+    free(rtCx);
 }
 
 
@@ -341,7 +342,7 @@ static void createNodeCompletion(int rc, const char *value, const void *data) {
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
-    rtCx->path = path;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
     rtCx->context = context;
     rtCx->setRTHandler = watcher;
 
@@ -373,6 +374,7 @@ static  void setDataCompletion(int rc, const struct Stat *stat,const void *data)
     if(rtCx->setRTHandler){
        rtCx->setRTHandler(rtCx->cli,code,rtCx->path,stat,rtCx->context);
     }
+    free(rtCx);
 }
 
 //获取数据
@@ -380,7 +382,7 @@ int zkclientGetNode(zkclient* cli,const char* path,getNodeRTHandler watcher,void
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
-    rtCx->path = path;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
     rtCx->context = context;
     rtCx->getRTHandler = watcher;
 
@@ -410,6 +412,7 @@ static void getDataCompletion(int rc, const char *value, int value_len,const str
     if(rtCx->getRTHandler){
        rtCx->getRTHandler(rtCx->cli,code,rtCx->path,value,value_len,stat,rtCx->context);
     }
+    free(rtCx);
 }
 
 
@@ -419,7 +422,7 @@ int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,v
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
-    rtCx->path = path;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
     rtCx->context = context;
     rtCx->deleteRTHandler = watcher;
 
@@ -446,6 +449,7 @@ static void deleteNodeCompletion(int rc, const void *data){
     if(rtCx->deleteRTHandler){
        rtCx->deleteRTHandler(rtCx->cli,code,rtCx->path,rtCx->context);
     }
+    free(rtCx);
 }
 
 
@@ -454,7 +458,7 @@ int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
-    rtCx->path = path;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
     rtCx->context = context;
     rtCx->getChildrenRTHandler = watcher;
 
@@ -466,7 +470,7 @@ int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler
 }
 
 static void getChildrenCompletion(int rc, const struct String_vector *strings,const void *data) {
-     RtContext* rtCx = data;
+    RtContext* rtCx = data;
     assert(rtCx);
     int code = 0;
     if(rc == ZOK){
@@ -483,5 +487,90 @@ static void getChildrenCompletion(int rc, const struct String_vector *strings,co
     if(rtCx->getChildrenRTHandler){
        rtCx->getChildrenRTHandler(rtCx->cli,code,rtCx->path,strings,rtCx->context);
     }
-   
+    free(rtCx);
+}
+
+
+//使用exist注册监视点完成回调
+void existCompletion(int rc, const struct Stat *stat,const void *data){
+    RtContext* rtCx = data;
+    assert(rtCx);
+    PRINTF("exist completion node:%s  result:%s\n",rtCx->path,zerror(rc));
+    if(rc != ZOK && rc != ZNONODE){
+       rtCx->wacher(rtCx->cli, EventNodeSubFail,rtCx->path ,rtCx->context);
+       free(rtCx);
+    }
+}
+
+
+static int checkTriggerEvent(RtContext* rtCx,int type){ 
+     if ( type == ZOO_CREATED_EVENT){
+      if( rtCx->extr == EventNodeCreated ){
+        return 1;
+      }
+     }
+     else if ( type == ZOO_DELETED_EVENT){
+      if( rtCx->extr == EventNodeDeleted ){
+        return 1;
+      }
+     }
+    else if ( type == ZOO_CHANGED_EVENT){
+      if( rtCx->extr == EventNodeDataChanged ){
+        return 1;
+      }
+     }
+     
+    else if ( type == ZOO_CHILD_EVENT){
+      if( rtCx->extr == EventNodeChildrenChanged ){
+        return 1;
+      }
+     }
+     return 0;
+}
+
+static int  existWithRTContext(zkclient* cli, RtContext* rtCx);
+
+static void existWatcheFn(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx){
+    RtContext* rtCx = watcherCtx;
+    PRINTF("existWatcheFn type:%d \n",type);
+    if( checkTriggerEvent(rtCx,type) ){
+       rtCx->wacher(rtCx->cli, rtCx->extr,path,rtCx->context);
+       free(rtCx);
+    } 
+    else{
+      if( type == ZOO_NOTWATCHING_EVENT || type == ZOO_SESSION_EVENT){
+         rtCx->wacher(rtCx->cli, EventNodeFail,path,rtCx->context);
+         free(rtCx);
+      }
+      else{
+        //不是无关注的事件 也不是出错事件  则重新注册
+        existWithRTContext(rtCx->cli, rtCx);
+      }
+    }
+    
+ }
+
+
+static int  existWithRTContext(zkclient* cli, RtContext* rtCx){
+    int rc= zoo_awexists(cli->zh, rtCx->path, existWatcheFn, rtCx,existCompletion, rtCx);
+    CHECK_RC(rc,"SubscribeEvent ")
+    return 0;
+}
+
+
+
+int zkclientSubscribeEvent(zkclient* cli,char* path,int eventType,nodeEventHandler wacher,void* context){
+    if(!wacher){
+      return 0;
+    }
+    RtContext* rtCx = malloc(sizeof(RtContext));
+    assert(rtCx);
+    
+    rtCx->cli = cli;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
+    rtCx->context = context;
+    rtCx->wacher = wacher;
+    rtCx->extr = eventType;
+
+    return existWithRTContext(cli, rtCx);
 }

@@ -2,6 +2,9 @@
 #ifndef __ZKCLIENT_H__
 #define __ZKCLIENT_H__
 
+#include <zookeeper.h>
+#include <zookeeper_log.h>
+
 typedef struct zkclient zkclient;
 
 //异步回调错误码
@@ -10,6 +13,14 @@ typedef struct zkclient zkclient;
 #define ZKRT_NONODE     1    //节点/父节点不存在
 #define ZKRT_NODEEXIST  2    //节点存在
 
+
+//节点事件
+#define EventNodeCreated             0
+#define EventNodeDeleted             1
+#define EventNodeDataChanged         2
+#define EventNodeChildrenChanged     3
+#define EventNodeSubFail             4 //注册事件失败
+#define EventNodeFail                5 //出错  会话断开/监视点失效
 
 // //会话事件
 // #define SESSION_EVENT_NEW       0   //新会话建立成功
@@ -23,22 +34,32 @@ typedef void (*getNodeRTHandler)(zkclient* cli,int errCode,const char* path,cons
 typedef void (*deleteNodeRTHandler)(zkclient* cli,int errCode,const char* path,void* context);
 typedef void (*getChildrenNodeRTHandler)(zkclient* cli,int errCode,const char* path,const struct String_vector *strings,void* context);
 
+
+
+//事件回调
+typedef void (*nodeEventHandler)(zkclient* cli,int eventType,const char* path,void* context);
+
+
+
+typedef void (*sessionEventHandler)(zkclient* cli,void* context);
+
 //异步操作完成回调参数
 typedef struct RtContext{
     zkclient* cli;
     void* context;
-    const char* path;
+    char* path[256];
     union {
         createNodeRTHandler createRTHandler;
         setNodeRTHandler setRTHandler;
         getNodeRTHandler getRTHandler;
         deleteNodeRTHandler deleteRTHandler;
         getChildrenNodeRTHandler getChildrenRTHandler;
+
+        nodeEventHandler wacher;
     };
+    void* extr;
 }RtContext;
 
-
-typedef void (*sessionEventHandler)(zkclient* cli,void* context);
 
 
 zkclient* zkclientCreate(sessionEventHandler sessionHandler,void* sessionEventCtx);
@@ -56,5 +77,7 @@ int zkclientSetNode(zkclient* cli,const char* path,const char* buff,int bufflen,
 int zkclientGetNode(zkclient* cli,const char* path,getNodeRTHandler watcher,void* context);
 int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,void* context);
 int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler watcher,void* context);
+
+int zkclientSubscribeEvent(zkclient* cli,char* path,int eventType,nodeEventHandler wacher,void* context);
 
 #endif
