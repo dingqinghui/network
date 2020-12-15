@@ -1,4 +1,4 @@
-/////////////////////单线程客户端///////////////////////////////////
+/////////////////////单线程异步客户端///////////////////////////////////
 #ifndef __ZKCLIENT_H__
 #define __ZKCLIENT_H__
 
@@ -8,7 +8,7 @@
 typedef struct zkclient zkclient;
 
 
-static const int RECV_TIMEOUT = 10000; //客户默认会话过期时间
+
 
 //异步回调错误码
 #define ZKRT_ERROR      -1
@@ -47,14 +47,14 @@ typedef void (*nodeEventHandler)(zkclient* cli,int eventType,const char* path,vo
 
 
 typedef void (*sessionConnectedHandler)(zkclient* cli);
-typedef void (*sessionCloseHandler)(zkclient* cli);
+typedef void (*sessionCloseHandler)(zkclient* cli,int isExpire);
 
 
 //异步操作完成回调参数
 typedef struct RtContext{
     zkclient* cli;
     void* context;
-    char* path[256];
+    char  path[256];
     union {
         createNodeRTHandler createRTHandler;
         setNodeRTHandler setRTHandler;
@@ -64,17 +64,18 @@ typedef struct RtContext{
         existNodeRTHandler  existRTHandler;
     };
     nodeEventHandler wacher;
-    void* extr;
+    int extr;
 }RtContext;
 
 
 
-zkclient* zkclientCreate(sessionConnectedHandler connectHandle,sessionCloseHandler closeHandle);
+zkclient* zkclientCreate(const char* host,sessionConnectedHandler connectHandle,sessionCloseHandler closeHandle,int timeout);
 void zkclientFree(zkclient* cli);
 
-int zkclientConnect(zkclient* cli,const char* host);
+int zkclientConnect(zkclient* cli);
 int zkclientDisconnect(zkclient* cli);
 
+int zkclientIsConnected(zkclient* cli);
 
 int zkclientRun(zkclient* cli);
 int zkclientStop(zkclient* cli);

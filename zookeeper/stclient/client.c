@@ -6,9 +6,7 @@
 #include "zkcli.h"
 
 
-void nodeChangeEventHandler(zkclient* cli,int eventType,const char* path,void* context){
-    printf("nodeChangeEventHandler path:%s eventType:%d\n",path,eventType);
-}
+
 
 
 void getRTHandler(zkclient* cli,int errCode,const char* path,const char* buff,int bufflen,const struct Stat *stat,void* context){
@@ -55,32 +53,53 @@ void createRTHandler(zkclient* cli,int errCode,const char* path,const char* valu
 }
 
 
-void sessionHandler(zkclient* cli,void* context){
-    if(  zkclientIsExpired(cli) ){
-        printf("session expire \n");
-        return ;
-    }
-    if( zkclientIsConnected(cli) ){
-        printf("session connected \n");
-        //const char* val = "this is parent";
-        //zkclientCreateNode(cli,"/parent",val,strlen(val) + 1,0,0,createRTHandler,0);
-        const char* parentPath = "/parent";
-        const char* childPath = "/parent/child";
-        //zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChangeEventHandler,cli);
 
-        //zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
 
-       //zkclientSynCreateNode(cli,parentPath);
+void nodeCreateEventHandler(zkclient* cli,int eventType,const char* path,void* context){
+    printf("nodeCreateEventHandler path:%s eventType:%d\n",path,eventType);
+}
 
-        return ;
-    }
-    else{
-         printf("session error \n");
-    }
+void nodeDeleteEventHandler(zkclient* cli,int eventType,const char* path,void* context){
+    printf("nodeDeleteEventHandler path:%s eventType:%d\n",path,eventType);
 }
 
 
+void nodeChangeEventHandler(zkclient* cli,int eventType,const char* path,void* context){
+    printf("nodeChangeEventHandler path:%s eventType:%d\n",path,eventType);
+}
 
+
+ void ConnectedHandler(zkclient* cli){
+    printf("ConnectedHandler \n");
+
+    const char* parentPath = "/parent";
+    const char* childPath = "/parent/child";
+    //zkclientSubscribeEvent(cli,parentPath,EventNodeCreated,nodeCreateEventHandler,cli);
+   
+
+    zkclientCreateNode(cli,parentPath,"111",4,0,0,0,0);
+
+
+    //zkclientSubscribeEvent(cli,parentPath,EventNodeDeleted,nodeDeleteEventHandler,cli);
+    //zkclientSubscribeEvent(cli,parentPath,EventNodeDataChanged,nodeChangeEventHandler,cli);
+
+    zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChangeEventHandler,cli);
+
+    zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
+
+    //zkclientSetNode(cli,parentPath,"111",4,0,0);
+    //zkclientDelNode(cli,parentPath,0,0);
+
+ }
+
+
+ 
+ void CloseHandler(zkclient* cli,int isExpire){
+    printf("CloseHandler \n");
+    if(isExpire){
+        zkclientConnect(cli);
+    }
+ }
 
 
 int main(int argc,const char*argv[])
@@ -88,10 +107,10 @@ int main(int argc,const char*argv[])
 
     char*host="127.0.0.1:2183,127.0.0.1:2184,127.0.0.1:2185";
 
-    zkclient* zkcli  = zkclientCreate(sessionHandler,0);
+    zkclient* zkcli  = zkclientCreate(host,ConnectedHandler,CloseHandler,0);
     assert(zkcli);
 
-    zkclientConnect(zkcli,host);
+    zkclientConnect(zkcli);
 
     
 
