@@ -8,38 +8,57 @@
 #include <stdarg.h>
 #include <assert.h>
 #include "zkcli.h"
+
 #define PRINTF printf
 
-static const int RECV_TIMEOUT = 10000;
-
-
-static int zkclientSelect(zkclient* cli);
-static int reportErr(const char *fmt,...);
-static void globalWacherFn(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx);
-static int getMode(int isTmp,int isSeq);
-
-static void getChildrenCompletion(int rc, const struct String_vector *strings,const void *data) ;
-static void deleteNodeCompletion(int rc, const void *data);
-static void getDataCompletion(int rc, const char *value, int value_len,const struct Stat *stat, const void *data);
-static void setDataCompletion(int rc, const struct Stat *stat,const void *data);
-static void createNodeCompletion(int rc, const char *value, const void *data) ;
 #define CHECK_RC(rc,str)  \
 if(rc != ZOK){ \
     reportErr("%s. rc:%s\n",str,zerror(rc));\
     return -1;\
 }
 
+#define CHECK_CONNECTED(cli) \
+if(!zkclientIsConnected(cli)){ \
+  PRINTF("error zkclient state is %d",zkclientGetState(cli));\
+  return -1; \
+}
+
+static int zkclientSelect(zkclient* cli);
+static int reportErr(const char *fmt,...);
+static void globalWacherFn(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx);
+static int getMode(int isTmp,int isSeq);
+static int64_t OnGetCurrentMs() ;
+
+static int zkclientWExist(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn ,stat_completion_t dc);
+static int zkclientWGetChildrens(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn );
+static int zkclientSetState(zkclient* cli,int state);
+static void zkclientcConnected(zkclient* cli);
+static void zkclientcConnecting(zkclient* cli);
+
+static void getChildrenCompletion(int rc, const struct String_vector *strings,const void *data) ;
+static void deleteNodeCompletion(int rc, const void *data);
+static void getDataCompletion(int rc, const char *value, int value_len,const struct Stat *stat, const void *data);
+static void setDataCompletion(int rc, const struct Stat *stat,const void *data);
+static void createNodeCompletion(int rc, const char *value, const void *data) ;
+static void existCompletion(int rc, const struct Stat *stat,const void *data);
+
+static void eventWatcher(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx);
+static int checkTriggerEvent(RtContext* rtCx,int type);
+static int onSubscribeEvent(RtContext* rtCx);
 
 
 typedef struct zkclient{
     zhandle_t* zh;
     clientid_t myid;
-    int connected;
     int stop;
-    int isexpired;
-    sessionEventHandler shandler;
-    void* sessionEventCtx;
+    sessionConnectedHandler connectHandle;
+    sessionCloseHandler closeHandle;
+    int sessionState;
+    int sessionExpireTimeout;
+    int connectingStartTime;
 }zkclient;
+
+
 /////////////////////////////////////////////////////工具函数/////////////////////////////////////////////////////////////////////////
 
 //会话状态
@@ -158,31 +177,35 @@ static int getMode(int isTmp,int isSeq){
 /////////////////////////////////////////////////////监控函数/////////////////////////////////////////////////////////////////////////
 static void globalWacherFn(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx){
     zkclient* cli = watcherCtx;
-    // PRINTF("trigger event type:%s state:%s ",type2String(type),state2String(state));
-    // if(path != 0 && strlen(path) > 0){
-    //     PRINTF("path:%s",path);
-    // }
+    PRINTF("trigger event type:%s state:%s ",type2String(type),state2String(state));
     if(type == ZOO_SESSION_EVENT){
-        //收到prime回应  可能是第一次正常连接 也有可能是在会话超时时间内重新连接
-        if(state == ZOO_CONNECTED_STATE){
-            const clientid_t * id = zoo_client_id(zh);
-            if(cli->myid.client_id == 0 ||  id->client_id != cli->myid.client_id){
-                cli->myid = *id;
-            }
-            cli->connected = 1;
+        if(state == ZOO_NOTCONNECTED_STATE){
+          //初始阶段socket fd都没创建
+          zkclientDisconnect(cli);
         }
-        else if(state == ZOO_EXPIRED_SESSION_STATE){ // 会话过期
-            cli->connected = 0;
-            cli->isexpired = 1;
-            //回调给上层 上层进行过期逻辑处理.上层可以直接杀掉进程(有点暴力)或者重新连接并注册监视点。
+        else if(state == ZOO_CONNECTING_STATE){
+          //TCP 三次握手中
+          zkclientcConnecting(cli);
+        }
+        else if(state == ZOO_ASSOCIATING_STATE){
+          //三次握手完成 未收到prime respond包(会话协商阶段)
+          zkclientcConnecting(cli);
+        }
+        else if(state == ZOO_CONNECTED_STATE){    
+          //建立会话
+          zkclientcConnected(cli);
+        }
+        else if(state == ZOO_EXPIRED_SESSION_STATE){ // 
+          //会话过期，不可恢复。被动关闭 回调逻辑层
+          zkclientDisconnect(cli);
+        }
+        else if(state == ZOO_AUTH_FAILED_STATE){
+          //验证失败,不可恢复。被动关闭 回调逻辑层
+          zkclientDisconnect(cli);
         }
         else {
-            cli->connected = 0;
+          PRINTF("invaild state:%s\n",state2String(state));
         }
-        if(cli->shandler){
-          cli->shandler(cli,cli->sessionEventCtx);
-        }
-       
     }
 }
 
@@ -192,34 +215,23 @@ static void globalWacherFn(zhandle_t *zh, int type,int state, const char *path,v
 
 
 
-zkclient* zkclientCreate(sessionEventHandler sessionHandler,void* sessionEventCtx){
+zkclient* zkclientCreate(sessionConnectedHandler connectHandle,sessionCloseHandler closeHandle){
     zkclient* cli =  malloc(sizeof(zkclient));
     assert(cli != 0);
     cli->zh = 0;
-    cli->connected = 0;
-    cli->isexpired = 0;
     cli->stop = 0;
-    cli->shandler = sessionHandler;
-    cli->sessionEventCtx = sessionEventCtx;
+    cli->connectHandle = connectHandle;
+    cli->closeHandle = closeHandle;
+    cli->sessionState = SESSION_STATE_CLOSED;
+    cli->sessionExpireTimeout = 0;
+    cli->connectingStartTime = 0;
     return cli;
-}
-
-int zkclientIsConnected(zkclient* cli){
-    assert(cli != 0);
-    return cli->connected == 1;
-}
-
-int zkclientIsExpired(zkclient* cli){
-    assert(cli != 0);
-    return cli->isexpired == 1;
 }
 
 
 void zkclientFree(zkclient* cli){
     assert(cli);
-    if(cli->zh){
-        zookeeper_close(cli->zh);
-    }
+    zkclientDisconnect(cli);
     free(cli);
     cli = 0;
 }
@@ -235,10 +247,49 @@ int zkclientConnect(zkclient* cli,const char* host){
     return 0;
 }
 
+static void zkclientcConnected(zkclient* cli){
+    assert(cli);
+    const clientid_t * id = zoo_client_id(cli->zh);
+    if(cli->myid.client_id == 0 ||  id->client_id != cli->myid.client_id){
+        cli->myid = *id;
+    }
+    if( cli->connectHandle ){
+      cli->connectHandle(cli);
+    }
+
+    cli->sessionExpireTimeout = zoo_recv_timeout(cli->zh);
+
+    zkclientSetState(cli,SESSION_STATE_CONNECTED);
+}
+
+static void zkclientcConnecting(zkclient* cli){
+    assert(cli);
+    cli->connectingStartTime = OnGetCurrentMs();
+    zkclientSetState(cli,SESSION_STATE_CONNECTING);
+}
+
+
+int zkclientDisconnect(zkclient* cli){
+   assert(cli);
+   if(cli->zh){
+        zookeeper_close(cli->zh);
+        cli->zh = 0;
+    }
+    if(cli->closeHandle){
+      cli->closeHandle(cli);
+    }
+    cli->sessionExpireTimeout = 0;
+    cli->connectingStartTime  = 0;
+    zkclientSetState(cli,SESSION_STATE_CLOSED);
+}
+
+
+
+
 int zkclientRun(zkclient* cli){
-
-    zkclientSelect(cli);
-
+    if(!cli->stop) {
+      zkclientSelect(cli);
+    }
 }
 
 int zkclientStop(zkclient* cli){
@@ -247,47 +298,60 @@ int zkclientStop(zkclient* cli){
 }
 
 
+int zkclientSetState(zkclient* cli,int state){
+   assert(cli != 0);
+   cli->sessionState = state;
+}
+
+int zkclientGetState(zkclient* cli){
+   assert(cli != 0);
+   return cli->sessionState;
+}
+int zkclientIsConnected(zkclient* cli){
+  return cli->sessionState == SESSION_STATE_CONNECTED;
+}
+
+
+// 发包+收包回+异步调用结果回调/监测函数回调
 static int zkclientSelect(zkclient* cli){
     assert(cli);
     zhandle_t* zh = cli->zh;
     fd_set rfds, wfds, efds;
     FD_ZERO(&rfds); FD_ZERO(&wfds);  FD_ZERO(&efds);
-    if(!cli->stop) {
-        int fd;
-        int interest;
-        int events;
-        struct timeval tv = {0,0};
-        int rc;
-        zookeeper_interest(zh, &fd, &interest, &tv);
-        if (fd != -1) {
-            if (interest&ZOOKEEPER_READ) {
-                FD_SET(fd, &rfds);
-            } else {
-                FD_CLR(fd, &rfds);
-            }
-            if (interest&ZOOKEEPER_WRITE) {
-                FD_SET(fd, &wfds);
-            } else {
-                FD_CLR(fd, &wfds);
-            }
+    
+    int fd;
+    int interest;
+    int events;
+    struct timeval tv = {0,0};
+    int rc;
+    zookeeper_interest(zh, &fd, &interest, &tv);
+    if (fd != -1) {
+        if (interest&ZOOKEEPER_READ) {
+            FD_SET(fd, &rfds);
         } else {
-            fd = 0;
+            FD_CLR(fd, &rfds);
         }
-        FD_SET(0, &rfds);
-        rc = select(fd+1, &rfds, &wfds, &efds, &tv);
-        events = 0;
-        if (rc > 0) {
-            if (FD_ISSET(fd, &rfds)) {
-                events |= ZOOKEEPER_READ;
-            }
-            if (FD_ISSET(fd, &wfds)) {
-                events |= ZOOKEEPER_WRITE;
-            }
+        if (interest&ZOOKEEPER_WRITE) {
+            FD_SET(fd, &wfds);
+        } else {
+            FD_CLR(fd, &wfds);
         }
-         
-        zookeeper_process(zh, events);
+    } else {
+        fd = 0;
     }
-
+    FD_SET(0, &rfds);
+    rc = select(fd+1, &rfds, &wfds, &efds, &tv);
+    events = 0;
+    if (rc > 0) {
+        if (FD_ISSET(fd, &rfds)) {
+            events |= ZOOKEEPER_READ;
+        }
+        if (FD_ISSET(fd, &wfds)) {
+            events |= ZOOKEEPER_WRITE;
+        }
+    }
+      
+    zookeeper_process(zh, events);
 }
  
 
@@ -295,6 +359,9 @@ static int zkclientSelect(zkclient* cli){
 //创建节点
 int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context){
     assert(cli);
+
+    CHECK_CONNECTED(cli)
+
     int mode = getMode( isTmp, isSeq);
 
     RtContext* rtCx = malloc(sizeof(RtContext));
@@ -338,6 +405,8 @@ static void createNodeCompletion(int rc, const char *value, const void *data) {
 
 //设置数据
  int zkclientSetNode(zkclient* cli,const char* path,const char* buff,int bufflen,setNodeRTHandler watcher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
 
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
@@ -379,6 +448,9 @@ static  void setDataCompletion(int rc, const struct Stat *stat,const void *data)
 
 //获取数据
 int zkclientGetNode(zkclient* cli,const char* path,getNodeRTHandler watcher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
+
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
@@ -419,6 +491,9 @@ static void getDataCompletion(int rc, const char *value, int value_len,const str
 
 //删除节点
 int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
+
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
@@ -453,8 +528,12 @@ static void deleteNodeCompletion(int rc, const void *data){
 }
 
 
+
 //获取子节点列表
 int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler watcher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
+
     RtContext* rtCx = malloc(sizeof(RtContext));
     assert(rtCx);
     rtCx->cli = cli;
@@ -462,12 +541,16 @@ int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler
     rtCx->context = context;
     rtCx->getChildrenRTHandler = watcher;
 
-    int rc= zoo_aget_children(cli->zh, path, 1, getChildrenCompletion, rtCx);
+    return zkclientWGetChildrens(cli, rtCx,path,0);
+}
 
-     CHECK_RC(rc,"get childrens node")
-
+static int zkclientWGetChildrens(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn ){
+    int rc= zoo_awget_children(cli->zh, path, fn, rtCx, getChildrenCompletion, rtCx);
+    CHECK_RC(rc,"zoo_aget_children")
     return 0;
 }
+
+
 
 static void getChildrenCompletion(int rc, const struct String_vector *strings,const void *data) {
     RtContext* rtCx = data;
@@ -487,20 +570,77 @@ static void getChildrenCompletion(int rc, const struct String_vector *strings,co
     if(rtCx->getChildrenRTHandler){
        rtCx->getChildrenRTHandler(rtCx->cli,code,rtCx->path,strings,rtCx->context);
     }
-    free(rtCx);
+    if(rtCx->wacher ){
+      if(rc != ZOK){
+          rtCx->wacher(rtCx->cli, EventNodeFail,rtCx->path,rtCx->context);
+          free(rtCx);
+      }
+    }
+    else{
+      free(rtCx);
+    }
+}
+
+//节点是否存在
+int  zkclientExistNode(zkclient* cli, const char* path,existNodeRTHandler watcher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
+
+    RtContext* rtCx = malloc(sizeof(RtContext));
+    assert(rtCx);
+    rtCx->cli = cli;
+    memcpy(rtCx->path,path,(strlen(path) + 1) * sizeof(char) );
+    rtCx->context = context;
+    rtCx->existRTHandler = watcher;
+
+    return zkclientWGetChildrens(rtCx->cli, rtCx,rtCx->path,0);
+}
+
+static int zkclientWExist(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn ,stat_completion_t dc){
+    int rc= zoo_awexists(cli->zh, rtCx->path, rtCx->wacher, rtCx,existCompletion, rtCx);
+    CHECK_RC(rc,"zoo_awexists ")
+    return 0;
 }
 
 
-//使用exist注册监视点完成回调
-void existCompletion(int rc, const struct Stat *stat,const void *data){
+static void existCompletion(int rc, const struct Stat *stat,const void *data){
     RtContext* rtCx = data;
     assert(rtCx);
-    PRINTF("exist completion node:%s  result:%s\n",rtCx->path,zerror(rc));
-    if(rc != ZOK && rc != ZNONODE){
+    PRINTF("exist node:%s  result:%s\n",rtCx->path,zerror(rc));
+    dumpStat(stat);
+
+    int code = 0;
+    if(rc == ZOK){
+      code = ZKRT_SUCCESS;
+    }
+    else if(rc == ZNONODE){  //节点不存在
+      code = ZKRT_NONODE;
+    }
+    else{
+      code = ZKRT_ERROR;
+    }
+    if(rtCx->existRTHandler){
+       rtCx->existRTHandler(rtCx->cli,code,rtCx->path,stat,rtCx->context);
+    }
+
+    if(rc != ZOK ){
        rtCx->wacher(rtCx->cli, EventNodeSubFail,rtCx->path ,rtCx->context);
        free(rtCx);
     }
+
+    if(rtCx->wacher ){
+      if(rc != ZOK && rc != ZNONODE){
+          rtCx->wacher(rtCx->cli, EventNodeFail,rtCx->path,rtCx->context);
+          free(rtCx);
+      }
+    }
+    else{
+      free(rtCx);
+    }
+
 }
+
+
 
 
 static int checkTriggerEvent(RtContext* rtCx,int type){ 
@@ -528,9 +668,10 @@ static int checkTriggerEvent(RtContext* rtCx,int type){
      return 0;
 }
 
-static int  existWithRTContext(zkclient* cli, RtContext* rtCx);
 
-static void existWatcheFn(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx){
+
+
+static void eventWatcher(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx){
     RtContext* rtCx = watcherCtx;
     PRINTF("existWatcheFn type:%d \n",type);
     if( checkTriggerEvent(rtCx,type) ){
@@ -543,23 +684,18 @@ static void existWatcheFn(zhandle_t *zh, int type,int state, const char *path,vo
          free(rtCx);
       }
       else{
-        //不是无关注的事件 也不是出错事件  则重新注册
-        existWithRTContext(rtCx->cli, rtCx);
+        //不是我关注的事件 也不是出错事件  则重新注册
+        onSubscribeEvent(rtCx);
       }
     }
-    
  }
-
-
-static int  existWithRTContext(zkclient* cli, RtContext* rtCx){
-    int rc= zoo_awexists(cli->zh, rtCx->path, existWatcheFn, rtCx,existCompletion, rtCx);
-    CHECK_RC(rc,"SubscribeEvent ")
-    return 0;
-}
 
 
 
 int zkclientSubscribeEvent(zkclient* cli,char* path,int eventType,nodeEventHandler wacher,void* context){
+    assert(cli);
+    CHECK_CONNECTED(cli)
+
     if(!wacher){
       return 0;
     }
@@ -572,5 +708,34 @@ int zkclientSubscribeEvent(zkclient* cli,char* path,int eventType,nodeEventHandl
     rtCx->wacher = wacher;
     rtCx->extr = eventType;
 
-    return existWithRTContext(cli, rtCx);
+    return onSubscribeEvent( rtCx);
+}
+
+
+static int onSubscribeEvent(RtContext* rtCx){
+   if(rtCx->extr == ZOO_CHILD_EVENT){
+       return zkclientWGetChildrens(rtCx->cli, rtCx,rtCx->path,eventWatcher);
+    }
+    else{
+       return zkclientWGetChildrens(rtCx->cli, rtCx,rtCx->path,eventWatcher);
+    }
+}
+
+
+static int64_t OnGetCurrentMs() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+}
+
+//主动检测会话超时
+static int checkSessionExpired(zkclient* cli){
+  assert(cli);
+  if(cli->sessionExpireTimeout != 0){
+      if( zkclientGetState(cli) == SESSION_STATE_CONNECTING){
+        if(OnGetCurrentMs() - cli->connectingStartTime >  cli->sessionExpireTimeout){
+          zkclientDisconnect(cli);
+        }
+      }
+  }
 }

@@ -153,3 +153,9 @@ int zkclient_set_data(zkclient* cli,char* path,void* value,int valuelen,wacherCa
     }
     return 0;
 }
+
+int zkclientSynExistNode(zkclient* cli,const char* path){
+     char retPath[250];
+     struct Stat stat;
+     zoo_exists(cli->handle, path, 0, stat);
+}

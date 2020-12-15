@@ -20,6 +20,19 @@ void session_wacher(zkclient* cli){
     else{
         printf("session connecting %lu.\n",id);
     }
+    struct timeval begintv = {0,0};
+    gettimeofday(&begintv,0);
+    for (size_t i = 0; i < 10000; i++)
+    {
+        static cnt = 0;
+        zkclientSynExistNode(cli,"/synparent");
+        //printf("count:%d \n",++cnt);
+    } 
+
+    struct timeval nowtv = {0,0};
+    gettimeofday(&nowtv,0);
+
+    printf("second:%d usecond:%d\n",nowtv.tv_sec -  begintv.tv_sec,nowtv.tv_usec -  begintv.tv_usec );
 }
 
 

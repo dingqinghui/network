@@ -9,7 +9,7 @@ cmake_minimum_required (VERSION 2.8)
 
 # 项目信息
 add_definitions(-g)
-add_definitions(-DTHREAD)
+
 
 link_directories(../lib)
 include_directories(../common/zookeeper)

@@ -48,4 +48,8 @@ int zkclient_create_node(zkclient* cli,char* path,void* value,int valuelen,wache
 
 int zkclient_is_expire();
 int zkclient_is_connected();
+
+
+int zkclientSynExistNode(zkclient* cli,const char* path);
+
 #endif

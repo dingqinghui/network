@@ -44,31 +44,23 @@ zookeeper.jute.h
 recordio.h
 ../common/zookeeper/recordio.h
 
-../common/zookeeper/zookeeper_log.h
-zookeeper.h
--
-
 ../common/zookeeper/zookeeper_version.h
 
-/mnt/hgfs/linux_share/zookeeper/mtclient/zkcli.c
+/mnt/hgfs/linux_share/zookeeper/mtclient/client.c
 stdio.h
 -
 stdlib.h
 -
 string.h
 -
-zookeeper_log.h
--
-string.h
--
-errno.h
--
-stdarg.h
--
 assert.h
+-
+unistd.h
 -
 zkcli.h
 /mnt/hgfs/linux_share/zookeeper/mtclient/zkcli.h
+pthread.h
+-
 
 /mnt/hgfs/linux_share/zookeeper/mtclient/zkcli.h
 zookeeper.h

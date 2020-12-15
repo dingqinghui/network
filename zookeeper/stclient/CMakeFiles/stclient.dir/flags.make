@@ -4,5 +4,5 @@
 # compile C with /usr/bin/cc
 C_FLAGS = -g -I/mnt/hgfs/linux_share/zookeeper/stclient/../common/zookeeper    -g -std=gnu99
 
-C_DEFINES = -DTHREAD
+C_DEFINES = 
 

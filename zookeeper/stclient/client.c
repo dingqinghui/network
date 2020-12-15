@@ -38,13 +38,14 @@ void createRTHandler(zkclient* cli,int errCode,const char* path,const char* valu
         if(strcmp(parentPath,path) == 0){
             for (size_t i = 0; i < 1; i++)
             {
-                char* val[30];
-                sprintf(val,"this is child :%d",i) ;
-                zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,1,createRTHandler,0);
+                // char* val[30];
+                // sprintf(val,"this is child :%d",i) ;
 
-                zkclientSubscribeEvent(cli,childPath,EventNodeCreated,nodeChangeEventHandler,cli);
+                // zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChangeEventHandler,cli);
 
-                zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,0,createRTHandler,0);
+                // zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,1,createRTHandler,0);
+                // zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,0,createRTHandler,0);
+
             }
 
             zkclientGetChildrens(cli,parentPath,getChildrenRTHandler,cli);
@@ -63,11 +64,13 @@ void sessionHandler(zkclient* cli,void* context){
         printf("session connected \n");
         //const char* val = "this is parent";
         //zkclientCreateNode(cli,"/parent",val,strlen(val) + 1,0,0,createRTHandler,0);
-
+        const char* parentPath = "/parent";
         const char* childPath = "/parent/child";
-        zkclientSubscribeEvent(cli,childPath,EventNodeCreated,nodeChangeEventHandler,cli);
+        //zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChangeEventHandler,cli);
 
-        zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
+        //zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
+
+       //zkclientSynCreateNode(cli,parentPath);
 
         return ;
     }
@@ -89,6 +92,8 @@ int main(int argc,const char*argv[])
     assert(zkcli);
 
     zkclientConnect(zkcli,host);
+
+    
 
     while(1){
         zkclientRun(zkcli);
