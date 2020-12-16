@@ -4,6 +4,10 @@
         "xtr1common": "c",
         "vector": "c",
         "xstring": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "tuple": "c",
+        "utility": "c",
+        "xmemory0": "c",
+        "xutility": "c"
     }
 }

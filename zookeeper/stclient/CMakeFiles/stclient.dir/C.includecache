@@ -50,20 +50,16 @@ zookeeper.h
 
 ../common/zookeeper/zookeeper_version.h
 
-/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c
+/mnt/hgfs/linux_share/zookeeper/stclient/client.c
 stdio.h
 -
 stdlib.h
 -
 string.h
 -
-string.h
--
-errno.h
--
-stdarg.h
--
 assert.h
+-
+unistd.h
 -
 zkcli.h
 /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h

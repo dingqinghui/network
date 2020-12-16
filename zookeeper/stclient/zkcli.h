@@ -18,12 +18,14 @@ typedef struct zkclient zkclient;
 
 
 //节点事件
+#define EventWacherFail             -1 //注册事件失败
 #define EventNodeCreated             0
 #define EventNodeDeleted             1
 #define EventNodeDataChanged         2
 #define EventNodeChildrenChanged     3
-#define EventNodeSubFail             4 //注册事件失败
-#define EventNodeFail                5 //出错  会话断开/监视点失效
+
+
+
 
 //会话事件
 #define SESSION_STATE_CLOSED     0
@@ -46,7 +48,7 @@ typedef void (*nodeEventHandler)(zkclient* cli,int eventType,const char* path,vo
 
 
 
-typedef void (*sessionConnectedHandler)(zkclient* cli);
+typedef void (*sessionConnectedHandler)(zkclient* cli,int isReconnect);
 typedef void (*sessionCloseHandler)(zkclient* cli,int isExpire);
 
 
@@ -64,7 +66,6 @@ typedef struct RtContext{
         existNodeRTHandler  existRTHandler;
     };
     nodeEventHandler wacher;
-    int extr;
 }RtContext;
 
 
@@ -89,7 +90,8 @@ int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,v
 int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler watcher,void* context);
 int zkclientExistNode(zkclient* cli, const char* path,existNodeRTHandler watcher,void* context);
 
-int zkclientSubscribeEvent(zkclient* cli,char* path,int eventType,nodeEventHandler wacher,void* context);
+int zkclientNodeWacher(zkclient* cli,char* path,nodeEventHandler wacher,void* context);
+int zkclientChildWacher(zkclient* cli,char* path,nodeEventHandler wacher,void* context);
 
-
+const char* Event2String(int event);
 #endif
