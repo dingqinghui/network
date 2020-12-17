@@ -7,63 +7,95 @@
 
 
 
+void getChildrenRT(zkclient* cli,int errCode,const char* path,const struct String_vector *strings,void* context){
+    switch(errCode){
+        case ZKRT_SUCCESS:{
+            printf("get child node data completion path[%s] value[%s] .\n",path);
+            char childPath [256];
+            for(int i = 0;i < strings->count;++i){
+                sprintf(childPath,"%s/%s",path,strings->data[i]);
 
-
-
-
-// void getChildrenRTHandler(zkclient* cli,int errCode,const char* path,const struct String_vector *strings,void* context){
-//     printf("parentNode path:%s\n",path);
-//     char childPath [256];
-//     for(int i = 0;i < strings->count;++i){
-//          sprintf(childPath,"%s/%s",path,strings->data[i]);
-//          printf("childnode path:%s\n",childPath);
-//          if( zkclientGetNode(cli,childPath,getRTHandler,cli)  < 0){
-
-//          }
-//     }
-// }
-
-
-
-// void createRTHandler(zkclient* cli,int errCode,const char* path,const char* value,void* context){
-//     if(errCode == ZKRT_SUCCESS || errCode == ZKRT_NODEEXIST){
-//         const char* parentPath = "/parent";
-//         const char* childPath = "/parent/child";
-//         //父节点创建成功 创建10个子节点
-//         if(strcmp(parentPath,path) == 0){
-//             for (size_t i = 0; i < 1; i++)
-//             {
-//                 // char* val[30];
-//                 // sprintf(val,"this is child :%d",i) ;
-
-//                 // zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChangeEventHandler,cli);
-
-//                 // zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,1,createRTHandler,0);
-//                 // zkclientCreateNode(cli,childPath,val,strlen(val) + 1,1,0,createRTHandler,0);
-
-//             }
-
-//             zkclientGetChildrens(cli,parentPath,getChildrenRTHandler,cli);
-//         }
-
-//     }
-// }
-
-
-const char* parentPath = "/parent";
-const char* childPath = "/parent/child";
-
-void getRTHandler(zkclient* cli,int errCode,const char* path,const char* buff,int bufflen,const struct Stat *stat,void* context){
-    printf("nodepath:%s data:%s errCode:%d\n",path,buff,errCode);
+                printf("childnode path:%s\n",childPath);
+            }
+        }
+        break;
+        case ZKRT_NONODE:
+            printf("get child node data completion path[%s] not exsist.\n",path);
+        break;
+        case ZKRT_ERROR:
+            
+        break;
+    }
+    
 }
 
-void parentNodeWacher(zkclient* cli,int event,const char* path,void* context){
-    printf("nodeCreateEventHandler path:%s eventType:%s\n",path,Event2String(event) );
-
-
-    zkclientGetNode(cli,parentPath,getRTHandler,cli);
-    zkclientNodeWacher(cli,parentPath,parentNodeWacher,cli);
+void getNodeRT(zkclient* cli,int errCode,const char* path,const char* buff,int bufflen,const struct Stat *stat,void* context){
+    switch(errCode){
+        case ZKRT_SUCCESS:
+            printf("get node data completion path[%s] value[%s] .\n",path,buff);
+        break;
+        case ZKRT_NONODE:
+            printf("get node data completion path[%s] not exsist.\n",path);
+        break;
+        case ZKRT_ERROR:
+            
+        break;
+    }
 }
+
+void existNodeRT(zkclient* cli, int errCode,const char* path,const struct Stat *stat,const void *data){
+    switch(errCode){
+        case ZKRT_SUCCESS:
+            printf("exist node completion path[%s] exsist.\n",path);
+        break;
+        case ZKRT_NONODE:
+            printf("exist node completion path[%s] not exsist.\n",path);
+        break;
+        case ZKRT_ERROR:
+            
+        break;
+    }
+}
+
+
+void nodeWacher(zkclient* cli,int event,const char* path,void* context){
+    printf("wacher event[%s] path[%s]\n",Event2String(event),path);
+    //再次获取节点最新状态状态
+    switch(event){
+        case EventNodeCreated:
+        {
+            zkclientExistNode(cli,path,existNodeRT,cli);
+            zkclientNodeWacher(cli,path,nodeWacher,cli);
+        }
+          
+        break;
+        case EventNodeDeleted:
+        {
+            zkclientExistNode(cli,path,existNodeRT,cli);
+            zkclientNodeWacher(cli,path,nodeWacher,cli);
+        }
+           
+        break;
+        case EventNodeDataChanged:
+        {
+            zkclientExistNode(cli,path,getNodeRT,cli);
+            zkclientNodeWacher(cli,path,nodeWacher,cli);
+        } 
+        break;
+        case EventNodeChildrenChanged:
+        {
+            zkclientGetChildrens(cli,path,getChildrenRT,cli);
+            zkclientChildWacher(cli,path,nodeWacher,cli);
+        }
+        break;
+        case EventWacherFail:
+            
+        break;
+    }
+}
+
+
+
 
 
  void ConnectedHandler(zkclient* cli,int isReconnect){
@@ -71,24 +103,12 @@ void parentNodeWacher(zkclient* cli,int event,const char* path,void* context){
     if(isReconnect){
         return ;
     }
-  
-    zkclientNodeWacher(cli,parentPath,parentNodeWacher,cli);
-   
-
-    zkclientCreateNode(cli,parentPath,"111",4,0,0,0,0);
-
-
-    zkclientSetNode(cli,parentPath,"111",4,0,0);
-
-
-    //zkclientDelNode(cli,parentPath,0,0);
-
-    //test(cli);
     
-   
-    //zkclientSubscribeEvent(cli,parentPath,EventNodeChildrenChanged,nodeChildChangeEventHandler,cli);
+    //监控节点
+    zkclientNodeWacher(cli,"/parent",nodeWacher,cli);
+    zkclientChildWacher(cli,"/parent",nodeWacher,cli);  //parent不存在则会报错
 
-    //zkclientCreateNode(cli,childPath,"111",4,1,0,0,0);
+   
    
  }
 

@@ -8,8 +8,6 @@
 typedef struct zkclient zkclient;
 
 
-
-
 //异步回调错误码
 #define ZKRT_ERROR      -1
 #define ZKRT_SUCCESS    0
@@ -26,15 +24,16 @@ typedef struct zkclient zkclient;
 
 
 
-
-//会话事件
-#define SESSION_STATE_CLOSED     0
-#define SESSION_STATE_CONNECTING 1
-#define SESSION_STATE_CONNECTED  2  
-#define SESSION_STATE_DISCONNECT 3  
+//会话事件回调
+typedef void (*sessionConnectedHandler)(zkclient* cli,int isReconnect);
+typedef void (*sessionCloseHandler)(zkclient* cli,int isExpire);
 
 
+//监测点事件回调
+typedef void (*nodeEventHandler)(zkclient* cli,int eventType,const char* path,void* context);
 
+
+//异步调用结果回调
 typedef void (*createNodeRTHandler)(zkclient* cli,int errCode,const char* path,const char* value,void* context);
 typedef void (*setNodeRTHandler)(zkclient* cli,int errCode,const char* path,const struct Stat *stat,void* context);
 typedef void (*getNodeRTHandler)(zkclient* cli,int errCode,const char* path,const char* buff,int bufflen,const struct Stat *stat,void* context);
@@ -43,30 +42,6 @@ typedef void (*getChildrenNodeRTHandler)(zkclient* cli,int errCode,const char* p
 typedef void (*existNodeRTHandler)(zkclient* cli, int errCode,const char* path,const struct Stat *stat,const void *data);
 
 
-//事件回调
-typedef void (*nodeEventHandler)(zkclient* cli,int eventType,const char* path,void* context);
-
-
-
-typedef void (*sessionConnectedHandler)(zkclient* cli,int isReconnect);
-typedef void (*sessionCloseHandler)(zkclient* cli,int isExpire);
-
-
-//异步操作完成回调参数
-typedef struct RtContext{
-    zkclient* cli;
-    void* context;
-    char  path[256];
-    union {
-        createNodeRTHandler createRTHandler;
-        setNodeRTHandler setRTHandler;
-        getNodeRTHandler getRTHandler;
-        deleteNodeRTHandler deleteRTHandler;
-        getChildrenNodeRTHandler getChildrenRTHandler;
-        existNodeRTHandler  existRTHandler;
-    };
-    nodeEventHandler wacher;
-}RtContext;
 
 
 
