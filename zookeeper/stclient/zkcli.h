@@ -58,7 +58,11 @@ int zkclientStop(zkclient* cli);
 
 int zkclientGetState(zkclient* cli);
 
+
 int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context);
+//递归创建 isTmp isSeq 为叶子结点属性，父节点为永久非序列化节点
+int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context);
+
 int zkclientSetNode(zkclient* cli,const char* path,const char* buff,int bufflen,setNodeRTHandler watcher,void* context);
 int zkclientGetNode(zkclient* cli,const char* path,getNodeRTHandler watcher,void* context);
 int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,void* context);
@@ -69,4 +73,7 @@ int zkclientNodeWacher(zkclient* cli,char* path,nodeEventHandler wacher,void* co
 int zkclientChildWacher(zkclient* cli,char* path,nodeEventHandler wacher,void* context);
 
 const char* Event2String(int event);
+
+
+int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context);
 #endif

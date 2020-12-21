@@ -15,6 +15,8 @@
 #define SESSION_STATE_CONNECTED  2  
 #define SESSION_STATE_DISCONNECT 3  
 
+#define MAX_PATH_DEEP    10
+#define  MAX_PATH 256
 
 
 #define  SESSION_DEF_TIMEOUT 10000
@@ -24,9 +26,10 @@
 
 
 
-#define CHECK_RC(rc,str)  \
+#define CHECK_RC(rc,ctcx,str)  \
 if(rc != ZOK){ \
     onReportErr("%s. rc:%s\n",str,zerror(rc));\
+    free(ctcx); \
     return -1;\
 }
 
@@ -56,7 +59,7 @@ typedef struct zkclient{
 typedef struct RtContext{
     zkclient* cli;
     void* context;
-    char  path[256];
+    char  path[MAX_PATH];
     union {
         createNodeRTHandler createRTHandler;
         setNodeRTHandler setRTHandler;
@@ -69,6 +72,20 @@ typedef struct RtContext{
 }RtContext;
 
 
+
+typedef struct RTRecursiveCreate{
+  int createNodeCnt ;
+  char pathList[MAX_PATH_DEEP][MAX_PATH];
+  zkclient* cli;
+  createNodeRTHandler watcher;
+  void* context;
+  zoo_op_result_t resultList[MAX_PATH_DEEP];
+  zoo_op_t ops[MAX_PATH_DEEP];
+}RTRecursiveCreate;
+
+
+
+static int strseppath(const char* path,char (*ipaths)[MAX_PATH],int ipathc);
 
 static const char* onState2String(int state);
 static const char* onType2String(int state);
@@ -96,6 +113,8 @@ static void onGetDataCompletion(int rc, const char *value, int value_len,const s
 static void onSetDataCompletion(int rc, const struct Stat *stat,const void *data);
 static void onCreateNodeCompletion(int rc, const char *value, const void *data) ;
 static void onExistCompletion(int rc, const struct Stat *stat,const void *data);
+static void onRecursiveCreateCompletion(int rc, const void *data);
+
 
 static void onEventWatcher(zhandle_t *zh, int type,int state, const char *path,void *watcherCtx);
 static int onGetEvent(RtContext* rtCx,int type);
@@ -279,7 +298,7 @@ zkclient* zkclientCreate(const char* host,sessionConnectedHandler connectHandle,
     cli->timeout = timeout > 0 ? timeout : SESSION_DEF_TIMEOUT;
     cli->host = strdup(host);
 
-    //zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG);
+    zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG);
 
     return cli;
 }
@@ -433,6 +452,85 @@ static int onSelect(zkclient* cli){
  
 
 
+static int strseppath(const char* path,char (*ipaths)[MAX_PATH],int ipathc){
+    assert(path);
+    assert(ipaths);
+    int cnt = 0;
+    char cpath[MAX_PATH]  = {'\0'};
+    char *p;
+    char *buff = strdup(path);
+    p = strsep(&buff, "/");
+    while(p!=NULL && ipathc > cnt)
+    {
+        p = strsep(&buff, "/");
+        if(p!=NULL){
+            if(strlen(p) > 0){
+              sprintf(cpath,"%s/%s",cpath,p);
+              memcpy(ipaths[cnt],cpath,(strlen(cpath) + 1)* sizeof(char) );
+              cnt += 1;
+            }
+        }
+    }
+    free(buff);
+
+    return cnt;
+}
+
+
+
+
+void onRecursiveCreateCompletion(int rc, const void *data){
+    RTRecursiveCreate* rtCx = data;
+    assert(rtCx);
+
+    //打印所有操作结果
+    int code = rtCx->resultList[rtCx->createNodeCnt - 1].err == ZOK ? ZKRT_SUCCESS : ZKRT_ERROR;
+    if(code == ZKRT_ERROR){
+      for (size_t i = 0; i < rtCx->createNodeCnt; i++)
+      {
+          PRINTF("path:%s rc:%s\n",rtCx->pathList[i], zerror(rtCx->resultList[i].err) );
+      }
+    }
+
+    if(rtCx->watcher){
+       //回调
+       rtCx->watcher(rtCx->cli,code,rtCx->pathList[rtCx->createNodeCnt - 1],code,rtCx->context);
+    }
+    free(rtCx);
+}
+
+
+//递归创建 isTmp isSeq 为叶子结点属性，父节点为永久非序列化节点
+int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context){
+    assert(cli);
+    RTRecursiveCreate* rtCx = malloc(sizeof(RTRecursiveCreate));
+    rtCx->cli=cli;
+    rtCx->watcher = watcher;
+    rtCx->context = context;
+
+    int cnt = strseppath(path,rtCx->pathList,MAX_PATH_DEEP);
+    for (size_t i = 0; i < cnt; i++)
+    {
+        zoo_create_op_init((rtCx->ops + i), rtCx->pathList + i, data,
+        len,  &ZOO_OPEN_ACL_UNSAFE, onGetMode( isTmp, isSeq),
+        0, 0);
+    }
+
+    if(cnt <= 0){
+      free(rtCx);
+      return -1;
+    }
+
+    rtCx->createNodeCnt = cnt;
+    //ops中的操作执行失败后，后边的操作不会执行。  命令会回退。 类似于事务
+    int rc = zoo_amulti(cli->zh, cnt, rtCx->ops,rtCx->resultList, onRecursiveCreateCompletion, rtCx);
+    CHECK_RC(rc,rtCx,"recursive create node")
+
+    return 0;
+}
+
+
+
 //创建节点
 int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context){
     assert(cli);
@@ -450,7 +548,7 @@ int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,i
     
     int rc = zoo_acreate(cli->zh,path,data,len,&ZOO_OPEN_ACL_UNSAFE,mode,onCreateNodeCompletion,rtCx);
 
-    CHECK_RC(rc,"create node")
+    CHECK_RC(rc,rtCx,"create node")
    
     return 0;
  }
@@ -494,7 +592,7 @@ static void onCreateNodeCompletion(int rc, const char *value, const void *data) 
 
     int rc = zoo_aset(cli->zh,path,buff,bufflen,-1,onSetDataCompletion,rtCx);
 
-    CHECK_RC(rc,"set node")
+    CHECK_RC(rc,rtCx,"set node")
 
   return 0;
  }
@@ -536,7 +634,7 @@ int zkclientGetNode(zkclient* cli,const char* path,getNodeRTHandler watcher,void
     rtCx->getRTHandler = watcher;
 
     int rc =  zoo_aget(cli->zh,path, 0,onGetDataCompletion, rtCx);
-    CHECK_RC(rc,"get node")
+    CHECK_RC(rc,rtCx,"get node")
     return 0;
  }
 
@@ -579,7 +677,7 @@ int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,v
     rtCx->deleteRTHandler = watcher;
 
     int rc =  zoo_adelete(cli->zh,path, -1,onDeleteNodeCompletion, rtCx);
-    CHECK_RC(rc,"delete node")
+    CHECK_RC(rc,rtCx,"delete node")
 
     return 0;
 }
@@ -623,7 +721,7 @@ int zkclientGetChildrens(zkclient* cli,const char* path,getChildrenNodeRTHandler
 
 static int onWGetChildrens(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn ){
     int rc= zoo_awget_children(cli->zh, path, fn, rtCx, onGetChildrenCompletion, rtCx);
-    CHECK_RC(rc,"zoo_aget_children")
+    CHECK_RC(rc,rtCx,"zoo_aget_children")
     return 0;
 }
 
@@ -675,7 +773,7 @@ int  zkclientExistNode(zkclient* cli, const char* path,existNodeRTHandler watche
 static int onWExist(zkclient* cli,RtContext* rtCx,char* path,watcher_fn fn){
     
     int rc= zoo_awexists(cli->zh, rtCx->path, fn, rtCx,onExistCompletion, rtCx);
-    CHECK_RC(rc,"zoo_awexists ")
+    CHECK_RC(rc,rtCx,"zoo_awexists ")
     return 0;
 }
 
