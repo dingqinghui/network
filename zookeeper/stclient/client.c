@@ -107,8 +107,9 @@ void nodeWacher(zkclient* cli,int event,const char* path,void* context){
     //监控节点
     //zkclientNodeWacher(cli,"/parent",nodeWacher,cli);
     //zkclientChildWacher(cli,"/parent",nodeWacher,cli);  //parent不存在则会报错
-
-    zkclientRecursiveCreateNode(cli,"/parent/child/child1/child2","child",5,0,0,0,0);
+    zkclientAddAuth(cli,"dingqinghui:dingqinghui",0,0);
+    zkclientRecursiveCreateNode(cli,"/parent111","child",5,1,0,0,0,"dingqinghui:dingqinghui");
+    //zkclientDelNode(cli,"/parent111",0,0);
    
  }
 

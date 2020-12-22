@@ -23,13 +23,22 @@
 
 #define PRINTF printf
 
+//权限生成
+#define GEN_AUTH_ACL(auth) \
+     struct ACL _CREATE_ONLY_ACL_ACL[] = {{ZOO_PERM_ALL, {"auth",auth}}};  \
+     struct ACL_vector CREATE_ONLY_ACL = {1,_CREATE_ONLY_ACL_ACL};
+
+#define ACL_VEC  CREATE_ONLY_ACL
+
 
 
 
 #define CHECK_RC(rc,ctcx,str)  \
 if(rc != ZOK){ \
     onReportErr("%s. rc:%s\n",str,zerror(rc));\
-    free(ctcx); \
+    if(ctcx){ \
+       free(ctcx); \
+    } \
     return -1;\
 }
 
@@ -52,6 +61,7 @@ typedef struct zkclient{
     int64_t connectingStartTime;
     int timeout;
     char* host;
+    const char* auth;
 }zkclient;
 
 
@@ -67,6 +77,7 @@ typedef struct RtContext{
         deleteNodeRTHandler deleteRTHandler;
         getChildrenNodeRTHandler getChildrenRTHandler;
         existNodeRTHandler  existRTHandler;
+        addAuthRTHandler authRTHandler;
     };
     nodeEventHandler wacher;
 }RtContext;
@@ -161,6 +172,24 @@ static const char* onType2String(int state){
     return "NOTWATCHING_EVENT";
 
   return "UNKNOWN_EVENT_TYPE";
+}
+
+static const int onRc2Code(int rc){
+   if(rc == ZOK){
+      return ZKRT_SUCCESS;
+    }
+    else if(rc == ZNONODE){ 
+      return ZKRT_NONODE;
+    }
+    else if(rc == ZNODEEXISTS){ 
+      return ZKRT_NODEEXIST;
+    }
+    else if(rc == ZAUTHFAILED){ 
+      return ZKRT_AUTHFAIL;
+    }
+    else{
+      return ZKRT_ERROR;
+    }
 }
 
 static void onDumpStat(const struct Stat *stat) {
@@ -310,6 +339,9 @@ void zkclientFree(zkclient* cli){
     if(cli->host){
       free(cli->host);
     }
+    if(cli->auth){
+      free(cli->auth);
+    }
     free(cli);
     cli = 0;
 }
@@ -335,7 +367,6 @@ static void onConnected(zkclient* cli){
         cli->myid = *id;
         isReconnect = 0;
     }
-
     if( cli->connectHandle ){
       cli->connectHandle(cli,isReconnect);
     }
@@ -450,6 +481,34 @@ static int onSelect(zkclient* cli){
     zookeeper_process(zh, events);
 }
  
+void onAddAuthCompletion(int rc, const void *data){
+    RtContext* rtCx = data;
+    assert(rtCx);
+
+    int code = onRc2Code(rc);
+
+    if(rtCx->authRTHandler){
+       rtCx->authRTHandler(rtCx->cli,code,rtCx->context);
+    }
+    free(rtCx);
+}
+
+
+int zkclientAddAuth(zkclient* cli,const char* auth,addAuthRTHandler watcher,void* context){
+    assert(cli);
+
+    RtContext* rtCx = malloc(sizeof(RtContext));
+    assert(rtCx);
+    rtCx->cli = cli;
+    rtCx->context = context;
+    rtCx->createRTHandler = watcher;
+
+    int rc = zoo_add_auth(cli->zh,"digest",auth,strlen(auth) + 1,onAddAuthCompletion,rtCx);
+    CHECK_RC(rc,rtCx,"add auth")
+
+    return 0;
+}
+
 
 
 static int strseppath(const char* path,char (*ipaths)[MAX_PATH],int ipathc){
@@ -479,7 +538,7 @@ static int strseppath(const char* path,char (*ipaths)[MAX_PATH],int ipathc){
 
 
 
-void onRecursiveCreateCompletion(int rc, const void *data){
+static void onRecursiveCreateCompletion(int rc, const void *data){
     RTRecursiveCreate* rtCx = data;
     assert(rtCx);
 
@@ -500,20 +559,32 @@ void onRecursiveCreateCompletion(int rc, const void *data){
 }
 
 
+
 //递归创建 isTmp isSeq 为叶子结点属性，父节点为永久非序列化节点
-int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context){
+int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context,const char* auth){
     assert(cli);
+    CHECK_CONNECTED(cli)
+
     RTRecursiveCreate* rtCx = malloc(sizeof(RTRecursiveCreate));
     rtCx->cli=cli;
     rtCx->watcher = watcher;
     rtCx->context = context;
 
+    
     int cnt = strseppath(path,rtCx->pathList,MAX_PATH_DEEP);
     for (size_t i = 0; i < cnt; i++)
     {
+      if(auth == 0){
         zoo_create_op_init((rtCx->ops + i), rtCx->pathList + i, data,
         len,  &ZOO_OPEN_ACL_UNSAFE, onGetMode( isTmp, isSeq),
         0, 0);
+      }
+      else{
+        GEN_AUTH_ACL(cli->auth)
+        zoo_create_op_init((rtCx->ops + i), rtCx->pathList + i, data,
+        len,  &ACL_VEC, onGetMode( isTmp, isSeq),
+        0, 0);
+      }
     }
 
     if(cnt <= 0){
@@ -532,7 +603,7 @@ int zkclientRecursiveCreateNode(zkclient* cli,const char* path,const char* data,
 
 
 //创建节点
-int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context){
+int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,int isTmp,int isSeq,createNodeRTHandler watcher,void* context,const char* auth){
     assert(cli);
 
     CHECK_CONNECTED(cli)
@@ -546,7 +617,16 @@ int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,i
     rtCx->context = context;
     rtCx->createRTHandler = watcher;
     
-    int rc = zoo_acreate(cli->zh,path,data,len,&ZOO_OPEN_ACL_UNSAFE,mode,onCreateNodeCompletion,rtCx);
+    
+    int rc = 0;
+    if(auth == 0){
+       GEN_AUTH_ACL(auth)
+       rc = zoo_acreate(cli->zh,path,data,len,&ACL_VEC,mode,onCreateNodeCompletion,rtCx);
+    }
+    else{
+       rc = zoo_acreate(cli->zh,path,data,len,&ZOO_OPEN_ACL_UNSAFE,mode,onCreateNodeCompletion,rtCx);
+    }
+    
 
     CHECK_RC(rc,rtCx,"create node")
    
@@ -556,19 +636,8 @@ int zkclientCreateNode(zkclient* cli,const char* path,const char* data,int len,i
 static void onCreateNodeCompletion(int rc, const char *value, const void *data) {
     RtContext* rtCx = data;
     assert(rtCx);
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //父节点不存在
-      code = ZKRT_NONODE;
-    }
-    else if(rc == ZNODEEXISTS){  //节点已存在
-      code = ZKRT_NODEEXIST;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
+
     //PRINTF("create node:%s  data:%s result:%s\n",rtCx->path,value,zerror(rc));
     if(rtCx->createRTHandler){
        rtCx->createRTHandler(rtCx->cli,code,rtCx->path,value,rtCx->context);
@@ -603,16 +672,7 @@ static  void onSetDataCompletion(int rc, const struct Stat *stat,const void *dat
 {
     RtContext* rtCx = data;
     assert(rtCx);
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //节点不存在
-      code = ZKRT_NONODE;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
     ///PRINTF("set node:%s  result:%s\n",rtCx->path,zerror(rc));
     onDumpStat(stat);
     if(rtCx->setRTHandler){
@@ -644,16 +704,7 @@ static void onGetDataCompletion(int rc, const char *value, int value_len,const s
 {
     RtContext* rtCx = data;
     assert(rtCx);
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //节点不存在
-      code = ZKRT_NONODE;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
     //PRINTF("get node:%s value:%s result:%s\n",rtCx->path,value,zerror(rc));
     onDumpStat(stat);
     if(rtCx->getRTHandler){
@@ -685,16 +736,7 @@ int zkclientDelNode(zkclient* cli,const char* path,deleteNodeRTHandler watcher,v
 static void onDeleteNodeCompletion(int rc, const void *data){
     RtContext* rtCx = data;
     assert(rtCx);
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //节点不存在
-      code = ZKRT_NONODE;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
     PRINTF("delete node:%s  result:%s\n",rtCx->path,zerror(rc));
     if(rtCx->deleteRTHandler){
        rtCx->deleteRTHandler(rtCx->cli,code,rtCx->path,rtCx->context);
@@ -730,16 +772,7 @@ static int onWGetChildrens(zkclient* cli,RtContext* rtCx,char* path,watcher_fn f
 static void onGetChildrenCompletion(int rc, const struct String_vector *strings,const void *data) {
     RtContext* rtCx = data;
     assert(rtCx);
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //节点不存在
-      code = ZKRT_NONODE;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
     //PRINTF("get childrens node:%s  result:%s\n",rtCx->path,zerror(rc));
     onDumpStringVec(strings);
     if(rtCx->getChildrenRTHandler){
@@ -784,16 +817,8 @@ static void onExistCompletion(int rc, const struct Stat *stat,const void *data){
     
     //onDumpStat(stat);
 
-    int code = 0;
-    if(rc == ZOK){
-      code = ZKRT_SUCCESS;
-    }
-    else if(rc == ZNONODE){  //节点不存在
-      code = ZKRT_NONODE;
-    }
-    else{
-      code = ZKRT_ERROR;
-    }
+    int code = onRc2Code(rc);
+
     if(rtCx->existRTHandler){
        rtCx->existRTHandler(rtCx->cli,code,rtCx->path,stat,rtCx->context);
     }

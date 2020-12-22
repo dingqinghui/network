@@ -10,5 +10,6 @@
         "xmemory0": "c",
         "xutility": "c",
         "xtree": "c"
-    }
+    },
+    "editor.snippetSuggestions": "bottom"
 }
