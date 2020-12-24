@@ -132,7 +132,7 @@ int main(int argc,const char*argv[])
 
     char*host="127.0.0.1:2183,127.0.0.1:2184,127.0.0.1:2185";
 
-    zkclient* zkcli  = zkclientCreate(host,ConnectedHandler,CloseHandler,0);
+    zkclient* zkcli  = zkclientCreate(host,ConnectedHandler,CloseHandler,5000);
     assert(zkcli);
 
     zkclientConnect(zkcli);
