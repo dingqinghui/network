@@ -1,8 +1,8 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/stclient.dir/client.c.o"
   "CMakeFiles/stclient.dir/zkcli.c.o"
-  "/mnt/hgfs/linux_share/zookeeper/bin/stclient.pdb"
-  "/mnt/hgfs/linux_share/zookeeper/bin/stclient"
+  "/mnt/share/git/zookeeper/bin/stclient.pdb"
+  "/mnt/share/git/zookeeper/bin/stclient"
 )
 
 # Per-language clean rules from dependency scanning.

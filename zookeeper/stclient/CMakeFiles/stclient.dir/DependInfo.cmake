@@ -4,8 +4,8 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/mnt/hgfs/linux_share/zookeeper/stclient/client.c" "/mnt/hgfs/linux_share/zookeeper/stclient/CMakeFiles/stclient.dir/client.c.o"
-  "/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c" "/mnt/hgfs/linux_share/zookeeper/stclient/CMakeFiles/stclient.dir/zkcli.c.o"
+  "/mnt/share/git/zookeeper/stclient/client.c" "/mnt/share/git/zookeeper/stclient/CMakeFiles/stclient.dir/client.c.o"
+  "/mnt/share/git/zookeeper/stclient/zkcli.c" "/mnt/share/git/zookeeper/stclient/CMakeFiles/stclient.dir/zkcli.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 

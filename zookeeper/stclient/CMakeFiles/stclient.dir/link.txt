@@ -1,1 +1,1 @@
-/usr/bin/cc      CMakeFiles/stclient.dir/client.c.o CMakeFiles/stclient.dir/zkcli.c.o  -o /mnt/hgfs/linux_share/zookeeper/bin/stclient  -L../lib -rdynamic -lzookeeper_st -lm -Wl,-rpath,../lib 
+/usr/bin/cc      CMakeFiles/stclient.dir/client.c.o CMakeFiles/stclient.dir/zkcli.c.o  -o /mnt/share/git/zookeeper/bin/stclient  -L../lib -rdynamic -lzookeeper_st -lm -Wl,-rpath,../lib 

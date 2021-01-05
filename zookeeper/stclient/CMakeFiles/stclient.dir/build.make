@@ -38,10 +38,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/hgfs/linux_share/zookeeper/stclient
+CMAKE_SOURCE_DIR = /mnt/share/git/zookeeper/stclient
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/hgfs/linux_share/zookeeper/stclient
+CMAKE_BINARY_DIR = /mnt/share/git/zookeeper/stclient
 
 # Include any dependencies generated for this target.
 include CMakeFiles/stclient.dir/depend.make
@@ -54,17 +54,17 @@ include CMakeFiles/stclient.dir/flags.make
 
 CMakeFiles/stclient.dir/client.c.o: CMakeFiles/stclient.dir/flags.make
 CMakeFiles/stclient.dir/client.c.o: client.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/zookeeper/stclient/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/share/git/zookeeper/stclient/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/stclient.dir/client.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/stclient.dir/client.c.o   -c /mnt/hgfs/linux_share/zookeeper/stclient/client.c
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/stclient.dir/client.c.o   -c /mnt/share/git/zookeeper/stclient/client.c
 
 CMakeFiles/stclient.dir/client.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/stclient.dir/client.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/zookeeper/stclient/client.c > CMakeFiles/stclient.dir/client.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/share/git/zookeeper/stclient/client.c > CMakeFiles/stclient.dir/client.c.i
 
 CMakeFiles/stclient.dir/client.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/stclient.dir/client.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/zookeeper/stclient/client.c -o CMakeFiles/stclient.dir/client.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/share/git/zookeeper/stclient/client.c -o CMakeFiles/stclient.dir/client.c.s
 
 CMakeFiles/stclient.dir/client.c.o.requires:
 .PHONY : CMakeFiles/stclient.dir/client.c.o.requires
@@ -77,17 +77,17 @@ CMakeFiles/stclient.dir/client.c.o.provides.build: CMakeFiles/stclient.dir/clien
 
 CMakeFiles/stclient.dir/zkcli.c.o: CMakeFiles/stclient.dir/flags.make
 CMakeFiles/stclient.dir/zkcli.c.o: zkcli.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/hgfs/linux_share/zookeeper/stclient/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /mnt/share/git/zookeeper/stclient/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/stclient.dir/zkcli.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/stclient.dir/zkcli.c.o   -c /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/stclient.dir/zkcli.c.o   -c /mnt/share/git/zookeeper/stclient/zkcli.c
 
 CMakeFiles/stclient.dir/zkcli.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/stclient.dir/zkcli.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c > CMakeFiles/stclient.dir/zkcli.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /mnt/share/git/zookeeper/stclient/zkcli.c > CMakeFiles/stclient.dir/zkcli.c.i
 
 CMakeFiles/stclient.dir/zkcli.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/stclient.dir/zkcli.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c -o CMakeFiles/stclient.dir/zkcli.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /mnt/share/git/zookeeper/stclient/zkcli.c -o CMakeFiles/stclient.dir/zkcli.c.s
 
 CMakeFiles/stclient.dir/zkcli.c.o.requires:
 .PHONY : CMakeFiles/stclient.dir/zkcli.c.o.requires
@@ -106,15 +106,15 @@ stclient_OBJECTS = \
 # External object files for target stclient
 stclient_EXTERNAL_OBJECTS =
 
-/mnt/hgfs/linux_share/zookeeper/bin/stclient: CMakeFiles/stclient.dir/client.c.o
-/mnt/hgfs/linux_share/zookeeper/bin/stclient: CMakeFiles/stclient.dir/zkcli.c.o
-/mnt/hgfs/linux_share/zookeeper/bin/stclient: CMakeFiles/stclient.dir/build.make
-/mnt/hgfs/linux_share/zookeeper/bin/stclient: CMakeFiles/stclient.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable /mnt/hgfs/linux_share/zookeeper/bin/stclient"
+/mnt/share/git/zookeeper/bin/stclient: CMakeFiles/stclient.dir/client.c.o
+/mnt/share/git/zookeeper/bin/stclient: CMakeFiles/stclient.dir/zkcli.c.o
+/mnt/share/git/zookeeper/bin/stclient: CMakeFiles/stclient.dir/build.make
+/mnt/share/git/zookeeper/bin/stclient: CMakeFiles/stclient.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable /mnt/share/git/zookeeper/bin/stclient"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/stclient.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/stclient.dir/build: /mnt/hgfs/linux_share/zookeeper/bin/stclient
+CMakeFiles/stclient.dir/build: /mnt/share/git/zookeeper/bin/stclient
 .PHONY : CMakeFiles/stclient.dir/build
 
 CMakeFiles/stclient.dir/requires: CMakeFiles/stclient.dir/client.c.o.requires
@@ -126,6 +126,6 @@ CMakeFiles/stclient.dir/clean:
 .PHONY : CMakeFiles/stclient.dir/clean
 
 CMakeFiles/stclient.dir/depend:
-	cd /mnt/hgfs/linux_share/zookeeper/stclient && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/linux_share/zookeeper/stclient /mnt/hgfs/linux_share/zookeeper/stclient /mnt/hgfs/linux_share/zookeeper/stclient /mnt/hgfs/linux_share/zookeeper/stclient /mnt/hgfs/linux_share/zookeeper/stclient/CMakeFiles/stclient.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/share/git/zookeeper/stclient && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/share/git/zookeeper/stclient /mnt/share/git/zookeeper/stclient /mnt/share/git/zookeeper/stclient /mnt/share/git/zookeeper/stclient /mnt/share/git/zookeeper/stclient/CMakeFiles/stclient.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/stclient.dir/depend
 

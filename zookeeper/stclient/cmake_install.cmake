@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/hgfs/linux_share/zookeeper/stclient
+# Install script for directory: /mnt/share/git/zookeeper/stclient
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/mnt/hgfs/linux_share/zookeeper/stclient/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/mnt/share/git/zookeeper/stclient/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/mnt/hgfs/linux_share/zookeeper/stclient/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/mnt/share/git/zookeeper/stclient/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

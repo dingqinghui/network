@@ -74,11 +74,10 @@ void nodeWacher(zkclient* cli,int event,const char* path,void* context){
             zkclientExistNode(cli,path,existNodeRT,cli);
             zkclientNodeWacher(cli,path,nodeWacher,cli);
         }
-           
         break;
         case EventNodeDataChanged:
         {
-            zkclientExistNode(cli,path,getNodeRT,cli);
+            zkclientGetNode(cli,path,getNodeRT,cli);
             zkclientNodeWacher(cli,path,nodeWacher,cli);
         } 
         break;
@@ -103,14 +102,34 @@ void nodeWacher(zkclient* cli,int event,const char* path,void* context){
     if(isReconnect){
         return ;
     }
-    
+
     //监控节点
     //zkclientNodeWacher(cli,"/parent",nodeWacher,cli);
     //zkclientChildWacher(cli,"/parent",nodeWacher,cli);  //parent不存在则会报错
-    zkclientAddAuth(cli,"dingqinghui:dingqinghui",0,0);
-    zkclientRecursiveCreateNode(cli,"/parent111","child",5,1,0,0,0,"dingqinghui:dingqinghui");
+    //zkclientAddAuth(cli,"dingqinghui:dingqinghui",0,0);
+    //zkclientRecursiveCreateNode(cli,"/parent111","child",5,1,0,0,0,"dingqinghui:dingqinghui");
     //zkclientDelNode(cli,"/parent111",0,0);
-   
+
+
+    for(int index = 0; index < 10;++index){
+        char val[25];
+        sprintf(val,"%d",index);
+        zkclientSetNode(cli,"/setnode",val,2,0,0);
+    }
+    zkclientCreateNode(cli,"/setnode","1",2,0,0,0,0,"");
+    for(int index = 0; index < 10;++index){
+        char val[25];
+        sprintf(val,"%d",index);
+        zkclientCreateNode(cli,"/setnode","1",2,0,0,0,0,"");
+        zkclientSetNode(cli,"/setnode",val,2,0,0);
+
+        zkclientCreateNode(cli,"/setnode/child","1",2,0,1,0,0,"");
+        if(index < 9){
+            zkclientDelNode(cli,"/setnode",0,0);
+        }
+        
+    }
+
  }
 
 

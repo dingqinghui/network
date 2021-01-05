@@ -50,7 +50,7 @@ zookeeper.h
 
 ../common/zookeeper/zookeeper_version.h
 
-/mnt/hgfs/linux_share/zookeeper/stclient/client.c
+/mnt/share/git/zookeeper/stclient/client.c
 stdio.h
 -
 stdlib.h
@@ -62,27 +62,9 @@ assert.h
 unistd.h
 -
 zkcli.h
-/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h
+/mnt/share/git/zookeeper/stclient/zkcli.h
 
-/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c
-stdio.h
--
-stdlib.h
--
-string.h
--
-string.h
--
-errno.h
--
-stdarg.h
--
-assert.h
--
-zkcli.h
-/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h
-
-/mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h
+/mnt/share/git/zookeeper/stclient/zkcli.h
 zookeeper.h
 -
 zookeeper_log.h

@@ -8,8 +8,8 @@ CMakeFiles/stclient.dir/client.c.o
  ../common/zookeeper/zookeeper.jute.h
  ../common/zookeeper/zookeeper_log.h
  ../common/zookeeper/zookeeper_version.h
- /mnt/hgfs/linux_share/zookeeper/stclient/client.c
- /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h
+ /mnt/share/git/zookeeper/stclient/client.c
+ /mnt/share/git/zookeeper/stclient/zkcli.h
 CMakeFiles/stclient.dir/zkcli.c.o
  ../common/zookeeper/proto.h
  ../common/zookeeper/recordio.h
@@ -17,5 +17,5 @@ CMakeFiles/stclient.dir/zkcli.c.o
  ../common/zookeeper/zookeeper.jute.h
  ../common/zookeeper/zookeeper_log.h
  ../common/zookeeper/zookeeper_version.h
- /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.c
- /mnt/hgfs/linux_share/zookeeper/stclient/zkcli.h
+ /mnt/share/git/zookeeper/stclient/zkcli.c
+ /mnt/share/git/zookeeper/stclient/zkcli.h
