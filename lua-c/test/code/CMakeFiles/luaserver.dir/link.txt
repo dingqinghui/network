@@ -1,1 +1,0 @@
-/usr/bin/cc  -g    CMakeFiles/luaserver.dir/main.c.o  -o ../bin/luaserver  -L../3rd/lua/src -rdynamic -llua -lm -ldl -Wl,-rpath,../3rd/lua/src 

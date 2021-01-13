@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC -g   -shared -Wl,-soname,zookeeper.so -o ../../zookeeper.so CMakeFiles/zookeeper.dir/client.c.o CMakeFiles/zookeeper.dir/zkcli.c.o CMakeFiles/zookeeper.dir/zklib.c.o  -L. -lzookeeper_st -lm -Wl,-rpath,. 

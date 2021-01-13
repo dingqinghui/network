@@ -1,3 +1,0 @@
-/mnt/hgfs/linux_share/lua-c/test/code/CMakeFiles/luaserver.dir
-/mnt/hgfs/linux_share/lua-c/test/lualib/CMakeFiles/my_math.dir
-/mnt/hgfs/linux_share/lua-c/test/3rd/zookeeper/CMakeFiles/zookeeper.dir

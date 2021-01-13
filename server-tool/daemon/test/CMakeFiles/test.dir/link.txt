@@ -1,0 +1,1 @@
+/usr/bin/cc  -g    CMakeFiles/test.dir/main.c.o CMakeFiles/test.dir/mnt/hgfs/git/server-tool/daemon/net_daemon.c.o  -o bin/test -rdynamic 

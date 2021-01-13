@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/git/server-tool/daemon/net_daemon.c
+unistd.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+fcntl.h
+-
+errno.h
+-
+stdio.h
+-
+signal.h
+-
+sys/file.h
+-
+net_daemon.h
+/mnt/hgfs/git/server-tool/daemon/net_daemon.h
+
+/mnt/hgfs/git/server-tool/daemon/net_daemon.h
+

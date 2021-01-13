@@ -1,1 +1,0 @@
-/mnt/hgfs/linux_share/lua-c/code/lualib/CMakeFiles/my_math.dir
