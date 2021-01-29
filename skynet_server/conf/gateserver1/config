@@ -1,0 +1,34 @@
+include "../config.path"
+
+
+preload = "./lualib/preload.lua"	-- run preload.lua before every lua service run
+thread = 8
+logger =  nil
+logpath = "."
+harbor = 0
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+nodename = "gateserver1"
+
+
+start = "gateserver_main"	    -- main script
+
+
+-- console_port = 8001
+
+
+cluster = "./conf/" .. nodename .. "/clustername.lua"
+
+
+luaservice = luaservice ..  "./"  .. "gateserver" .. "/?.lua;"
+lua_path = lua_path ..  "./"  .. "gateserver" .. "/?.lua;"
+
+
+redishost = "127.0.0.1" 
+redisport = 6379
+
+address="127.0.0.1"
+port=27000
+
+-- daemon = "./skynet.pid"
+-- snax_interface_g = "snax_g"

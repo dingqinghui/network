@@ -1,0 +1,14 @@
+include "config.path1"
+thread = 8
+logger = nil
+harbor = 0
+start = "tcluster1"
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+
+lualoader = root ..  "lualib/loader.lua"
+
+nodename = "login"
+
+cluster = "./test/clustername.lua"
+
