@@ -15,6 +15,7 @@ local function send_pack(client_fd,pack)
     if client_fd then 
         local package = string.pack(">s2", pack)
         socket.send(client_fd, package)
+        print("111111111111111",client_fd)
     end 
 end
 
@@ -22,7 +23,7 @@ end
 local function register()
     local data  = xserialize.encode(
         {
-           id = 10000,
+           name = "register",
            data = {
                account = account,
                password  = password
@@ -36,7 +37,7 @@ end
 local function login()
     local data  = xserialize.encode(
         {
-           id = 10001,
+           name = "login",
            data = {
                 account = account,
                 password  = password
@@ -49,7 +50,7 @@ end
 
 local function run(fd)
     --while true do 
-        --register()
+        register()
         login()
         --skynet.exit()
         --skynet.sleep(500)
@@ -78,7 +79,7 @@ end
 skynet.start(function ()
 
     skynet.fork(run,fd)
-    skynet.fork(read_pack,fd)
+    --skynet.fork(read_pack,fd)
 end
 )
 

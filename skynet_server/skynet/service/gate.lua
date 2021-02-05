@@ -23,6 +23,7 @@ function handler.message(fd, msg, sz)
 		-- It's safe to redirect msg directly , gateserver framework will not free msg.
 		skynet.redirect(agent, c.client, "client", fd, msg, sz)
 	else
+		--skynet.redirect(watchdog, c.client, "client", fd, msg, sz)
 		skynet.send(watchdog, "lua", "socket", "data", fd, skynet.tostring(msg, sz))
 		-- skynet.tostring will copy msg to a string, so we must free msg here.
 		skynet.trash(msg,sz)

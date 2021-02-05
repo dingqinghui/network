@@ -54,6 +54,5 @@ skynet.start(function ()
     end
     -- 注册状态变化通知
     nodemgr.register(skynet.self())
-
 end)
 

@@ -50,7 +50,7 @@ function agentserver.start(handler)
 			return nil
 		end 
 		-- 这里有待优化不是所有的消息都需要加锁来处理
-		return cs(f, message.data)
+		return f(message.data)
 	end
 	
 	
