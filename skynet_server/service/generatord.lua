@@ -1,6 +1,6 @@
 local skynet = require "skynet"
 
-
+local usertime = require "usertime"
 
 local CMD = {}
 
@@ -9,17 +9,14 @@ local index = 0
 
 
 --[[
-    29（时间戳） +  (区号 + 机器号(标识进程)) 12 + (功能ID) 5 + 自增ID  
+    snowflake算法：41（时间戳）+ 10 (nodeid) + 12 (自增索引)
 ]]
 
-
-function CMD.uuid(id)
-    local tm = math.floor(skynet.time() * 100 )
-    local token = tm << 22
-    token = token | ( (id or 1) <<  24 )
-    token = token | index 
+--64-41=15
+function CMD.uuid(nodeid)
+    local ms = usertime.getmilliseconds()
     index = index + 1
-    return token
+    return (ms << 41) | (nodeid << 10) | (index)
 end
 
 

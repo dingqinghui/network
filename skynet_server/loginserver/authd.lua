@@ -7,6 +7,7 @@ local generator = require "generator"
 --local nodemgr  = require "nodemgr"
 --local gatemgr = require "gatemgr"
 
+local NODEID = skynet.getenv("nodeid")
 
 local MSG = client.gethandler()
 
@@ -25,7 +26,7 @@ function MSG.register(fd,data)
 	end 
 	
 	-- 生成UUID
-	local uuid = generator.uuid()
+	local uuid = generator.uuid(NODEID)
 	local info = {
 		account = account,
 		password = password,
@@ -65,7 +66,7 @@ function MSG.login(fd,data)
 	end
 
 	-- uuid -- token  expire
-	local token = math.floor( generator.token() )
+	local token = math.floor( generator.uuid(NODEID) )
 	local key = generator.keygen(rediskey.token,info.uuid)
 	dbmgr.set(key,token) 
 	dbmgr.expire(key,10) 

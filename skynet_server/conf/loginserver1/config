@@ -27,7 +27,7 @@ lua_path = lua_path ..  "./"  .. "loginserver" .. "/?.lua;"
 redishost = "127.0.0.1" 
 redisport = 6379
 
-
+nodeid=100
 
 -- daemon = "./skynet.pid"
 -- snax_interface_g = "snax_g"
