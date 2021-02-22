@@ -32,7 +32,8 @@ local function slaveinit()
     local conf = {
         host = GETENV("redishost") or "127.0.0.1",
         port = GETENV("redisport") or 6379,
-        db = GETENV("redisdb") or 0
+        db = GETENV("redisdb") or 0,
+        auth = GETENV("redisauth") ,
     }
 
     local db = { }

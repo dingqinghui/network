@@ -6,6 +6,9 @@ local rediskey = require "rediskey"
 local generator = require "generator" 
 --local nodemgr  = require "nodemgr"
 --local gatemgr = require "gatemgr"
+local errcode = require "errcode"
+
+local hub =  ...
 
 local NODEID = skynet.getenv("nodeid")
 
@@ -16,13 +19,11 @@ function MSG.register(fd,data)
     local account = data.account
 	local password = data.password
 
-
 	-- 检验账户是否存在
 	local ret = dbmgr.sadd(rediskey.account_list,account)
-	
 	if ret == 0 then 
-		skynet.error("dbmgr.sadd ret:",ret)
-		return {}
+		skynet.error("注册失败账号已经存在 账号:" .. account )
+		return errcode.ACCOUNT_EXIST
 	end 
 	
 	-- 生成UUID
@@ -37,11 +38,17 @@ function MSG.register(fd,data)
 	ret = dbmgr.hset(rediskey.account,account,table.serialize(info))
 	if ret == 0 then 
 		dbmgr.srem(rediskey.account_list,account)
-		return {}
+		skynet.error("添加账号失败")
+		return errcode.ADD_ACOUNT_FAIL
 	end
+	ret = dbmgr.hget(rediskey.account,account)
+	table.dump(ret)
 
-	return { data = {result = true} }
+	skynet.error(string.format("注册账号：%s UUID：%d ",account,uuid))
+	return errcode.RT_OK
 end
+
+
 
 function MSG.login(fd,data)
     local account = data.account
@@ -50,19 +57,21 @@ function MSG.login(fd,data)
 	-- 验证用户是否存在
 	local ret = dbmgr.sadd(rediskey.account_list,account)
 	if ret == 1 then
-		skynet.error("account not exist")
-		return 
+		skynet.error("账号不存在 账号：" .. account)
+		return errcode.ACCOUNT_NOT_EXIST
 	end  
 	-- 验证登陆密码正确性
 	ret = dbmgr.hget(rediskey.account,account)
+	table.dump(ret)
 	if not ret  then
-		return 
+		skynet.error("数据库获取密码失败 账号：" .. account)
+		return errcode.DB_GET_PASSWORD_FAIL
 	end  
 
 	local info = table.unserialize(ret)
 	if info.password ~= password then
-		skynet.error("password not correct")
-		return 
+		skynet.error("账号密码错误 账号：" .. account)
+		return errcode.PASSWORD_INCORRECT
 	end
 
 	-- uuid -- token  expire
@@ -73,7 +82,7 @@ function MSG.login(fd,data)
 
 	local gateinfo = "127.0.0.1:8005"--gatemgr.balance()
 	if gateinfo == nil then 
-		return {  {}}
+		return {  {} }
 	end 
 
 	local data = {
@@ -82,22 +91,33 @@ function MSG.login(fd,data)
 		token = token,
 		gate_addr = gateinfo.host,
 	}
-	skynet.error("data:",table.dump(data))
 
 	return {  data = data}
 end
 
 
 local function slave_laucher()
-    local CMD = {}
+
+	local CMD = {}
+	function CMD.connect(fd)
+		client.connect(fd)
+	end
+
+	function CMD.disconnect(fd)
+		client.disconnect(fd)
+	end
 
     skynet.dispatch("lua", function(session, source, cmd, ...)
         local f = CMD[cmd]
-        assert(f,cmd)
+        assert(f,cmd) 
         skynet.retpack( f(...) ) 
     end)
 
-    client.register_protocol()
+	local handler = {}
+	function handler.closeclient(fd)
+		skynet.send(hub,"lua","closeclient",fd)
+	end
+    client.register_protocol(handler)
 end
    
 
@@ -105,7 +125,7 @@ local function master_laucher()
     local slaves = {}
     local scnt = 10
     for i=1,scnt do
-        table.insert(slaves,skynet.newservice("authd"))
+        table.insert(slaves,skynet.newservice("authd",hub))
     end
     
     local CMD  = {}
@@ -122,6 +142,8 @@ local function master_laucher()
         skynet.retpack( f(...) ) 
     end)
 end
+
+
 
 skynet.start(function ()
     local handle = skynet.localname(".auth")

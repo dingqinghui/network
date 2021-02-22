@@ -14,8 +14,8 @@ end
 
 
 
-function generator.uuid()
-    return skynet.call(service,"lua","uuid") 
+function generator.uuid(...)
+    return skynet.call(service,"lua","uuid",...) 
 end
 
 function generator.keygen(str,...)

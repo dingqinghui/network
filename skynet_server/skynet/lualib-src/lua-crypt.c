@@ -768,7 +768,7 @@ push64(lua_State *L, uint64_t r) {
 	tmp[5] = (r >> 40 )& 0xff;
 	tmp[6] = (r >> 48 )& 0xff;
 	tmp[7] = (r >> 56 )& 0xff;
-
+	
 	lua_pushlstring(L, (const char *)tmp, 8);
 }
 
