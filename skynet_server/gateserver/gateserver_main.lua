@@ -27,14 +27,14 @@ skynet.start(function ()
 	--skynet.newservice("debug_console", GETENV("console_port") or 8001)
 	
 
-	local watchdog = skynet.newservice("watchdog","gate_agent" )
+	local hub = skynet.newservice("hub")
 	local conf={
 		address = GETENV("address") or "127.0.0.1",
 		port = GETENV("port") or 17000,
 		maxclient = GETENV("maxclient") or 65535,
 		nodelay = GETENV("nodelay") or true,
 	}
-	skynet.call(watchdog, "lua", "start", conf)
+	skynet.call(hub, "lua", "start", conf)
 
 
     skynet.exit()

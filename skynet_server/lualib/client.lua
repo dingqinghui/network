@@ -83,7 +83,7 @@ end
 
 
 
-local function register_protocol(handler)
+local function register_protocol()
 	skynet.register_protocol {
 		name = "client",
 		id = skynet.PTYPE_CLIENT,	
@@ -93,8 +93,6 @@ local function register_protocol(handler)
 			dispatch_message(fd, address,msg)
 		end
 	}
-
-	client.handler = handler
 end
 
 
@@ -102,7 +100,7 @@ function client.gethandler()
 	return client.MSG
 end
 
-function client.connect(fd) 
+function client.startping(fd) 
 	local tm = skynet.time()
 	c_pool[fd] = {
 		cnt=0,
@@ -136,14 +134,18 @@ end
 
 
 
-function client.disconnect(fd) 
+
+function client.stopping(fd) 
 	c_pool[fd] = nil
 end
 
 
-
+function client.start(handler)
+	client.register_protocol()
+	client.handler = handler
+end 
 
 client.send = send_package
-client.register_protocol = register_protocol
+
 
 return client

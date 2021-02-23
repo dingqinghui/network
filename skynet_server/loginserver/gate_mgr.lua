@@ -13,7 +13,7 @@ local function node_statu_change(nodename,statu)
     else
         connect[nodename] = nil
     end
-    skynet.error(string.format("node_statu_change node:%s status:%d",nodename,statu and 1 or 0))
+    DEBUG_LOG("node_statu_change node:%s status:%d",nodename,statu and 1 or 0)
 end 
 
 

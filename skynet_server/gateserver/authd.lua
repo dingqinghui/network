@@ -1,23 +1,21 @@
 local skynet =  require "skynet"
 require "skynet.manager"
 local client =  require "client"
-require "authmsg"
-
+require "gate_msg"
 --local nodemgr  = require "nodemgr"
 --local gatemgr = require "gatemgr"
 
-
-local hub =  ...
+__HUB__ =  ...
 
 local function slave_laucher()
 
 	local CMD = {}
 	function CMD.connect(fd)
-		client.start_ping(fd)
+		client.connect(fd)
 	end
 
 	function CMD.disconnect(fd)
-		client.stopping(fd)
+		client.disconnect(fd)
 	end
 
     skynet.dispatch("lua", function(session, source, cmd, ...)
@@ -28,7 +26,7 @@ local function slave_laucher()
 
 	local handler = {}
 	function handler.closeclient(fd)
-		skynet.send(hub,"lua","closeclient",fd)
+		skynet.send(__HUB__,"lua","closeclient",fd)
 	end
     client.start(handler)
 end
@@ -38,7 +36,7 @@ local function master_laucher()
     local slaves = {}
     local scnt = 10
     for i=1,scnt do
-        table.insert(slaves,skynet.newservice("authd",hub))
+        table.insert(slaves,skynet.newservice("authd",__HUB__))
     end
     
     local CMD  = {}

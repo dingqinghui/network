@@ -25,7 +25,7 @@ function handler.open(source, conf)
 
 end
 
-function getagent(fd)
+local function getagent(fd)
     local s = nil
     if not agent[fd] then 
         s = skynet.call(authmaster,"lua","balance",fd)
@@ -38,7 +38,7 @@ end
 
 
 function handler.message(fd, msg, sz)
-    skynet.error(string.format("con msg  fd:%d msg:%s sz:%d",fd,msg,sz))
+    DEBUG_LOG("con msg  fd:%d msg:%s sz:%d",fd,msg,sz)
     if wait_auth[fd] then 
         local s = getagent(fd)
         assert(s)
@@ -52,7 +52,7 @@ end
 
 function handler.connect(fd, addr)
     wait_auth[fd] = true
-    skynet.error(string.format("new con fd:%d host:%s",fd,addr))
+    DEBUG_LOG("new con fd:%d host:%s",fd,addr)
 
     gateserver.openclient(fd)
 
@@ -62,7 +62,7 @@ end
 
 function handler.disconnect(fd)
     close_fd(fd)
-    skynet.error(string.format("con disconnect fd:%d",fd))
+    DEBUG_LOG("con disconnect fd:%d",fd)
 
     local s = getagent(fd)
     skynet.call(s,"lua","disconnect",fd)
@@ -71,7 +71,7 @@ end
 
 function handler.error(fd, msg)
     close_fd(fd)
-    skynet.error(string.format("con error fd:%d",fd))
+    DEBUG_LOG("con error fd:%d",fd)
 
     local s = getagent(fd)
     skynet.call(s,"lua","disconnect",fd)
@@ -79,9 +79,8 @@ end
 
 
 function handler.warning(fd, size)
-    skynet.error(string.format("con warning fd:%d",fd))
+    DEBUG_LOG("con warning fd:%d",fd)
 end
-
 
 
 local CMD = {}
@@ -89,7 +88,7 @@ local CMD = {}
 function CMD.closeclient(source,fd)
     close_fd(fd)
     gateserver.closeclient(fd)
-    skynet.error("主动关闭客户端 fd:" .. fd)
+    DEBUG_LOG("主动关闭客户端 fd:" .. fd)
 end
 
 function handler.command(cmd, source, ...)
