@@ -1,10 +1,12 @@
 return {
 
-    SERVER_TYPE = {
-        CONTROL = 1,
-        GAME = 2,
-        LOGIN = 3,
-        CENTER = 4 ,
+    
+    LOG_LEVEL = {
+        DEBUG = 1,
+        INFO = 2,
+        WARNNING = 3,
+        ERROR = 4,
+        FATAL = 5,
     }
 
 
