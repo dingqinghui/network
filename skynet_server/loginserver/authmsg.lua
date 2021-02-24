@@ -37,7 +37,6 @@ function MSG.register(fd,data)
 		return errcode.ADD_ACOUNT_FAIL
 	end
 	ret = dbmgr.hget(rediskey.account,account)
-	table.dump(ret)
 
 	INFO_LOG("注册账号：%s UUID：%d ",account,uuid)
 	return errcode.RT_OK
@@ -82,7 +81,6 @@ function MSG.login(fd,data)
     
     skynet.send(__HUB__,"lua","closeclient",fd)
 
-    
 	return  errcode.RT_OK,  {
 		uuid = info.uuid,
 		token = token,

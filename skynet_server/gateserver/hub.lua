@@ -1,12 +1,14 @@
 local skynet = require "skynet"
 local gateserver = require "snax.gateserver"
-local logic_agent_pool = require "logic_agent_pool"
 
+local usermgr_mod = require "usermgr" 
 
 local authmaster        -- 验证主服务
-
+local hub = {}
 local agent = {}        -- <fd,auth agent /logic agent>
 local userlist = {}     -- <uuid,logic agent>
+
+local usermgr 
 
 skynet.register_protocol {
 	name = "client",
@@ -88,8 +90,7 @@ local CMD = {}
     @return:
 ]]
 function CMD.closeclient(source,fd)
-    close_fd(fd)
-    gateserver.closeclient(fd)
+    hub.kick(fd)
     DEBUG_LOG("主动关闭客户端 fd:" .. fd)
 end
 
@@ -101,29 +102,10 @@ end
     @return:
 ]]
 function CMD.authpass(srouce, info )
-    local s = nil
-    if userlist[info.uuid] then 
-        s = userlist[info.uuid].agent
-        -- 关闭旧socket连接
-        local fd = userlist[info.uuid].fd
-        if agent[fd] then 
-            close_fd(fd)
-            gateserver.closeclient(fd)
-        end 
-    else
-        s = logic_agent_pool.ref()
-    end
-
-    skynet.call(s,"lua","authpass",{
-        uuid = info.uuid,
-        token = info.token,
-        fd = info.fd
-    })
-
+    local s = usermgr:authpass(info.uuid,info)
     agent[info.fd] = s
-    info.agent = s
-    userlist[info.uuid] = info
 end
+
 
 --[[
     @desc: 清除玩家logic agent
@@ -133,10 +115,7 @@ end
     @return:
 ]]
 function CMD.kick(source,uuid)
-    if userlist[uuid] then 
-        logic_agent_pool.unref(userlist[uuid].agent)
-        userlist[uuid] = nil
-    end
+    usermgr:kick(uuid)
 end
 
 
@@ -146,6 +125,12 @@ function handler.command(cmd, source, ...)
 end
 
 
+function hub.kick(fd)
+    if agent[fd] then 
+        close_fd(fd)
+        gateserver.closeclient(fd)
+    end
+end
 
 skynet.init(function ()
     for i=1,5 do
@@ -154,7 +139,9 @@ skynet.init(function ()
         authagentcnt  = authagentcnt + 1
     end
     --authmaster = skynet.uniqueservice("authd",skynet.self())
-    logic_agent_pool.init("gate_agent",10)
+   
+
+    usermgr = usermgr_mod.new(hub)
 end)
 
 gateserver.start(handler)

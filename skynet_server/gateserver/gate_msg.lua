@@ -24,7 +24,7 @@ function MSG.login_gate(fd,message)
 	-- 删除key
 	dbmgr.del(rediskey.token)
 	-- 通知hub验证成功 uuid ， token
-	skynet.send(__HUB__,"lua","authpass",{
+	skynet.call(__HUB__,"lua","authpass",{
 		uuid = uuid,
 		token = token,
 		fd = fd
