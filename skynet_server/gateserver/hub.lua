@@ -15,7 +15,8 @@ skynet.register_protocol {
 
 local handler = {}
 
-
+local authpool = {}
+local authagentcnt = 0
 
 local function close_fd(fd)
     agent[fd] = nil
@@ -27,7 +28,8 @@ end
 
 
 local function getauthagent(fd) 
-    return skynet.call(authmaster,"lua","balance",fd)
+    local index = fd % authagentcnt + 1
+    return authpool[index]
 end
 
 
@@ -36,14 +38,16 @@ function handler.connect(fd, addr)
     DEBUG_LOG("new con fd:%d host:%s",fd,addr)
 
     gateserver.openclient(fd)
-
+    
     local s = getauthagent(fd)
+    assert(s)
     skynet.call(s,"lua","connect",fd)
     agent[fd] = s
 end
 
 function handler.message(fd, msg, sz)
     DEBUG_LOG("con msg  fd:%d msg:%s sz:%d",fd,msg,sz)
+
     local s = agent[fd]
     assert(s)
     -- 调用验证服务验证
@@ -51,20 +55,20 @@ function handler.message(fd, msg, sz)
 end
 
 function handler.disconnect(fd)
-    close_fd(fd)
-    DEBUG_LOG("con disconnect fd:%d",fd)
-
     local s = agent[fd]
     skynet.call(s,"lua","disconnect",fd)
+
+    close_fd(fd)
+    DEBUG_LOG("con disconnect fd:%d",fd)
 end
 
 
 function handler.error(fd, msg)
-    close_fd(fd)
-    DEBUG_LOG("con error fd:%d",fd)
-
     local s = agent[fd]
     skynet.call(s,"lua","disconnect",fd)
+
+    close_fd(fd)
+    DEBUG_LOG("con error fd:%d",fd)
 end
 
 
@@ -96,7 +100,7 @@ end
     --@info: 
     @return:
 ]]
-function CMD.authpass( info )
+function CMD.authpass(srouce, info )
     local s = nil
     if userlist[info.uuid] then 
         s = userlist[info.uuid].agent
@@ -128,7 +132,7 @@ end
     --@uuid: 
     @return:
 ]]
-function CMD.kick(uuid)
+function CMD.kick(source,uuid)
     if userlist[uuid] then 
         logic_agent_pool.unref(userlist[uuid].agent)
         userlist[uuid] = nil
@@ -144,7 +148,12 @@ end
 
 
 skynet.init(function ()
-    authmaster = skynet.uniqueservice("authd",skynet.self())
+    for i=1,5 do
+        local s = skynet.newservice("authd",skynet.self())
+        table.insert(authpool,s)
+        authagentcnt  = authagentcnt + 1
+    end
+    --authmaster = skynet.uniqueservice("authd",skynet.self())
     logic_agent_pool.init("gate_agent",10)
 end)
 

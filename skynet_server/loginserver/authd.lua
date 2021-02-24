@@ -7,13 +7,13 @@ require "authmsg"
 --local gatemgr = require "gatemgr"
 
 
-local hub =  ...
+__HUB__ =  ...
 
 local function slave_laucher()
 
 	local CMD = {}
 	function CMD.connect(fd)
-		client.start_ping(fd)
+		client.startping(fd)
 	end
 
 	function CMD.disconnect(fd)
@@ -28,7 +28,7 @@ local function slave_laucher()
 
 	local handler = {}
 	function handler.closeclient(fd)
-		skynet.send(hub,"lua","closeclient",fd)
+		skynet.send(__HUB__,"lua","closeclient",fd)
 	end
     client.start(handler)
 end
@@ -36,14 +36,14 @@ end
 
 local function master_laucher()
     local slaves = {}
-    local scnt = 10
+    local scnt = 20
     for i=1,scnt do
-        table.insert(slaves,skynet.newservice("authd",hub))
+        table.insert(slaves,skynet.newservice("authd",__HUB__))
     end
     
     local CMD  = {}
 	function CMD.balance(fd)
-		local i  = math.floor( fd % scnt )
+		local i  = math.floor( fd % scnt ) + 1
         local s = slaves[i]
         return s
     end

@@ -14,10 +14,8 @@ skynet.register_protocol {
 
 local handler = {}
 
-local wait_auth = {}
 
 local function close_fd(fd)
-    wait_auth[fd] = nil
     agent[fd] = nil
 end
 
@@ -38,57 +36,53 @@ end
 
 
 function handler.message(fd, msg, sz)
-    DEBUG_LOG("con msg  fd:%d msg:%s sz:%d",fd,msg,sz)
-    if wait_auth[fd] then 
-        local s = getagent(fd)
-        assert(s)
-        -- 调用验证服务验证
-        skynet.redirect(s,skynet.self(),"client",fd,msg,sz)
-    else
-
-    end
-    
+    local s = getagent(fd)
+    assert(s)
+    -- 调用验证服务验证
+    skynet.redirect(s,skynet.self(),"client",fd,msg,sz)
 end
 
 function handler.connect(fd, addr)
-    wait_auth[fd] = true
-    DEBUG_LOG("new con fd:%d host:%s",fd,addr)
-
     gateserver.openclient(fd)
-
     local s = getagent(fd)
     skynet.call(s,"lua","connect",fd)
+    DEBUG_LOG("客户端新连接 fd:%d",fd)
 end
 
 function handler.disconnect(fd)
-    close_fd(fd)
-    DEBUG_LOG("con disconnect fd:%d",fd)
-
     local s = getagent(fd)
-    skynet.call(s,"lua","disconnect",fd)
+    if s then skynet.call(s,"lua","disconnect",fd) end
+
+    close_fd(fd)
+    DEBUG_LOG("客户端连接断开 fd:%d",fd)
 end
 
 
 function handler.error(fd, msg)
-    close_fd(fd)
-    DEBUG_LOG("con error fd:%d",fd)
-
     local s = getagent(fd)
-    skynet.call(s,"lua","disconnect",fd)
+    if s then skynet.call(s,"lua","disconnect",fd) end
+
+    close_fd(fd)
+    DEBUG_LOG("客户端连接出错 fd:%d",fd)
 end
 
 
 function handler.warning(fd, size)
-    DEBUG_LOG("con warning fd:%d",fd)
+    DEBUG_LOG("客户端连接警告 fd:%d",fd)
 end
 
+local logincnt = 0
 
 local CMD = {}
-
 function CMD.closeclient(source,fd)
-    close_fd(fd)
     gateserver.closeclient(fd)
-    DEBUG_LOG("主动关闭客户端 fd:" .. fd)
+    close_fd(fd)
+    INFO_LOG("服务器主动关闭客户端 fd:" .. fd)
+
+    logincnt  = logincnt + 1
+    if logincnt % 100 == 0 then 
+        INFO_LOG("完成登陆验证数量 %d   %f" , logincnt , skynet.time()) 
+    end 
 end
 
 function handler.command(cmd, source, ...)
@@ -96,11 +90,11 @@ function handler.command(cmd, source, ...)
 	return f(source, ...)
 end
 
-
-
 skynet.init(function ()
     authmaster = skynet.uniqueservice("authd",skynet.self())
 end)
+
+
 
 gateserver.start(handler)
 

@@ -1,7 +1,7 @@
 include "config.path"
 
 preload = "./lualib/preload.lua"	-- run preload.lua before every lua service run
-thread = 8
+thread = 1
 logger = nil
 logpath = "."
 harbor = 1
@@ -16,3 +16,6 @@ cpath = root.."cservice/?.so"
 
 
 luaservice = luaservice ..  "./test/?.lua;"
+
+
+lua_path = "./test/?.lua;" .. lua_path

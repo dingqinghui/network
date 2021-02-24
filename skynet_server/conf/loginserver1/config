@@ -3,9 +3,7 @@ include "../config.path"
 
 preload = "./lualib/preload.lua"	-- run preload.lua before every lua service run
 thread = 8
-logger =  "loggerd"
-logservice  = "snlua"
-logpath = "."
+
 harbor = 0
 bootstrap = "snlua bootstrap"	-- The service for bootstrap
 
@@ -32,3 +30,10 @@ nodeid=100
 
 -- daemon = "./skynet.pid"
 -- snax_interface_g = "snax_g"
+
+
+
+logger =  "loggerd"
+logservice  = "snlua"
+logdir = "./logger/login/"
+loglevel = "INFO"

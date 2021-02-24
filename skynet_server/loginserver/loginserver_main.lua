@@ -14,6 +14,8 @@ skynet.start(function ()
 	if GETENV("daemon") == nil then
 		skynet.newservice("console")
 	end
+
+	skynet.newservice("debug_console", GETENV("console_port") or 8001)
 	
 	--skynet.newservice("debug_console", GETENV("console_port") or 8001)
 	local hub = skynet.newservice("hub" )

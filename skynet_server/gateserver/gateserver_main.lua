@@ -34,7 +34,7 @@ skynet.start(function ()
 		maxclient = GETENV("maxclient") or 65535,
 		nodelay = GETENV("nodelay") or true,
 	}
-	skynet.call(hub, "lua", "start", conf)
+	skynet.call(hub, "lua", "open", conf)
 
 
     skynet.exit()

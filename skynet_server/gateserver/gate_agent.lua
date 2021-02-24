@@ -26,7 +26,7 @@ function CMD.authpass(info)
        
     else
         __USER__ = user.new(info)
-        __USER__:login(info)
+        __USER__:login(info,client)
     end 
 end
 
@@ -40,8 +40,6 @@ function CMD.disconnect()
     client.stopping(__USER__:getfd())
 
 end
-
-
 
 
 local handler = {}

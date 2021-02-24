@@ -11,11 +11,11 @@ local function slave_laucher()
 
 	local CMD = {}
 	function CMD.connect(fd)
-		client.connect(fd)
+		client.startping(fd)
 	end
 
 	function CMD.disconnect(fd)
-		client.disconnect(fd)
+		client.stopping(fd)
 	end
 
     skynet.dispatch("lua", function(session, source, cmd, ...)
@@ -41,7 +41,7 @@ local function master_laucher()
     
     local CMD  = {}
 	function CMD.balance(fd)
-		local i  = math.floor( fd % scnt )
+		local i  = math.floor( fd % scnt ) + 1
         local s = slaves[i]
         return s
     end
@@ -57,11 +57,13 @@ end
 
 
 skynet.start(function ()
-    local handle = skynet.localname(".auth")
-    if handle then 
-        slave_laucher()
-    else
-        skynet.register(".auth")
-        master_laucher()
-    end 
+    -- local handle = skynet.localname(".auth")
+    -- if handle then 
+    --     slave_laucher()
+    -- else
+    --     skynet.register(".auth")
+    --     master_laucher()
+	-- end 
+	
+	slave_laucher()
 end)
