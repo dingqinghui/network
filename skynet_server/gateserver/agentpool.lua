@@ -22,7 +22,7 @@ function agentpool:append(appendcap)
     for i=1, appendcap do
         local handle = skynet.newservice(self.__agentname,skynet.self())
         assert(handle)
-        table.insert(self.pool,handle)
+        table.insert(self.__pool,handle)
         self.__cnt  = self.cnt + 1
         self.__cap  = self.cap + 1
     end
