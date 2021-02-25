@@ -33,7 +33,7 @@ function MSG.login_gate(fd,message)
 	client.stopping(fd)
 
 	DEBUG_LOG("玩家：%d 登陆成功",uuid)
-	return errcode.RET_OK
+	return errcode.RT_OK
 end
 
 

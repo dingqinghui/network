@@ -35,5 +35,5 @@ port=27000
 
 logger =  "loggerd"
 logservice  = "snlua"
-logdir = "./logger/login/"
-loglevel = "DEBUG"
+logdir = "./logger/gate/"
+loglevel = "INFO"

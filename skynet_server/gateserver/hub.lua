@@ -38,28 +38,31 @@ end
 
 function handler.connect(fd, addr)
     DEBUG_LOG("new con fd:%d host:%s",fd,addr)
-
     gateserver.openclient(fd)
     
     local s = getauthagent(fd)
     assert(s)
-    skynet.call(s,"lua","connect",fd)
     agent[fd] = s
+    skynet.call(s,"lua","connect",fd)
 end
 
 function handler.message(fd, msg, sz)
     DEBUG_LOG("con msg  fd:%d msg:%s sz:%d",fd,msg,sz)
 
     local s = agent[fd]
-    assert(s)
+    if not s then 
+        return 
+    end 
     -- 调用验证服务验证
     skynet.redirect(s,skynet.self(),"client",fd,msg,sz) 
 end
 
 function handler.disconnect(fd)
     local s = agent[fd]
+    if not s then 
+        return 
+    end 
     skynet.call(s,"lua","disconnect",fd)
-
     close_fd(fd)
     DEBUG_LOG("con disconnect fd:%d",fd)
 end
@@ -67,8 +70,10 @@ end
 
 function handler.error(fd, msg)
     local s = agent[fd]
+    if not s then 
+        return 
+    end 
     skynet.call(s,"lua","disconnect",fd)
-
     close_fd(fd)
     DEBUG_LOG("con error fd:%d",fd)
 end

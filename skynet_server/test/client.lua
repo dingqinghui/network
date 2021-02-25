@@ -4,7 +4,7 @@ local socket = require "client.socket"
 local errcode = require "errcode" 
 local skynet  = require "skynet"
 
-
+local finishcnt = 0
 
 local MSG = {}
 function MSG.response_register(pack,cli)
@@ -12,12 +12,8 @@ function MSG.response_register(pack,cli)
 end
 
 function MSG.response_login(pack,cli)
-    --  local list = string.split(pack.result.gate_addr,":")
-    --  local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
-    --  socket.close(fd) 
-    --  fd = gatefd
-
-    --  cli:login_gate(pack.result.token,pack.result.uuid)
+    local message = pack.result
+    cli:login_success(message.gate_addr,message.token,message.uuid)
 end
 
 function MSG.response_ping(pack,cli)
@@ -26,7 +22,15 @@ end
 
 
 function MSG.response_login_gate(pack,cli)
+    if pack.errcode ~= errcode.RT_OK then 
+        return 
+    end 
 
+    finishcnt  = finishcnt + 1
+    --if finishcnt % 100 == 0 then 
+        INFO_LOG("登陆成功 数量%d %f",finishcnt,skynet.time())
+    --end 
+ 
 end
 
 
@@ -144,5 +148,13 @@ function client:login_gate_msg(token,uuid)
     })
 end 
 
+function client:login_success(gate_addr,token,uuid)
+    local list = string.split(gate_addr,":")
+    local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
+    socket.close(self.__fd) 
+    self.__fd = gatefd
+
+    self:login_gate_msg(token,uuid)
+end
 
 return client

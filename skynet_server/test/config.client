@@ -19,3 +19,10 @@ luaservice = luaservice ..  "./test/?.lua;"
 
 
 lua_path = "./test/?.lua;" .. lua_path
+
+
+
+logger =  "loggerd"
+logservice  = "snlua"
+logdir = "./logger/client/"
+loglevel = "INFO"
