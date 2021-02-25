@@ -62,6 +62,8 @@ function handler.disconnect(fd)
     if not s then 
         return 
     end 
+
+    usermgr:disconnect(fd) 
     skynet.call(s,"lua","disconnect",fd)
     close_fd(fd)
     DEBUG_LOG("con disconnect fd:%d",fd)
@@ -72,7 +74,9 @@ function handler.error(fd, msg)
     local s = agent[fd]
     if not s then 
         return 
-    end 
+    end
+    
+    usermgr:disconnect(fd) 
     skynet.call(s,"lua","disconnect",fd)
     close_fd(fd)
     DEBUG_LOG("con error fd:%d",fd)
@@ -86,18 +90,6 @@ end
 
 local CMD = {}
 
---[[
-    @desc: 关闭socket连接 但是不清除agent
-    author:{author}
-    time:2021-02-23 17:15:42
-    --@source:
-	--@fd: 
-    @return:
-]]
-function CMD.closeclient(source,fd)
-    hub.kick(fd)
-    DEBUG_LOG("主动关闭客户端 fd:" .. fd)
-end
 
 --[[
     @desc: 验证通过 分配logic agent
@@ -107,8 +99,7 @@ end
     @return:
 ]]
 function CMD.authpass(srouce, info )
-    local s = usermgr:authpass(info.uuid,info)
-    agent[info.fd] = s
+    usermgr:authpass(info.uuid,info)
 end
 
 
@@ -119,8 +110,11 @@ end
     --@uuid: 
     @return:
 ]]
-function CMD.kick(source,uuid)
+function CMD.kick(source,fd,uuid)
     usermgr:kick(uuid)
+    hub.kick(fd)
+
+    DEBUG_LOG("主动关闭客户端 fd:" .. fd)
 end
 
 
@@ -131,11 +125,19 @@ end
 
 
 function hub.kick(fd)
-    if agent[fd] then 
+    if fd and agent[fd] then 
         close_fd(fd)
         gateserver.closeclient(fd)
     end
 end
+
+function hub.setagent(fd,s)
+    if not fd then 
+        return 
+    end 
+    agent[fd] = s
+end
+
 
 skynet.init(function ()
     for i=1,5 do

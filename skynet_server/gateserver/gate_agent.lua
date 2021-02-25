@@ -42,7 +42,16 @@ function CMD.disconnect()
 end
 
 
+
 local handler = {}
+
+--[[
+    @desc: 主动断开
+    author:{author}
+    time:2021-02-25 15:08:37
+    --@fd: 
+    @return:
+]]
 function handler.closeclient(fd)
     skynet.send(__HUB__,"lua","closeclient",fd)
 end
