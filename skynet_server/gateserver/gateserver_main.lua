@@ -24,7 +24,7 @@ skynet.start(function ()
 		skynet.newservice("console")
 	end
 	
-	--skynet.newservice("debug_console", GETENV("console_port") or 8001)
+	skynet.newservice("debug_console", GETENV("console_port") or 8002)
 	
 
 	local hub = skynet.newservice("hub")

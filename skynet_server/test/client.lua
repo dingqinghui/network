@@ -105,6 +105,7 @@ end
 
 function client:run_thread()
     --while true do 
+
         self:register_msg()
             
         --skynet.exit()
@@ -149,6 +150,7 @@ function client:login_gate_msg(token,uuid)
 end 
 
 function client:login_success(gate_addr,token,uuid)
+
     local list = string.split(gate_addr,":")
     local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
     socket.close(self.__fd) 

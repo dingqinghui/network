@@ -7,3 +7,4 @@ redis-net3.0/cmake*
 redis-net3.0/client/cmake*
 redis-net3.0/server/cmake*
 redis-net3.0/anet/src/cmake*
+skynet_server/logger/*

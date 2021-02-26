@@ -1,6 +1,7 @@
 local nodemgr = require "nodemgr"
 local skynet = require "skynet"
 require "skynet.manager"
+local utils = require "utils"
 
 local connect = {}
 
@@ -41,11 +42,8 @@ end
 
 
 skynet.start(function ()
-    skynet.dispatch("lua", function(session, source, cmd, ...)
+    utils.dispatch_lua(CMD)
 
-			local f = assert(CMD[cmd])
-			skynet.ret(skynet.pack(f( ...)))
-    end)
     skynet.register(".gatemgr")
     -- 获取当前状态
     local status = nodemgr.status()

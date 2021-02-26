@@ -1,8 +1,8 @@
 local skynet = require "skynet"
 require "skynet.manager"
 local fileutile = require "fileutile"
-
 local comdefine = require "comdefine"
+local utils = require "utils"
 
 local os_date = os.date
 local CMD = {}
@@ -99,13 +99,10 @@ function CMD.log(source,level,...)
     logger(source,tonumber(level),...)
 end
 
+
 skynet.start(function()
     
-    skynet.dispatch("lua", function(session, source, cmd,...)
-        local f = CMD[cmd]
-        assert(f,cmd)
-        skynet.retpack( f(source,...) ) 
-    end)
+    utils.dispatch_lua(CMD,true)
 
     skynet.register(".logger")
     

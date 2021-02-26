@@ -1,6 +1,7 @@
 local redis = require "skynet.db.redis"
 local skynet =  require "skynet"
 require "skynet.manager"
+local utils = require "utils"
 
 local GETENV = skynet.getenv
 
@@ -62,12 +63,7 @@ local function slaveinit()
     -- 连接redis
     connect(conf)
 
-    skynet.dispatch("lua", function (_,_, cmd, ...)
-        --执行redis命令
-        local ret = db[cmd](...)
-        skynet.retpack(ret)
-    end)
-
+    utils.dispatch_lua(db)
 end
 
 

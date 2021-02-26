@@ -1,7 +1,8 @@
 local skynet =  require "skynet"
 require "skynet.manager"
 local client =  require "client"
-require "gate_msg"
+require "login_gate_msg"
+local utils = require "utils"
 --local nodemgr  = require "nodemgr"
 --local gatemgr = require "gatemgr"
 
@@ -18,11 +19,7 @@ local function slave_laucher()
 		client.stopping(fd)
 	end
 
-    skynet.dispatch("lua", function(session, source, cmd, ...)
-        local f = CMD[cmd]
-        assert(f,cmd) 
-        skynet.retpack( f(...) ) 
-    end)
+    utils.dispatch_lua(CMD)
 
 	local handler = {}
 	function handler.closeclient(fd)
@@ -47,11 +44,7 @@ local function master_laucher()
     end
 	
 	
-    skynet.dispatch("lua", function(session, source, cmd,...)
-        local f = CMD[cmd]
-        assert(f,cmd)
-        skynet.retpack( f(...) ) 
-    end)
+    utils.dispatch_lua(CMD)
 end
 
 

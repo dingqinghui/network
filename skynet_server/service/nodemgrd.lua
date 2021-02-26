@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 local cluster = require "skynet.cluster"
 require "skynet.manager"
-
+local utils = require "utils"
 
 
 local ping_interval = 50        -- 500 ms
@@ -120,13 +120,7 @@ skynet.start(function ()
     loadconfig()
     ping()
 
-    skynet.dispatch("lua",function (session,source,cmd,...) 
-        local f = commond[cmd]
-        if f then 
-            skynet.retpack(f(...)) 
-        end 
-
-    end)
+    utils.dispatch_lua(commond)
 end )
 
 

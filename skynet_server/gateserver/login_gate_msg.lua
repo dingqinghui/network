@@ -15,22 +15,21 @@ function MSG.login_gate(fd,message)
 	-- 验证TOKEN
 	local tokenkey = generator.keygen(rediskey.token,uuid)
 	if dbmgr.exists(tokenkey) == 0 then 
+		ERROR_LOG("tokent 不存在")
 		return errcode.TOKEN_KEY_NO_EXIST
 	end 
 	if  tonumber( dbmgr.get(tokenkey) ) ~= token then 
+		ERROR_LOG("tokent 错误")
 		return errcode.TOKEN_ERROR
 	end 
 
 	-- 删除key
 	dbmgr.del(rediskey.token)
-	-- 通知hub验证成功 uuid ， token
-	skynet.call(__HUB__,"lua","authpass",{
-		uuid = uuid,
-		token = token,
-		fd = fd
-	})
 
 	client.stopping(fd)
+
+	-- 通知hub验证成功 uuid ， token
+	skynet.call(__HUB__,"lua","authpass",uuid,fd)
 
 	DEBUG_LOG("玩家：%d 登陆成功",uuid)
 	return errcode.RT_OK

@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 
 local usertime = require "usertime"
-
+local utils = require "utils"
 local CMD = {}
 
 
@@ -23,11 +23,6 @@ end
 
 
 skynet.start(function ()
-    skynet.dispatch("lua",function (session,source,cmd,...)
-        local f = CMD[cmd]
-        if f then 
-            skynet.retpack( f(...) )
-        end
-    end)
+    utils.dispatch_lua(CMD)
 end)
 

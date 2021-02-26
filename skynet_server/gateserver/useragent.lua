@@ -1,32 +1,29 @@
 local agentserver = require "agentserver"
-local gate_msg = require "gate_msg"
 local skynet = require "skynet"
 
 local client = require "client"
-local user = require "user"
+local user_mod = require "user"
+local utils = require "utils"
+__USER__        = nil
 
-__USER__    = nil
-__HUB__     = ...
+__USERMGR__     = select(1,...)
+__HUB__         = select(2,...)
 
 local CMD  = {}
 local handler = {}
 
---[[
-    @desc: 验证通过
-    author:{author}
-    time:2021-02-23 17:19:11
-    @return:
-]]
-function CMD.authpass(info)
-
-    client.startping(info.fd)
-
-    if  __USER__ and __USER__:getuuid() == info.uuid then 
-        __USER__:enter_game()
-       
+-- 验证通过赋值连接
+function CMD.assign(uuid,fd)
+    -- 开启心跳检测
+    client.startping(fd)
+    -- 重新登陆
+    if  __USER__ then 
+        assert(__USER__:getuuid() == uuid)
+        assert(__USER__:getfd() ~= fd)
+        __USER__:setfd(fd)
     else
-        __USER__ = user.new(info)
-        __USER__:login(info,client)
+    -- 新登陆
+        __USER__ = user_mod.new(uuid,fd,client)
     end 
 end
 
@@ -38,7 +35,7 @@ end
 ]]
 function CMD.disconnect()
     client.stopping(__USER__:getfd())
-
+    __USER__:setfd(nil)
 end
 
 
@@ -58,11 +55,8 @@ end
 
 
 skynet.start(function ()
-    skynet.dispatch("lua", function(session, source, cmd, ...)
-        local f = CMD[cmd]
-        assert(f,cmd) 
-        skynet.retpack( f(...) ) 
-    end)
+
+    utils.dispatch_lua(CMD)
 
     client.start(handler)
 end)
