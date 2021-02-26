@@ -1,5 +1,6 @@
 return {
 
+    USER_SURVIVAL_MAX_TM  = 10 ,
     
     LOG_LEVEL = {
         DEBUG = 1,

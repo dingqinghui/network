@@ -1,6 +1,7 @@
 local skynet = require "skynet"
 local ap_mod = require "agentpool"
 local comdefine = require "comdefine"
+local sermgr = require "sermgr"
 
 local INIT_AGENT_CAP = 100
 
@@ -12,7 +13,7 @@ local usermgr =  __G_CLASS__(...)
 function usermgr:ctor(hub)
     self.__hub = hub
     self.__list = {} 
-    self.__agentpool = ap_mod.new("useragent",INIT_AGENT_CAP,skynet.self(),__HUB__)
+    self.__agentpool = ap_mod.new("useragent",INIT_AGENT_CAP,skynet.self(),sermgr.get("hubd"))
 end 
 
 function usermgr:dector()
@@ -29,7 +30,8 @@ function usermgr:exit(uuid)
         return 
     end 
     -- recyle agent
-    self:getagentpool():release(agent)
+    self:getap():release(agent)
+    INFO_LOG("玩家代理回收 玩家:%d",uuid)
 end
 
 function usermgr:getagent(uuid,fd)
