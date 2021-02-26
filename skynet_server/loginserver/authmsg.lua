@@ -69,11 +69,12 @@ function MSG.login(fd,data)
 	end
 
 	-- uuid -- token  expire
-	local token = math.floor( generator.uuid(NODEID) )
 	local key = generator.keygen(rediskey.token,info.uuid)
+	local token = math.floor( generator.uuid(NODEID) )
 	dbmgr.set(key,token) 
 	dbmgr.expire(key,10) 
 
+	print(token)
 	local gateinfo = "127.0.0.1:27000"--gatemgr.balance()
 	if gateinfo == nil then 
 		return 

@@ -14,12 +14,12 @@ local function masterinit()
         skynet.error("slave :",addr)
     end
 
-    skynet.dispatch("lua", function (_,_, cmd, ...)
+    skynet.dispatch("lua", function (_,source, cmd, ...)
         balance = balance + 1
         if balance > 10 then 
             balance = 1
         end
-
+        
         local ret = skynet.call(slaves[balance],"lua",cmd,...)
         skynet.retpack(ret)
 

@@ -134,6 +134,9 @@ function client.startping(fd)
 end
 
 function client.stopping(fd) 
+	if not fd then 
+		return 
+	end 
 	c_pool[fd] = nil
 end
 

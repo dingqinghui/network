@@ -40,7 +40,7 @@ function handler.connect(fd, addr)
     local s = getauthagent(fd)
     assert(s)
     agent[fd] = s
-    skynet.call(s,"lua","connect",fd)
+    skynet.send(s,"lua","connect",fd)
 end
 
 function handler.message(fd, msg, sz)
@@ -60,7 +60,7 @@ function handler.disconnect(fd)
         return 
     end 
 
-    skynet.call(s,"lua","disconnect",fd)        -- 通知验证服务
+    skynet.send(s,"lua","disconnect",fd)        -- 通知验证服务
 
     close_fd(fd)
     DEBUG_LOG("客户端断开连接 fd:%d",fd)
@@ -73,7 +73,7 @@ function handler.error(fd, msg)
         return 
     end
 
-    skynet.call(s,"lua","disconnect",fd)        -- 通知验证服务
+    skynet.send(s,"lua","disconnect",fd)        -- 通知验证服务
 
     close_fd(fd)
     DEBUG_LOG("客户端出错 fd:%d",fd)
@@ -96,17 +96,22 @@ function CMD.authpass(srouce, uuid,fd )
         -- redirect fd to useragent
         agent[fd] = s
         -- 赋值连接
-        skynet.call(s,"lua","assign",uuid,fd)
+        skynet.send(s,"lua","assign",uuid,fd)
 
         authcnt  = authcnt + 1
-        INFO_LOG("完成验证数量 %d",authcnt)
+        INFO_LOG("完成验证数量 %d agent:%s",authcnt,table.dump(agent) )
     end 
 end
 
 
 function CMD.closeclient(srouce, fd )
-    --gateserver.closeclient(fd)
-    --close_fd(fd)
+    if not agent[fd] then 
+        return 
+    end 
+
+    gateserver.closeclient(fd)
+    close_fd(fd)
+    INFO_LOG("踢出连接 fd:%d agent:%s",fd,table.dump(agent))
 end 
 
 

@@ -12,19 +12,20 @@ function MSG.login_gate(fd,message)
 	local token = message.token
 	local uuid = message.uuid
 
-	-- 验证TOKEN
-	local tokenkey = generator.keygen(rediskey.token,uuid)
-	if dbmgr.exists(tokenkey) == 0 then 
-		ERROR_LOG("tokent 不存在")
-		return errcode.TOKEN_KEY_NO_EXIST
-	end 
-	if  tonumber( dbmgr.get(tokenkey) ) ~= token then 
-		ERROR_LOG("tokent 错误")
-		return errcode.TOKEN_ERROR
-	end 
+	-- -- 验证TOKEN
+	-- local tokenkey = generator.keygen(rediskey.token,uuid)
+	-- if dbmgr.exists(tokenkey) == 0 then 
+	-- 	ERROR_LOG("tokent 不存在")
+	-- 	return errcode.TOKEN_KEY_NO_EXIST
+	-- end 
+	-- local t = tonumber( dbmgr.get(tokenkey) )
+	-- if  t ~= token then 
+	-- 	ERROR_LOG("tokent 错误 t:%d %d",t,token)
+	-- 	return errcode.TOKEN_ERROR
+	-- end 
 
-	-- 删除key
-	dbmgr.del(rediskey.token)
+	-- -- 删除key
+	-- dbmgr.del(rediskey.token)
 
 	client.stopping(fd)
 
