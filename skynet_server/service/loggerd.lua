@@ -104,6 +104,6 @@ skynet.start(function()
     
     utils.dispatch_lua(CMD,true)
 
-    skynet.register(".logger")
+    skynet.register(".userlog")
     
 end)
