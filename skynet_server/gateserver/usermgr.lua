@@ -31,7 +31,7 @@ function usermgr:exit(uuid)
     end 
     -- recyle agent
     self:getap():release(agent)
-    INFO_LOG("玩家代理回收 玩家:%d",uuid)
+    DEBUG_LOG("玩家代理回收 玩家:%d",uuid)
 end
 
 function usermgr:getagent(uuid,fd)

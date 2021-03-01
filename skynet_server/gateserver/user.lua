@@ -44,6 +44,11 @@ function user:logout()
  
 end
 
+function user:kick()
+    sermgr.send("usermgrd","lua","kick",self.__uuid)
+    __USER__ = nil
+end 
+
 
 function user:enter_game()
     local data = {
@@ -78,9 +83,5 @@ function user:isonline()
     return self.__isonline
 end 
 
-function user:kick()
-    sermgr.send("usermgrd","lua","kick",self.__uuid)
-    __USER__ = nil
-end 
 
 return user
