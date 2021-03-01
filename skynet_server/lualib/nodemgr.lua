@@ -32,21 +32,5 @@ function nodemgr.send(node,addrname,...)
     skynet.send(self.service,"lua","send",node,addrname,...)
 end 
 
--- function nodemgr.reload(...)
---     assert(rawget(self,"service"))
---     skynet.call(self.service,"lua","reload",...)
--- end 
-
--- function nodemgr.status(...)
---     assert(self.service)
---     return skynet.call(self.service,"lua","status",...)
--- end 
-
--- function nodemgr.getconfig(...)
---     assert(rawget(self,"service"))
---     return skynet.call(self.service,"lua","getconfig",...)
--- end 
-
-
 
 return nodemgr

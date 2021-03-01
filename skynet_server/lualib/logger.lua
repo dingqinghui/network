@@ -11,8 +11,13 @@ local function send2logger(level,...)
     else
         msg = string.format(...)
     end 
+    
     local logger = skynet.localname(".logger")
-    skynet.send(logger,"lua","log",level,msg)
+    if logger then 
+        skynet.send(logger,"lua","log",level,msg)
+    else
+        print(msg)
+    end 
 end
 
 

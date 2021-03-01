@@ -12,7 +12,7 @@ local LOG_LEVEL = comdefine.LOG_LEVEL
 local logpath =  skynet.getenv("logdir") or "./logger/"
 local log_level = LOG_LEVEL[skynet.getenv("loglevel")] or LOG_LEVEL.INFO
 
-fileutile.mkdir(logpath)
+fileutile.mkDir(logpath)
 
 local COLOR_RESET = "\x1b[0m"
 local COLOR_RED = "\x1b[31m"

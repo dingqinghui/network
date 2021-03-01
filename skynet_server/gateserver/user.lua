@@ -11,6 +11,7 @@ function user:ctor(uuid,fd,client)
     self.__fd = fd
     self.__isonline = nil
     self.__data = {}
+    self.__exit_co = nil
 end
 
 function user:dctor()
@@ -21,6 +22,7 @@ end
 function user:login()
 
     self.__isonline = true
+    skynet.wakeup(self.__exit_co)
     DEBUG_LOG("玩家登陆 uuid:%s fd:%d",self.__uuid,self.__fd)
 end
 
@@ -30,18 +32,18 @@ function user:logout()
 
     self.__fd = nil
     self.__isonline  = false
-    self.__offtm = skynet.time()
-    skynet.timeout(USER_SURVIVAL_MAX_TM * 100,function ()
+
+    skynet.fork(function ()
+        skynet.sleep(USER_SURVIVAL_MAX_TM * 100,self.__exit_co)
+        self.__exit_co = nil
         if self:isonline() then 
-            return 
-        end 
-        if skynet.time() - self.__offtm < USER_SURVIVAL_MAX_TM then 
             return 
         end 
         -- 踢出玩家
         self:kick()
-    end)
- 
+    end )
+
+
 end
 
 function user:kick()

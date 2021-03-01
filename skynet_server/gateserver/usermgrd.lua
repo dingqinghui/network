@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 local utils = require "utils"
 local sermgr = require "sermgr"
-
+require "skynet.manager"
 local usermgr_mod = require "usermgr" 
 
 local usermgr = nil
@@ -35,4 +35,5 @@ skynet.start(function ()
     })
     usermgr = usermgr_mod.new()
     utils.dispatch_lua(CMD)
+    skynet.register("usermgr")
 end )
