@@ -2,8 +2,10 @@ local skynet = require "skynet"
 local cluster = require "skynet.cluster"
 require "skynet.manager"
 local utils = require "utils"
+local eventmgr = require "eventmgr"
+local comdefine = require "comdefine"
 
-
+local EVENT_NAME = comdefine.EVENT_NAME
 local ping_interval = 50        -- 500 ms
 
 local nodename = skynet.getenv("nodename")
@@ -33,13 +35,7 @@ local function loadconfig(tmp)
 end
 
 local function status_change(nodename,statu)
-   for i=#rsp,1,-1 do
-        local ret,msg = pcall(skynet.send,rsp[i],"lua","node_statu_change",nodename,statu)
-        if not ret then 
-            skynet.error("node_statu_change fail.",msg,debug.traceback())
-            table.remove(rsp,i)
-        end 
-   end
+    eventmgr.publish(EVENT_NAME.CLUSTER_CHANGE,nodename,statu)
 end
 
 local function ping()
@@ -80,6 +76,7 @@ function commond.call(node,...)
         skynet.error( string.format("cluster.call node %s network loss ",node) )
         return false
     end 
+    print(...)
     return pcall(cluster.call,node,...)
 end 
 
@@ -96,18 +93,18 @@ function commond.getconfig()
     return config
 end
 
-function commond.register(addr)
-    table.insert(rsp,addr)
-    skynet.error(table.dump(rsp))
-end
+-- function commond.register(addr)
+--     table.insert(rsp,addr)
+--     skynet.error(table.dump(rsp))
+-- end
 
-function commond.unregister(addr)
-    for i=#rsp,1,-1 do
-        if addr == rsp[i] then 
-            table.remove(rsp,i)
-        end  
-   end
-end
+-- function commond.unregister(addr)
+--     for i=#rsp,1,-1 do
+--         if addr == rsp[i] then 
+--             table.remove(rsp,i)
+--         end  
+--    end
+-- end
 
 skynet.start(function ()
     if skynet.localname(".nodemgr") then 

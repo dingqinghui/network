@@ -1,9 +1,0 @@
-[32m[INFO][2021-02-25 08:50:17][:00000009] lua call [0 to :9 : 0 msgsz = 24] error : [31m./skynet/lualib/skynet.lua:617: ./skynet/lualib/skynet.lua:184: ./skynet/service/console.lua:7: bad argument #1 to 'gmatch' (string expected, got boolean)
-stack traceback:
-	[C]: in function 'string.gmatch'
-	./skynet/service/console.lua:7: in upvalue 'split_cmdline'
-	./skynet/service/console.lua:17: in upvalue 'f'
-	./skynet/lualib/skynet.lua:114: in function <./skynet/lualib/skynet.lua:113>
-stack traceback:
-	[C]: in function 'assert'
-	./skynet/lualib/skynet.lua:617: in function 'skynet.dispatch_message'[0m[0m

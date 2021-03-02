@@ -17,12 +17,22 @@ skynet.init(function ()
 end )
 
 
+local function newchannel(eventname,dispatch)
+    local id  = skynet.call(self.__service,"lua","new",eventname)
+    local channel = mc.new {
+        channel = id,                                    -- 绑定上一个频道
+        dispatch = dispatch                              -- 设置这个频道的消息处理函数
+    }
+    return channel
+end
+
 function eventmgr.publish(eventname,...)
     local channel = self.__chlist[eventname]
-    if not self.__chlist then 
-        return 
+    if not channel then 
+        channel = newchannel(eventname,nil)
+        self.__chlist[eventname] =  channel
     end 
-    DEBUG_LOG("触发事件  事件：%s  频道：%d",eventname,channel.channel)
+    DEBUG_LOG("触发事件  事件：%s",eventname)
     channel:publish(...)
 end
 
@@ -30,13 +40,10 @@ end
 function eventmgr.subscribe(eventname,func)
     local channel = self.__chlist[eventname]
     if not channel then 
-        local id  = skynet.call(self.__service,"lua","new",eventname)
-        channel = mc.new {
-            channel = id,                       -- 绑定上一个频道
-            dispatch = function (channel, source, ...)       -- 设置这个频道的消息处理函数
-                func(...)
-            end,  
-        }
+        channel = newchannel(eventname,function (channel, source, ...) 
+            func(...)
+        end)
+
         channel:subscribe()
         self.__chlist[eventname] =  channel
         DEBUG_LOG("订阅事件 事件：%s",eventname)
@@ -48,7 +55,7 @@ end
 
 function eventmgr.unsubscribe(eventname)
     local channel = self.__chlist[eventname]
-    if not self.__chlist then 
+    if not channel then 
         return 
     end 
     self.__chlist[eventname] = nil

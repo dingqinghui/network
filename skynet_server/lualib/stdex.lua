@@ -16,6 +16,13 @@ function table.dump(obj,deep)
         out = out .. string.rep("\t", deep - 1) .. "}"  
     elseif t == "nil" then  
         return nil  
+    elseif t == "boolean" then
+        if obj then 
+            out = out .. "true"
+        else
+            out = out .. "false"
+        end
+        return out
     elseif t == "function" 
         or t == "userdata"
         or t == "thread" then 

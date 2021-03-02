@@ -30,7 +30,7 @@ function MSG.login_gate(fd,message)
 	client.stopping(fd)
 
 	-- 通知hub验证成功 uuid ， token
-	skynet.call(__HUB__,"lua","authpass",uuid,fd)
+	skynet.send(__HUB__,"lua","authpass",uuid,fd)
 
 	DEBUG_LOG("玩家：%d 登陆成功",uuid)
 	return errcode.RT_OK

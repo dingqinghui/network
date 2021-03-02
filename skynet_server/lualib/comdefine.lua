@@ -18,4 +18,8 @@ return {
         NOUSER =         4,      -- 玩家不存在   
     },
 
+
+    EVENT_NAME = {
+        CLUSTER_CHANGE = "CLUSTER_CHANGE",      -- 集群节点变化
+    }
 }
