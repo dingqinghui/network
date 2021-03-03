@@ -18,8 +18,12 @@ function verifymgr:ctor()
         -- }
     }   
 
-    self.__uuidlist = {                -- 正在验证中的玩家列表
-        --[uuid] = nodename
+    self.__userlist = {                -- 正在验证中的玩家列表
+        --[uuid] = 
+        -- {
+        --     ref = 0                 -- 玩家未验证的token数量
+        --     nodename = ""
+        -- }
     }      
 
     self:load()
@@ -60,7 +64,7 @@ function verifymgr:update(uuid,token)
             uuid,
             token,
             table.dump(self.__verify),
-            table.dump(self.__uuidlist))
+            table.dump(self.__userlist))
 end
 
 function verifymgr:del(token)
@@ -68,44 +72,61 @@ function verifymgr:del(token)
         return 
     end 
     local uuid = self.__verify[token].uuid
-    self.__uuidlist[uuid] = nil
+    self:unref_user(uuid)
     self.__verify[token] = nil
     DEBUG_LOG("删除验证消息 UUID:%d TOKEN:%d  verify:%s  uuidlist%s",
         uuid,
         token,
         table.dump(self.__verify),
-        table.dump(self.__uuidlist))
+        table.dump(self.__userlist))
 end
-
-
-
 
 
 function verifymgr:setgate(uuid,nodename)
     DEBUG_LOG("设置验证网关 玩家UUID：%d 网关名:%s ",uuid,nodename)
-    if  self.__uuidlist[uuid] then 
-        return 
-    end 
-
-    self.__uuidlist[uuid] = nodename
+    self.__userlist[uuid] = self.__userlist[uuid] or {}
+    self.__userlist[uuid].nodename = nodename
 end
 
 
 function verifymgr:getgate(uuid)
-    return self.__uuidlist[uuid]
+    if not self.__userlist[uuid] then 
+        return nil 
+    end 
+    return self.__userlist[uuid].nodename
 end
 
 
-function verifymgr:verifying(token)
-    if not self.__verify[token] then 
-        return false
+function verifymgr:verifying(uuid)
+    return self.__userlist[uuid] ~= nil
+end
+
+function verifymgr:ref_user(uuid)
+    self.__userlist[uuid] = self.__userlist[uuid] or {}
+    local userinfo = self.__userlist[uuid]
+    userinfo.ref = userinfo.ref or 0
+    userinfo.ref = userinfo.ref + 1
+end
+
+function verifymgr:unref_user(uuid)
+    if not self.__userlist[uuid] then 
+        return 
+    end
+    local userinfo = self.__userlist[uuid]
+    if not userinfo.ref then 
+        return 
     end 
-    return true
+    userinfo.ref = userinfo.ref - 1
+    if userinfo.ref > 0 then 
+        return 
+    end 
+    self.__userlist[uuid] = nil
 end
 
 
 --- login 同步登陆验证信息信息
 function verifymgr:syc_verify_data(uuid,token,expire)
+    self:ref_user(uuid)
     self:update(uuid,token,expire)
 end
 

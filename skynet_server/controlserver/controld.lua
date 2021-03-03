@@ -46,6 +46,7 @@ function CMD.syc_verify_data(uuid,token)
 
     -- 缓存验证信息
     verify_ins:syc_verify_data(uuid,token)
+    
 
     local nodename ,host
     -- 未在线
@@ -69,6 +70,7 @@ function CMD.syc_verify_data(uuid,token)
         host = control_ins:get_gate_host(nodename)
     end 
 
+ 
     if not nodename or not host then 
         ERROR_LOG("没有可用的网关")
         verify_ins:del(token)
