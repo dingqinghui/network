@@ -30,7 +30,7 @@ skynet.start(function ()
 	local hub = skynet.newservice("hub")
 	local conf={
 		address = GETENV("address") or "127.0.0.1",
-		port = GETENV("port") or 17000,
+		port = GETENV("port") or 27000,
 		maxclient = GETENV("maxclient") or 65535,
 		nodelay = GETENV("nodelay") or true,
 	}

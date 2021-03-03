@@ -1,5 +1,6 @@
 local skynet = require "skynet"
 local gateserver = require "snax.gateserver"
+require "skynet.manager"
 
 local usermgr
 local authmaster        -- 验证主服务
@@ -13,7 +14,7 @@ skynet.register_protocol {
 }
 
 
-
+local hubconf
 local authpool = {}
 local authagentcnt = 0
 
@@ -24,7 +25,7 @@ end
 
 local handler = {}
 function handler.open(source, conf)
-
+    hubconf = conf
 end
 
 local function getauthagent(fd) 
@@ -114,6 +115,11 @@ function CMD.closeclient(srouce, fd )
     INFO_LOG("踢出连接 fd:%d agent:%s",fd,table.dump(agent))
 end 
 
+function CMD.gethost()
+    return string.format("%s:%s",hubconf.address,hubconf.port)
+end
+
+
 
 function handler.command(cmd, source, ...)
 	local f = assert(CMD[cmd],cmd)
@@ -129,6 +135,8 @@ skynet.init(function ()
     end
 
     usermgr = skynet.newservice("usermgrd",skynet.self())
+
+    skynet.register(".hub")
 end)
 
 gateserver.start(handler)

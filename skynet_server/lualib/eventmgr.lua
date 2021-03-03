@@ -32,7 +32,7 @@ function eventmgr.publish(eventname,...)
         channel = newchannel(eventname,nil)
         self.__chlist[eventname] =  channel
     end 
-    DEBUG_LOG("触发事件  事件：%s",eventname)
+    DEBUG_LOG("触发事件  事件：%s ",eventname)
     channel:publish(...)
 end
 

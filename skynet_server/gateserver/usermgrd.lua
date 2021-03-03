@@ -35,10 +35,18 @@ function CMD.kick(uuid)
     usermgr:exit(uuid)
 end 
 
--- from word
-function CMD.getuserlist()
-    return usermgr:userlist()
+-- from control
+function CMD.get_gate_info()
+    local host = skynet.call(".hub","lua","gethost")
+    local userlist = usermgr:userlist()
+    return userlist,host
 end 
+
+
+-- from control
+function CMD.verifyinfo(uuid,token,expire)
+    return usermgr:verifyinfo()
+end
 
 skynet.start(function ()
     sermgr.init({

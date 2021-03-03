@@ -8,12 +8,6 @@ skynet.init(function()
 end)
 
 
-function generator.token()
-    return skynet.call(service,"lua","token") 
-end
-
-
-
 function generator.uuid(...)
     return skynet.call(service,"lua","uuid",...) 
 end

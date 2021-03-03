@@ -151,12 +151,12 @@ end
 
 function client:login_success(gate_addr,token,uuid)
 
-    local list = string.split(gate_addr,":")
-    local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
-    socket.close(self.__fd) 
-    self.__fd = gatefd
+    -- local list = string.split(gate_addr,":")
+    -- local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
+    -- socket.close(self.__fd) 
+    -- self.__fd = gatefd
 
-    self:login_gate_msg(token,uuid)
+    -- self:login_gate_msg(token,uuid)
 end
 
 return client

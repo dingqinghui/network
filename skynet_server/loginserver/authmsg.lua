@@ -5,6 +5,7 @@ local generator = require "generator"
 local errcode = require "errcode"
 local msgimpl = require "msgimpl"
 local client =  require "client"
+local nodemgr = require "nodemgr"
 
 local MSG = client.gethandler()
 
@@ -68,26 +69,23 @@ function MSG.login(fd,data)
 		return errcode.PASSWORD_INCORRECT
 	end
 
-	-- uuid -- token  expire
-	local key = generator.keygen(rediskey.token,info.uuid)
-	local token = math.floor( generator.uuid(NODEID) )
-	dbmgr.set(key,token) 
-	dbmgr.expire(key,10) 
-
-	print(token)
-	local gateinfo = "127.0.0.1:27000"--gatemgr.balance()
-	if gateinfo == nil then 
-		return 
-    end 
+	local token = generator.uuid(NODEID)
+	local ok , err,host = nodemgr.call("controlserver",".controld","syc_verify_data",info.uuid,token)
+	if not ok then 
+		return errcode.CONTROL_SERVER_ERROR
+	end 
+	
+	if err ~= errcode.RT_OK then 
+		return err
+	end
     
     skynet.send(__HUB__,"lua","closeclient",fd)
 
 	return  errcode.RT_OK,  {
 		uuid = info.uuid,
 		token = token,
-		gate_addr = "127.0.0.1:27000" --gateinfo.host,
+		gate_addr = host
 	}
-
 end
 
 

@@ -8,7 +8,7 @@ math.randomseed(os.time())
 
 
 skynet.start(function ()
-   for i=1,10 do
+   for i=1,1 do
         local cli = client.new(i)
    end
 end

@@ -3,60 +3,68 @@ require "skynet.manager"
 local client =  require "client"
 require "login_gate_msg"
 local utils = require "utils"
---local nodemgr  = require "nodemgr"
---local gatemgr = require "gatemgr"
+local sermgr = require "sermgr"
+local errcode = require "errcode"
+local nodemgr = require "nodemgr"
 
-__HUB__ =  ...
+local paramter =  { ... }
+local CMD = {}
+local MSG = client.gethandler()
+local handler = {}
 
-local function slave_laucher()
 
-	local CMD = {}
-	function CMD.connect(fd)
-		client.startping(fd)
-	end
 
-	function CMD.disconnect(fd)
-		client.stopping(fd)
-	end
+function MSG.login_gate(fd,message)
+	local token = message.token
+	local uuid = message.uuid
 
-    utils.dispatch_lua(CMD)
-
-	local handler = {}
-	function handler.closeclient(fd)
-		skynet.send(__HUB__,"lua","closeclient",fd)
-	end
-    client.start(handler)
-end
-   
-
-local function master_laucher()
-    local slaves = {}
-    local scnt = 10
-    for i=1,scnt do
-        table.insert(slaves,skynet.newservice("authd",__HUB__))
-    end
-    
-    local CMD  = {}
-	function CMD.balance(fd)
-		local i  = math.floor( fd % scnt ) + 1
-        local s = slaves[i]
-        return s
-    end
+    local err = nodemgr.call("controlserver",".controld","verify_token",uuid,token)
+    if err ~= errcode.RT_OK then 
+        return err
+    end 
 	
-	
-    utils.dispatch_lua(CMD)
+	client.stopping(fd)
+
+	-- 通知hub验证成功 uuid ， token
+	skynet.send(__HUB__,"lua","authpass",uuid,fd)
+
+	DEBUG_LOG("玩家：%d 登陆成功",uuid)
+	return errcode.RT_OK
 end
 
+
+
+	
+function CMD.connect(fd)
+    client.startping(fd)
+end
+
+function CMD.disconnect(fd)
+    client.stopping(fd)
+end
+
+
+
+
+function handler.closeclient(fd)
+    skynet.send(__HUB__,"lua","closeclient",fd)
+end
 
 
 skynet.start(function ()
-    -- local handle = skynet.localname(".auth")
-    -- if handle then 
-    --     slave_laucher()
-    -- else
-    --     skynet.register(".auth")
-    --     master_laucher()
-	-- end 
-	
-	slave_laucher()
+    sermgr.init({
+        ["hub" ]= paramter[1],
+    })
+    utils.dispatch_lua(CMD)
+    client.start(handler)
+
+    skynet.register(".auth")
 end)
+
+
+
+   
+
+	
+
+

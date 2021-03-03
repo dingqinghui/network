@@ -1,7 +1,10 @@
 return {
+    FRAME_LOOP = 10,
 
     USER_SURVIVAL_MAX_TM  = 10 ,
     
+    LOGIN_TOKEN_EXPIRE = 10,        -- 登陆TOKEN过期时间
+
     LOG_LEVEL = {
         DEBUG = 1,
         INFO = 2,

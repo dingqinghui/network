@@ -76,7 +76,7 @@ function commond.call(node,...)
         skynet.error( string.format("cluster.call node %s network loss ",node) )
         return false
     end 
-    print(...)
+    print(node,...)
     return pcall(cluster.call,node,...)
 end 
 
