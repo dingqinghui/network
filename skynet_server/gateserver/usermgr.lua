@@ -179,11 +179,13 @@ function usermgr:disconnect(fd)
     -- 清空网络句柄
     self:assign_con(uuid,nil)
 
-    -- 通知验证服务
-    sermgr.send("verifyd","lua","update_expire",uuid)
 
     -- 保存离线时间
+    local expire = skynet.time() + comdefine.USER_OFFLINE_EXPIRE
     user.__expire = expire
+
+    -- 通知验证服务
+    sermgr.send("verifyd","lua","update_expire",uuid,expire)
 
      if user.__agent then 
         skynet.send(user.__agent ,"lua","disconnect",fd)

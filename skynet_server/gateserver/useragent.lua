@@ -43,7 +43,7 @@ function CMD.assign(uuid,fd,token)
 end
 
 
-
+-- 释放AGENT
 function CMD.release(uuid)
     if not __USER__ then 
         return 
@@ -56,16 +56,20 @@ function CMD.release(uuid)
     __USER__ = nil
 end
 
-
+-- 网络连接断开
 function CMD.disconnect(fd)
     client.stopping(fd)
+    if not __USER__ then 
+        return 
+    end 
+    __USER__:setfd(nil) 
 end
 
 
 
 local handler = {}
 
-
+-- PING 超时 关闭网络
 function handler.closeclient(fd)
     sermgr.send("hubd","lua","closeclient",fd)
 end

@@ -27,8 +27,7 @@ end
 
 -- 玩家网络断开 更新过期时间
 function CMD.update_expire(uuid,expire)
-    local expire = skynet.time() + comdefine.USER_OFFLINE_EXPIRE
-    
+    verifymgr_ins:assign_expire(uuid,expire)
 end
 
 skynet.start(function ()
