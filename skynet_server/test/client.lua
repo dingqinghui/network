@@ -88,7 +88,7 @@ function client:read_thread()
  
             if ok then 
                 local pack = xserialize.decode(package)
-                --print(table.dump(pack))
+                print(table.dump(pack))
                 if pack.errcode ~= errcode.RT_OK then 
                     --ERROR_LOG(table.dump(pack))
                     --return 
@@ -150,13 +150,14 @@ function client:login_gate_msg(token,uuid)
 end 
 
 function client:login_success(gate_addr,token,uuid)
+    for i = 1,3 do 
+        local list = string.split(gate_addr,":")
+        local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
+        socket.close(self.__fd) 
+        self.__fd = gatefd
 
-    -- local list = string.split(gate_addr,":")
-    -- local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
-    -- socket.close(self.__fd) 
-    -- self.__fd = gatefd
-
-    -- self:login_gate_msg(token,uuid)
+        self:login_gate_msg(token,uuid)
+    end
 end
 
 return client

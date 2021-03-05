@@ -3,7 +3,8 @@ return {
     RT_OK = 1,
     MODULE_ERROR = 10,
     CONTROL_SERVER_ERROR = 11,
-    
+    GATE_SERVER_ERROR = 21,
+
     TOKEN_NO_EXIST = 1001,
     TOKEN_ERROR = 1002,
     ADD_ACOUNT_FAIL = 1003,

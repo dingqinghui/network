@@ -14,11 +14,15 @@ local nodemgr = setmetatable({},{
 nodemgr.service = nil
 local self = nodemgr
 
-skynet.init(function ()
+function nodemgr.new()
     self.service = skynet.localname(".nodemgr")
     if not rawget(self,"service") then 
         self.service = skynet.newservice("nodemgrd")
     end 
+end
+
+skynet.init(function ()
+    nodemgr.new()
 end )
 
 function nodemgr.call(node,addrname,...)

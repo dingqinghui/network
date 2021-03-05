@@ -74,7 +74,6 @@ function MSG.login(fd,data)
 	if not ok then 
 		return errcode.CONTROL_SERVER_ERROR
 	end 
-	
 	if err ~= errcode.RT_OK then 
 		return err
 	end

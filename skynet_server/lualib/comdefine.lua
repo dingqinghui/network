@@ -5,6 +5,8 @@ return {
     
     LOGIN_TOKEN_EXPIRE = 10,        -- 登陆TOKEN过期时间
 
+    USER_OFFLINE_EXPIRE = 60 * 3,   -- 玩家离线重连过期时间 
+
     LOG_LEVEL = {
         DEBUG = 1,
         INFO = 2,

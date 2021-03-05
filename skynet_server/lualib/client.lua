@@ -6,6 +6,7 @@ local xserialize  = require "xserialize"
 --local msgimpl = require "msgimpl"
 local socket = require "skynet.socket"
 local errcode = require "errcode"
+local usertime = require "usertime"
 
 local PING_INTERVAL = 5
 local PING_MAX_CNT = 3
@@ -49,6 +50,7 @@ end
 
 local function dispatch_message(fd, address,data)
 	-- 解包
+	local ms = usertime.getmilliseconds()
 	local message = xserialize.decode(data)
 	DEBUG_LOG("request::%s",table.dump(message))
 	-- 消息分发
@@ -68,7 +70,8 @@ local function dispatch_message(fd, address,data)
 			result = result 
 		}
 		send_package(fd, rpack)
-		DEBUG_LOG("respond_%s::%s",message.name,table.dump(rpack))
+
+		DEBUG_LOG("cost:%d/ms respond_%s::%s", usertime.getmilliseconds() - ms ,message.name,table.dump(rpack))
 	end
 end
 

@@ -2,11 +2,16 @@ local skynet = require "skynet"
 local gateserver = require "snax.gateserver"
 require "skynet.manager"
 
-local usermgr
-local authmaster        -- 验证主服务
-local hub = {}
-local agent = {}        -- <fd,auth agent /logic agent>
 
+local usermgr
+local verifyd 
+local authagent = {}        
+local useragent = {}
+local hub = {}
+
+local hubconf
+local authpool = {}
+local authagentcnt = 0
 
 skynet.register_protocol {
 	name = "client",
@@ -14,19 +19,15 @@ skynet.register_protocol {
 }
 
 
-local hubconf
-local authpool = {}
-local authagentcnt = 0
 
 local function close_fd(fd)
-    agent[fd] = nil
+    authagent[fd] = nil
+    useragent[fd] = nil
 end
 
 
 local handler = {}
-function handler.open(source, conf)
-    hubconf = conf
-end
+
 
 local function getauthagent(fd) 
     local index = fd % authagentcnt + 1
@@ -40,43 +41,39 @@ function handler.connect(fd, addr)
     gateserver.openclient(fd)
     local s = getauthagent(fd)
     assert(s)
-    agent[fd] = s
+    authagent[fd] = s
     skynet.send(s,"lua","connect",fd)
 end
 
 function handler.message(fd, msg, sz)
     DEBUG_LOG("收到客户端消息  fd:%d msg:%s sz:%d",fd,msg,sz)
 
-    local s = agent[fd]
+    local s = authagent[fd]
     if not s then 
-        return 
+        s = useragent
     end 
 
     skynet.redirect(s,skynet.self(),"client",fd,msg,sz) 
 end
 
-function handler.disconnect(fd)
-    local s = agent[fd]
-    if not s then 
-        return 
+
+local function disconnect(fd)
+    if authagent[fd]  then 
+        skynet.send(authagent[fd],"lua","disconnect",fd) 
+    else
+        skynet.send(usermgr,"lua","disconnect",fd)      
     end 
-
-    skynet.send(s,"lua","disconnect",fd)        -- 通知验证服务
-
     close_fd(fd)
+end
+
+function handler.disconnect(fd)
+    disconnect(fd)
     DEBUG_LOG("客户端断开连接 fd:%d",fd)
 end
 
 
 function handler.error(fd, msg)
-    local s = agent[fd]
-    if not s then 
-        return 
-    end
-
-    skynet.send(s,"lua","disconnect",fd)        -- 通知验证服务
-
-    close_fd(fd)
+    disconnect(fd)
     DEBUG_LOG("客户端出错 fd:%d",fd)
 end
 
@@ -89,36 +86,24 @@ end
 local  authcnt = 0
 
 local CMD = {}
--- from auth service 
-function CMD.authpass(srouce, uuid,fd )
-    agent[fd] = nil
-    local s = skynet.call(usermgr,"lua","getagent",uuid) 
-    if not agent[fd] then 
-        -- redirect fd to useragent
-        agent[fd] = s
-        -- 赋值连接
-        skynet.send(s,"lua","assign",uuid,fd)
 
-        authcnt  = authcnt + 1
-        INFO_LOG("完成验证数量 %d agent:%s",authcnt,table.dump(agent) )
-    end 
+
+--useragent 初始化完成 重定向
+function CMD.redirect(fd,s)
+    useragent[fd] = s
+    authagent[fd] = nil
 end
 
-
-function CMD.closeclient(srouce, fd )
-    if not agent[fd] then 
-        return 
-    end 
-
-    gateserver.closeclient(fd)
-    close_fd(fd)
-    INFO_LOG("踢出连接 fd:%d agent:%s",fd,table.dump(agent))
-end 
 
 function CMD.gethost()
     return string.format("%s:%s",hubconf.address,hubconf.port)
 end
 
+-- ping 超时 通知关闭客户端
+function CMD.closeclient(fd)
+    gateserver.closeclient(fd)
+    disconnect(fd)
+end
 
 
 function handler.command(cmd, source, ...)
@@ -126,15 +111,23 @@ function handler.command(cmd, source, ...)
 	return f(source, ...)
 end
 
+-- 监听成功
+function handler.open(source, conf)
+    hubconf = conf
 
-skynet.init(function ()
+
+    verifyd = skynet.newservice("verifyd")
+    usermgr = skynet.newservice("usermgrd",skynet.self(),verifyd)
+
     for i=1,5 do
-        local s = skynet.newservice("authd",skynet.self())
+        local s = skynet.newservice("authd",skynet.self(),usermgr,verifyd)
         table.insert(authpool,s)
         authagentcnt  = authagentcnt + 1
     end
 
-    usermgr = skynet.newservice("usermgrd",skynet.self())
+end
+
+skynet.init(function ()
 
     skynet.register(".hub")
 end)
