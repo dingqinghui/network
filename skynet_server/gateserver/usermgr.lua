@@ -187,7 +187,7 @@ function usermgr:disconnect(fd)
     -- 通知验证服务
     sermgr.send("verifyd","lua","update_expire",uuid,expire)
 
-     if user.__agent then 
+    if user.__agent then 
         skynet.send(user.__agent ,"lua","disconnect",fd)
     end
 end

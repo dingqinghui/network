@@ -3,6 +3,7 @@ local xserialize  = require "xserialize"
 local socket = require "client.socket"
 local errcode = require "errcode" 
 local skynet  = require "skynet"
+local usertime = require "usertime"
 
 local finishcnt = 0
 
@@ -50,8 +51,8 @@ end
 
 function client:connect()
     local index = math.random(1,1000000000)
-    self.__account = "dfg111111"--self.__prefix .. "dingqinghis" .. index
-    self.__password = "dfg111111"--self.__prefix .."dqh1993027" .. index
+    self.__account = self.__prefix .. "dingqinghis" .. index
+    self.__password = self.__prefix .."dqh1993027" .. index
     self.__fd = assert(socket.connect("127.0.0.1", 17000))
 
 end 
@@ -82,13 +83,13 @@ function client:read_thread()
     while true do 
         local msg = socket.recv(self.__fd)
         if not msg then 
-            skynet.sleep(100)
+            skynet.sleep(1)
         else
             local ok,package = pcall( string.unpack,">s2", msg)
  
             if ok then 
                 local pack = xserialize.decode(package)
-                print(table.dump(pack))
+                --print(table.dump(pack))
                 if pack.errcode ~= errcode.RT_OK then 
                     --ERROR_LOG(table.dump(pack))
                     --return 
@@ -147,17 +148,22 @@ function client:login_gate_msg(token,uuid)
                 uuid  = uuid
         }
     })
+
+    ms = usertime.getmilliseconds()
 end 
 
 function client:login_success(gate_addr,token,uuid)
-    for i = 1,3 do 
+    --for i = 1,3 do 
+       
         local list = string.split(gate_addr,":")
         local gatefd = assert(socket.connect(list[1], tonumber(list[2])))
         socket.close(self.__fd) 
+
+        
         self.__fd = gatefd
 
         self:login_gate_msg(token,uuid)
-    end
+    --end
 end
 
 return client
