@@ -16,15 +16,16 @@ return {
     },
 
 
-    USER_STATUS = {
-        LOADING =        1,      -- 开始加载数据 
-        LOADED =         2,      -- 数据加载完成
-        WAIT_RECONNECT = 3,      -- 网络断开 数据加载完成
-        NOUSER =         4,      -- 玩家不存在   
-    },
-
-
+    -- 事件
     EVENT_NAME = {
         CLUSTER_CHANGE = "CLUSTER_CHANGE",      -- 集群节点变化
     }
+
+    -- 服务名
+    SERVICE_NAME = {
+        CTR_CONTROL     = ".controld",
+        GATE_HUB        = ".hub",
+        GATE_USERMGR    = ".usermgr",
+    }
+
 }

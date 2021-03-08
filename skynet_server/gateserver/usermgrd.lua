@@ -5,7 +5,9 @@ require "skynet.manager"
 local nodemgr = require "nodemgr"
 local usermgr_mod = require "usermgr" 
 local nodeclient = require "nodeclient"
+local comdefine = require "comdefine"
 
+local SERVICE_NAME = comdefine.SERVICE_NAME
 __NODE_NAME__ = skynet.getenv("nodename")
 local usermgr = nil
 
@@ -28,7 +30,7 @@ local function control_connect()
         table.insert(ulist,uuid)
     end 
     local host  = sermgr.call("hubd","lua","gethost")  
-    __CONTROL_CLIENT__:send(".controld","init_user_list",ulist,__NODE_NAME__,host)
+    __CONTROL_CLIENT__:send(SERVICE_NAME.CTR_CONTROL,"init_user_list",ulist,__NODE_NAME__,host)
 end
 
 
@@ -47,6 +49,13 @@ function CMD.disconnect(fd)
 end
 
 
+function CMD.quitserver()
+    usermgr:transver(function (uuid)
+        usermgr:exit(uuid)
+    end)
+end
+
+
 skynet.start(function ()
     utils.dispatch_lua(CMD)
 
@@ -58,6 +67,6 @@ skynet.start(function ()
     usermgr = usermgr_mod.new()
     __CONTROL_CLIENT__ = nodeclient.new("controlserver",control_connect)
     __CONTROL_CLIENT__:start()
-    
-    skynet.register(".usermgr")
+
+    skynet.register(SERVICE_NAME.GATE_USERMGR)
 end )

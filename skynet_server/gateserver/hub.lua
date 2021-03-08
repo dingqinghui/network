@@ -1,8 +1,10 @@
 local skynet = require "skynet"
 local gateserver = require "snax.gateserver"
 require "skynet.manager"
+local comdefine = require "comdefine"
 
-
+local SERVICE_NAME = comdefine.SERVICE_NAME
+local start = false
 local usermgr
 local verifyd 
 local authagent = {}        
@@ -115,6 +117,7 @@ end
 function handler.open(source, conf)
     hubconf = conf
 
+    start = true
 
     verifyd = skynet.newservice("verifyd")
     usermgr = skynet.newservice("usermgrd",skynet.self(),verifyd)
@@ -124,12 +127,28 @@ function handler.open(source, conf)
         table.insert(authpool,s)
         authagentcnt  = authagentcnt + 1
     end
-
 end
+
+
+function CMD.quitserver()
+    if not start then 
+        return 
+    end 
+    -- 踢出连接
+    for fd ,__ in pairs(authagent) do
+        gateserver.closeclient(fd)
+        close_fd(fd)
+    end 
+    for fd ,__ in pairs(useragent) do
+        gateserver.closeclient(fd)
+        close_fd(fd)
+    end 
+end
+
 
 skynet.init(function ()
 
-    skynet.register(".hub")
+    skynet.register(SERVICE_NAME.GATE_HUB)
 end)
 
 gateserver.start(handler)

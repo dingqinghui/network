@@ -59,6 +59,8 @@ function user:settoken(token)
     self.__token = token
 end
 
+function user:save()
 
+end
 
 return user

@@ -7,26 +7,9 @@ local GETENV = skynet.getenv
 
 
 local watchdog = nil
-local CMD = {}
 
 
-
-skynet.start(function ()
-	skynet.dispatch("lua", function(session, source, cmd, ...)
-			local f = assert(CMD[cmd])
-			skynet.ret(skynet.pack(f(cmd, ...)))
-	end)
-
-
-
-    -- 守护进程模式无法开启console
-	if GETENV("daemon") == nil then
-		skynet.newservice("console")
-	end
-	
-	skynet.newservice("debug_console", GETENV("console_port") or 8002)
-	
-
+local function launcher_hub()
 	local hub = skynet.newservice("hub")
 	local conf={
 		address = GETENV("address") or "127.0.0.1",
@@ -35,6 +18,23 @@ skynet.start(function ()
 		nodelay = GETENV("nodelay") or true,
 	}
 	skynet.call(hub, "lua", "open", conf)
+end
+
+
+
+skynet.start(function ()
+
+    -- 守护进程模式无法开启console
+	if GETENV("daemon") == nil then
+		skynet.newservice("console")
+	end
+	
+	skynet.newservice("debug_console", GETENV("console_port") or 8002)
+	
+	skynet.newservice("quitd")
+
+
+	launcher_hub()
 
 
     skynet.exit()

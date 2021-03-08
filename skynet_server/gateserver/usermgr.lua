@@ -2,7 +2,9 @@ local skynet = require "skynet"
 local ap_mod = require "agentpool"
 local comdefine = require "comdefine"
 local sermgr = require "sermgr"
+local comdefine = require "comdefine"
 
+local SERVICE_NAME = comdefine.SERVICE_NAME
 
 local INIT_AGENT_CAP = 10
 
@@ -78,6 +80,12 @@ function usermgr:add_user(uuid,fd,token)
 end
 
 
+function usermgr:transver(func)
+    for uuid,__ in pairs(self.__userlist) do
+        func(uuid)
+    end
+end
+
 function usermgr:exit(uuid)
     local user = self.__userlist[uuid]
     if not user then 
@@ -98,7 +106,7 @@ function usermgr:exit(uuid)
 
     -- 通知controlserver
     if __CONTROL_CLIENT__ then 
-        __CONTROL_CLIENT__:send(".controld","logout",uuid,__NODE_NAME__)
+        __CONTROL_CLIENT__:send(SERVICE_NAME.CTR_CONTROL,"logout",uuid,__NODE_NAME__)
     end
 
     DEBUG_LOG("玩家代理回收 玩家:%d",uuid)
@@ -132,9 +140,10 @@ end
 
 function usermgr:assign_con(uuid,fd)
     local user = self.__userlist[uuid]
-    user.__fd = fd
+   
+    self.__conlist[user.__fd] = nil
 
-    self.__conlist[fd] = uuid
+    user.__fd = fd
 end
 
 

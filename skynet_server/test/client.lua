@@ -29,9 +29,9 @@ function MSG.response_login_gate(pack,cli)
 
     finishcnt  = finishcnt + 1
     --if finishcnt % 100 == 0 then 
-        INFO_LOG("登陆成功 数量%d %f",finishcnt,skynet.time())
+        --INFO_LOG("登陆成功 数量%d %f",finishcnt,skynet.time())
     --end 
- 
+    LoginFinish()
 end
 
 

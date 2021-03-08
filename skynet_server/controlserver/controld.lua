@@ -3,6 +3,9 @@ require "skynet.manager"
 local utils = require "utils"
 local control = require "control"
 local errcode = require "errcode"
+local comdefine = require "comdefine"
+
+local SERVICE_NAME = comdefine.SERVICE_NAME
 
 local control_ins
 
@@ -66,5 +69,5 @@ skynet.start(function ()
 
     control_ins = control.new()
 
-    skynet.register(".controld")
+    skynet.register(SERVICE_NAME.CTR_CONTROL)
 end)

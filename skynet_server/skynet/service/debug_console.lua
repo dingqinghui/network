@@ -363,6 +363,7 @@ end
 function COMMANDX.call(cmd)
 	local address = adjust_address(cmd[2])
 	local cmdline = assert(cmd[1]:match("%S+%s+%S+%s(.+)") , "need arguments")
+	
 	local args_func = assert(load("return " .. cmdline, "debug console", "t", {}), "Invalid arguments")
 	local args = table.pack(pcall(args_func))
 	if not args[1] then

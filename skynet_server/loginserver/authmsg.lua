@@ -6,7 +6,9 @@ local errcode = require "errcode"
 local msgimpl = require "msgimpl"
 local client =  require "client"
 local nodemgr = require "nodemgr"
+local comdefine = require "comdefine"
 
+local SERVICE_NAME = comdefine.SERVICE_NAME
 local MSG = client.gethandler()
 
 local NODEID = skynet.getenv("nodeid")
@@ -70,7 +72,7 @@ function MSG.login(fd,data)
 	end
 
 	local token = generator.uuid(NODEID)
-	local ok , err,host = nodemgr.call("controlserver",".controld","syc_verify_data",info.uuid,token)
+	local ok , err,host = nodemgr.call("controlserver",SERVICE_NAME.CTR_CONTROL,"syc_verify_data",info.uuid,token)
 	if not ok then 
 		return errcode.CONTROL_SERVER_ERROR
 	end 

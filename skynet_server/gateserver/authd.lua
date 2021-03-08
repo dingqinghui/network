@@ -50,8 +50,6 @@ skynet.start(function ()
     })
     utils.dispatch_lua(CMD)
     client.start(handler)
-
-    skynet.register(".auth")
 end)
 
 

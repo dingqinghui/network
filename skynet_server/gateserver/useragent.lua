@@ -52,7 +52,7 @@ function CMD.release(uuid)
     if uuid ~= __USER__:getuuid() then 
         return 
     end 
-
+    -- 存档
     __USER__ = nil
 end
 
