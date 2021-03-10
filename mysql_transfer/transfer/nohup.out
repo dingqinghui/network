@@ -1,0 +1,41 @@
+2021-03-09 11:38:25.769047 I | process id: 10748
+2021-03-09 11:38:25.769848 I | GOMAXPROCS :8
+2021-03-09 11:38:25.770088 I | source  mysql(127.0.0.1:3306)
+2021-03-09 11:38:25.770273 I | destination redis(127.0.0.1:6379)
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:203: 
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:69: 
+2021-03-09 11:39:34.121469 I | process id: 10810
+2021-03-09 11:39:34.121827 I | GOMAXPROCS :8
+2021-03-09 11:39:34.122138 I | source  mysql(127.0.0.1:3306)
+2021-03-09 11:39:34.122426 I | destination redis(127.0.0.1:6379)
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:203: 
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:69: 
+2021-03-09 11:45:20.943856 I | process id: 11123
+2021-03-09 11:45:20.944110 I | GOMAXPROCS :8
+2021-03-09 11:45:20.944210 I | source  mysql(127.0.0.1:3306)
+2021-03-09 11:45:20.944409 I | destination redis(127.0.0.1:6379)
+table is not exist
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:251: 
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:73: 
+2021-03-09 11:52:16.087256 I | process id: 11467
+2021-03-09 11:52:16.087411 I | GOMAXPROCS :8
+2021-03-09 11:52:16.087755 I | source  mysql(127.0.0.1:3306)
+2021-03-09 11:52:16.087933 I | destination redis(127.0.0.1:6379)
+2021-03-09 11:52:16.346109 I | Web Admin Listen At :8060
+2021-03-09 11:52:16.348380 I | transfer run from position( 0)
+2021-03-09 11:52:38.519593 I | process id: 11496
+2021-03-09 11:52:38.519782 I | GOMAXPROCS :8
+2021-03-09 11:52:38.519925 I | source  mysql(127.0.0.1:3306)
+2021-03-09 11:52:38.520038 I | destination redis(127.0.0.1:6379)
+2021-03-09 14:16:24.220011 I | process id: 18514
+2021-03-09 14:16:24.220286 I | GOMAXPROCS :8
+2021-03-09 14:16:24.220458 I | source  mysql(127.0.0.1:3306)
+2021-03-09 14:16:24.220811 I | destination redis(127.0.0.1:6379)
+open /mnt/hgfs/git/mysql_transfer/transfer/store/lua/t_money_redis.lua: no such file or directory
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:73: 
+2021-03-10 10:15:46.048247 I | Web Admin Listen At :8060
+2021-03-10 10:15:46.048588 I | transfer run from position(binlog.000017 4619)
+open /mnt/hgfs/git/mysql_transfer/transfer/store/lua/t_money_redis.lua: no such file or directory
+D:/dev/golang/projects/go-mysql-transfer/service/transfer_service.go:73: 

@@ -1,0 +1,44 @@
+include "../config.path"
+
+
+preload = "./lualib/preload.lua"	-- run preload.lua before every lua service run
+thread = 8
+harbor = 0
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+start = "main"	    -- main script
+-- console_port = 8001
+
+------------------------------------------------------node info---------------------------------------------------------
+-- nodeid=200
+nodename = "dbserver"
+rootpath = "./dbserver"
+cluster = "./conf/" .. nodename .. "/clustername.lua"
+
+luaservice =  rootpath .. "/?.lua;" .. luaservice
+lua_path   =  rootpath .. "/?.lua;" .. lua_path 
+------------------------------------------------------node info---------------------------------------------------------
+
+
+
+------------------------------------------------------logger---------------------------------------------------------
+logger =  "loggerd"
+logservice  = "snlua"
+logdir = "./logger/" .. nodename .. "/"
+loglevel = "DEBUG"
+------------------------------------------------------logger---------------------------------------------------------
+
+
+------------------------------------------------------redis---------------------------------------------------------
+redishost = "127.0.0.1" 
+redisport = 6379
+-- redisauth = "dingqinghui"
+------------------------------------------------------redis---------------------------------------------------------
+
+
+mysqlconf = "127.0.0.1#3306#root#Jq@123456#dqh_logdb"
+
+-- daemon = "./skynet.pid"
+-- snax_interface_g = "snax_g"
+
+
+

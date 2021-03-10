@@ -100,3 +100,15 @@ function  string.split(str,sep)
     end
   end 
   
+
+
+function is_float(v)
+    if  type(v) ~= "number" then 
+        return false
+    end
+    if math.ceil(v) == v then
+        return false 
+    else
+        return true
+    end 
+end

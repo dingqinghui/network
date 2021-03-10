@@ -1,17 +1,18 @@
 local skynet = require "skynet"
+local comdefine = require "comdefine"
 
+local SERVICE_NAME = comdefine.SERVICE_NAME
 
-local dbservice
-
+local redis
+local mysql
 
 skynet.init(function()
-	dbservice = skynet.uniqueservice "redisd"
+    redis = skynet.localname(SERVICE_NAME.DB_REDIS)
+    mysql = skynet.localname(SERVICE_NAME.DB_MYSQL)
+
 end)
 
 
-local function exec(key,...)
-    return skynet.call(dbservice,"lua",key,...)
-end
 
 
 local dbmgr =  setmetatable({}, {__index = function(tab,key)

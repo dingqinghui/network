@@ -2,7 +2,9 @@ local redis = require "skynet.db.redis"
 local skynet =  require "skynet"
 require "skynet.manager"
 local utils = require "utils"
+local comdefine = require "comdefine"
 
+local SERVICE_NAME = comdefine.SERVICE_NAME
 local GETENV = skynet.getenv
 
 local function masterinit()
@@ -22,7 +24,6 @@ local function masterinit()
         
         local ret = skynet.call(slaves[balance],"lua",cmd,...)
         skynet.retpack(ret)
-
     end)
 
 end
@@ -69,11 +70,11 @@ end
 
 
 skynet.start(function ()
-    local master = skynet.localname(".redis")
+    local master = skynet.localname(SERVICE_NAME.DB_REDIS)
     if master then 
         slaveinit()
     else
-        skynet.register(".redis")
+        skynet.register(SERVICE_NAME.DB_REDIS)
         masterinit()
     end 
 end )

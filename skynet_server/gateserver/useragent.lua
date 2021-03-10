@@ -5,6 +5,7 @@ local client = require "client"
 local user_mod = require "user"
 local utils = require "utils"
 local sermgr = require "sermgr"
+require "enter_game_msg" 
 
 local paramter = {...}
 
@@ -24,7 +25,6 @@ function CMD.newuser(uuid,fd,token)
     client.startping(fd)
 
     __USER__ = user_mod.new(uuid,fd,token,client)
-    __USER__:login()
 
     sermgr.send("hubd","lua","redirect",fd,skynet.self())
 end

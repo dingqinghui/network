@@ -21,6 +21,14 @@ luaservice = luaservice ..  "./test/?.lua;"
 lua_path = "./test/?.lua;" .. lua_path
 
 
+------------------------------------------------------redis---------------------------------------------------------
+redishost = "127.0.0.1" 
+redisport = 6379
+-- redisauth = "dingqinghui"
+------------------------------------------------------redis---------------------------------------------------------
+
+
+mysqlconf = "127.0.0.1#3306#root#Jq@123456#dqh_logdb"
 
 logger =  "loggerd"
 logservice  = "snlua"

@@ -1,0 +1,204 @@
+[2021/03/09 11:38:25] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/09 11:39:34] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/09 11:45:20] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/09 11:52:16] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/09 11:52:16] [info] dump.go:204 skip dump, no mysqldump
+[2021/03/09 11:52:16] [info] binlogsyncer.go:360 begin to sync binlog from position (, 0)
+[2021/03/09 11:52:16] [info] sync.go:25 start sync binlog at binlog file (, 0)
+[2021/03/09 11:52:16] [info] binlogsyncer.go:777 rotate to (binlog.000015, 4)
+[2021/03/09 11:52:16] [info] binlogsyncer.go:777 rotate to (binlog.000016, 4)
+[2021/03/09 11:52:16] [info] sync.go:68 received fake rotate event, next log name is binlog.000015
+[2021/03/09 11:52:16] [info] sync.go:68 received fake rotate event, next log name is binlog.000016
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.cats
+2021-03-09 11:52:16	info	save position binlog.000016 381
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.cats
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.cats
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.cats
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.moneylog
+2021-03-09 11:52:16	info	save position binlog.000016 589
+2021-03-09 11:52:16	info	save position binlog.000016 814
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log
+2021-03-09 11:52:16	info	save position binlog.000016 1642
+2021-03-09 11:52:16	info	save position binlog.000016 1854
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.first_login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.first_login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.enter_main_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 2170
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.enter_main_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.enter_main_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log
+2021-03-09 11:52:16	info	save position binlog.000016 4674
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 6040
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_fail_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_fail_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 6421
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_fail_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_first_enter_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_first_enter_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.click_guild_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.enter_main_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.first_enter_main_log
+2021-03-09 11:52:16	info	save position binlog.000016 6951
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.first_login_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.scene_change_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.scene_change_log
+2021-03-09 11:52:16	info	save position binlog.000016 7338
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.show_guild_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_fail_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.stage_first_enter_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.scene_change_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 7879
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 8265
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 8805
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.battle_result_log
+2021-03-09 11:52:16	info	save position binlog.000016 9029
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.build_level_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.login_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.build_level_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.build_level_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.tower_upstart_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.tower_upstart_log_copy
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.tower_upstart_log_copy
+2021-03-09 11:52:16	info	save position binlog.000016 9410
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.item_change_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.item_change_log
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.item_change_log
+2021-03-09 11:52:16	info	save position binlog.000016 9939
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.item_change_log
+2021-03-09 11:52:16	info	save position binlog.000016 10183
+[2021/03/09 11:52:16] [info] sync.go:235 table structure changed, clear table cache: logdb.scene_change_log
+2021-03-09 11:52:16	info	save position binlog.000016 10596
+2021-03-09 11:52:16	info	save position binlog.000016 11141
+2021-03-09 11:52:16	info	save position binlog.000016 15331
+2021-03-09 11:52:16	info	save position binlog.000016 16000
+2021-03-09 11:52:16	info	save position binlog.000016 16312
+2021-03-09 11:52:16	info	save position binlog.000016 16764
+2021-03-09 11:52:16	info	save position binlog.000016 17443
+2021-03-09 11:52:16	info	save position binlog.000016 17902
+2021-03-09 11:52:16	info	save position binlog.000016 18591
+2021-03-09 11:52:16	info	save position binlog.000016 21642
+2021-03-09 11:52:16	info	save position binlog.000016 22229
+2021-03-09 11:52:16	info	save position binlog.000016 22458
+2021-03-09 11:52:16	info	save position binlog.000016 22722
+2021-03-09 11:52:16	info	save position binlog.000016 22985
+2021-03-09 11:52:16	info	save position binlog.000016 23254
+2021-03-09 11:52:16	info	save position binlog.000016 23518
+2021-03-09 11:52:17	info	save position binlog.000016 23774
+2021-03-09 11:52:17	info	save position binlog.000016 24030
+2021-03-09 11:52:17	info	save position binlog.000016 24293
+2021-03-09 11:52:17	info	save position binlog.000016 26522
+2021-03-09 11:52:17	info	save position binlog.000016 26859
+2021-03-09 11:52:17	info	save position binlog.000016 27171
+2021-03-09 11:52:17	info	save position binlog.000016 27758
+2021-03-09 11:52:17	info	save position binlog.000016 28020
+2021-03-09 11:52:17	info	save position binlog.000016 28285
+2021-03-09 11:52:17	info	save position binlog.000016 28542
+2021-03-09 11:52:17	info	save position binlog.000016 28809
+2021-03-09 11:52:17	info	save position binlog.000016 29076
+2021-03-09 11:52:17	info	save position binlog.000016 29304
+2021-03-09 11:52:17	info	save position binlog.000016 29561
+2021-03-09 11:52:17	info	save position binlog.000016 29818
+2021-03-09 11:52:17	info	save position binlog.000016 30060
+2021-03-09 11:52:17	info	save position binlog.000016 30318
+2021-03-09 11:52:17	info	save position binlog.000016 30748
+2021-03-09 11:52:17	info	save position binlog.000016 30976
+2021-03-09 11:52:17	info	save position binlog.000016 31305
+2021-03-09 11:52:17	info	save position binlog.000016 31739
+2021-03-09 11:52:17	info	save position binlog.000016 31967
+2021-03-09 11:52:17	info	save position binlog.000016 32228
+2021-03-09 11:52:17	info	save position binlog.000016 32485
+2021-03-09 11:52:17	info	save position binlog.000016 32730
+2021-03-09 11:52:17	info	save position binlog.000016 32984
+2021-03-09 11:52:17	info	save position binlog.000016 45294
+[2021/03/09 11:52:17] [info] binlogsyncer.go:777 rotate to (binlog.000017, 4)
+[2021/03/09 11:52:17] [info] sync.go:68 received fake rotate event, next log name is binlog.000017
+[2021/03/09 11:52:17] [info] sync.go:235 table structure changed, clear table cache: dqh_logdb.
+[2021/03/09 11:52:17] [info] sync.go:235 table structure changed, clear table cache: dqh_logdb.
+2021-03-09 11:52:17	info	save position binlog.000017 340
+2021-03-09 11:52:17	info	save position binlog.000017 524
+2021-03-09 11:52:59	info	action: insert, structure: String ,key: MOENYLOG_1 ,field: , value: {"code":"1","id":1,"name":"\"2\""}
+2021-03-09 11:52:59	info	处理完成 1 条数据
+2021-03-09 11:52:59	info	save position binlog.000017 830
+2021-03-09 11:53:29	info	action: update, structure: String ,key: MOENYLOG_1 ,field: , value: {"code":"1","id":1,"name":null}
+2021-03-09 11:53:29	info	处理完成 1 条数据
+2021-03-09 11:53:29	info	save position binlog.000017 1154
+2021-03-09 11:53:52	info	action: delete, structure: String ,key: MOENYLOG_1 ,field: , value: <nil>
+2021-03-09 11:53:52	info	处理完成 1 条数据
+2021-03-09 11:53:52	info	save position binlog.000017 1455
+2021-03-09 11:54:01	info	action: insert, structure: String ,key: MOENYLOG_1 ,field: , value: {"code":"1","id":1,"name":"1"}
+2021-03-09 11:54:01	info	处理完成 1 条数据
+2021-03-09 11:54:01	info	save position binlog.000017 1759
+2021-03-09 11:57:45	info	action: update, structure: String ,key: MOENYLOG_1 ,field: , value: {"code":"1","id":1,"name":"{\"code\":\"1\",\"id\":1,\"name\":\"1\"}"}
+2021-03-09 11:57:45	info	处理完成 1 条数据
+2021-03-09 11:57:45	info	save position binlog.000017 2113
+2021-03-09 14:17:07	info	action: insert, structure: String ,key: MOENYLOG_2 ,field: , value: {"code":"2","id":2,"name":"2"}
+2021-03-09 14:17:07	info	处理完成 1 条数据
+2021-03-09 14:17:07	info	save position binlog.000017 2417
+2021-03-09 14:20:18	info	action: insert, structure: String ,key: MOENYLOG_3 ,field: , value: {"code":null,"id":3,"name":"3"}
+2021-03-09 14:20:18	info	处理完成 1 条数据
+2021-03-09 14:20:18	info	save position binlog.000017 2718
+2021-03-09 14:20:22	info	action: update, structure: String ,key: MOENYLOG_3 ,field: , value: {"code":"3","id":3,"name":"3"}
+2021-03-09 14:20:22	info	处理完成 1 条数据
+2021-03-09 14:20:22	info	save position binlog.000017 3040
+[2021/03/09 14:22:51] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/09 14:22:51] [info] dump.go:199 skip dump, use last binlog replication pos (binlog.000017, 3040) or GTID set <nil>
+[2021/03/09 14:22:51] [info] binlogsyncer.go:360 begin to sync binlog from position (binlog.000017, 3040)
+[2021/03/09 14:22:51] [info] sync.go:25 start sync binlog at binlog file (binlog.000017, 3040)
+[2021/03/09 14:22:51] [info] binlogsyncer.go:777 rotate to (binlog.000017, 3040)
+[2021/03/09 14:22:51] [info] sync.go:68 received fake rotate event, next log name is binlog.000017
+2021-03-09 14:23:25	info	action: insert, structure: String ,key: money_log_4 ,field: , value: {"code":"4","id":4,"name":"4"}
+2021-03-09 14:23:25	info	处理完成 1 条数据
+2021-03-09 14:23:25	info	save position binlog.000017 3344
+[2021/03/09 18:11:26] [info] sync.go:235 table structure changed, clear table cache: dqh_logdb.t_user
+2021-03-09 18:11:26	info	save position binlog.000017 3653
+2021-03-09 18:12:09	info	save position binlog.000017 3964
+2021-03-10 09:12:48	info	save position binlog.000017 4307
+2021-03-10 10:10:49	info	save position binlog.000017 4619
+[2021/03/10 10:15:45] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/10 10:15:46] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/10 10:15:46] [info] dump.go:199 skip dump, use last binlog replication pos (binlog.000017, 4619) or GTID set <nil>
+[2021/03/10 10:15:46] [info] binlogsyncer.go:360 begin to sync binlog from position (binlog.000017, 4619)
+[2021/03/10 10:15:46] [info] sync.go:25 start sync binlog at binlog file (binlog.000017, 4619)
+[2021/03/10 10:15:46] [info] binlogsyncer.go:777 rotate to (binlog.000017, 4619)
+[2021/03/10 10:15:46] [info] sync.go:68 received fake rotate event, next log name is binlog.000017
+2021-03-10 10:16:13	info	save position binlog.000017 4962
+[2021/03/10 10:17:50] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/10 10:17:50] [info] dump.go:199 skip dump, use last binlog replication pos (binlog.000017, 4962) or GTID set <nil>
+[2021/03/10 10:17:50] [info] binlogsyncer.go:360 begin to sync binlog from position (binlog.000017, 4962)
+[2021/03/10 10:17:50] [info] sync.go:25 start sync binlog at binlog file (binlog.000017, 4962)
+[2021/03/10 10:17:50] [info] binlogsyncer.go:777 rotate to (binlog.000017, 4962)
+[2021/03/10 10:17:50] [info] sync.go:68 received fake rotate event, next log name is binlog.000017
+[2021/03/10 10:18:37] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/10 10:18:37] [info] binlogsyncer.go:144 create BinlogSyncer with config {1001 mysql 127.0.0.1 3306 root   utf8 false false <nil> false UTC false 0 0s 0s 0 false false 0}
+[2021/03/10 10:18:37] [info] dump.go:199 skip dump, use last binlog replication pos (binlog.000017, 4962) or GTID set <nil>
+[2021/03/10 10:18:37] [info] binlogsyncer.go:360 begin to sync binlog from position (binlog.000017, 4962)
+[2021/03/10 10:18:37] [info] sync.go:25 start sync binlog at binlog file (binlog.000017, 4962)
+[2021/03/10 10:18:37] [info] binlogsyncer.go:777 rotate to (binlog.000017, 4962)
+[2021/03/10 10:18:37] [info] sync.go:68 received fake rotate event, next log name is binlog.000017
+2021-03-10 10:19:04	info	action: update, structure: String ,key: t_user:4 ,field: , value: {"name":"测试名字","reg_time":1615284716,"uuid":4}
+2021-03-10 10:19:04	info	处理完成 1 条数据
+2021-03-10 10:19:04	info	save position binlog.000017 5305
+2021-03-10 11:12:00	info	action: update, structure: String ,key: t_user:1111 ,field: , value: {"name":"测试名字2111","reg_time":1615345920,"uuid":1111}
+2021-03-10 11:12:00	info	处理完成 1 条数据
+2021-03-10 11:12:00	info	save position binlog.000017 5653

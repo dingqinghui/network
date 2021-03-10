@@ -15,4 +15,8 @@ return {
 
     TOKEN_EXPIRE = 1008,                -- token 过期
     NOT_AVAILD_GATE = 1009,             -- 没有可用的网关
+
+    USER_NOT_EXIST = 10010,              -- user 对象不存在
+    USER_UUID_ERROR = 10011,             -- 玩家UUID错误
+    USER_LOADING_DATA = 10012            -- 角色数据加载中
 }
