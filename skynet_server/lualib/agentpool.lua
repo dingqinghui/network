@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 
 
-local AGENT_CHECK_INTERVAL = 6000
+local AGENT_CHECK_INTERVAL = 100
 
 local agentpool = __G_CLASS__(...)
 

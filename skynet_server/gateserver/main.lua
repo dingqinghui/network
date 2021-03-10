@@ -20,7 +20,14 @@ local function launcher_hub()
 	skynet.call(hub, "lua", "open", conf)
 end
 
+local function launch_mysql()
+    local mysql = skynet.newservice("mysqld")
+    skynet.call(mysql,"lua","init",nil,10)
+end
 
+local function launch_redis()
+	skynet.newservice("redisd")
+end
 
 skynet.start(function ()
 
@@ -32,8 +39,9 @@ skynet.start(function ()
 	skynet.newservice("debug_console", GETENV("console_port") or 8002)
 	
 	skynet.newservice("quitd")
-
-
+	
+	launch_redis()
+	launch_mysql()
 	launcher_hub()
 
 

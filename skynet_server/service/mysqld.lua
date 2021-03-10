@@ -56,7 +56,6 @@ function CMD.query( sql)
     if blance > #agentpool then
         blance = 1
     end
-    print(table.dump(agentpool),blance)
     local agent_addr = agentpool[blance] 
     assert(agent_addr)
     return skynet.call(agent_addr, "lua", "query", sql)

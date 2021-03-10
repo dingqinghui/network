@@ -6,7 +6,7 @@ local comdefine = require "comdefine"
 
 local SERVICE_NAME = comdefine.SERVICE_NAME
 
-local INIT_AGENT_CAP = 10
+local INIT_AGENT_CAP = 100
 
 
 local USER_STATUS = comdefine.USER_STATUS
@@ -240,6 +240,8 @@ function usermgr:user_login(newuuid,newfd ,newtoken)
         INFO_LOG("玩家被顶号 踢出连接 uuid:%s fd:%d",uuid,fd)
     end 
 
+    DEBUG_LOG("当前玩家数量 %d",table.size(self.__userlist) )
+
     local user = self:get_user(newuuid)
     if not user then 
         self:add_user(newuuid,newfd,newtoken)
@@ -256,7 +258,8 @@ function usermgr:user_login(newuuid,newfd ,newtoken)
         skynet.send(agent,"lua","assign",newuuid,newfd,newtoken)
     end 
 
-    DEBUG_LOG("userlist=%s",table.dump(self.__userlist))
+    --DEBUG_LOG("userlist=%s",table.dump(self.__userlist))
+   
 end
 
 

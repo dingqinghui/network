@@ -55,7 +55,7 @@ function userdb.save(uuid,data,binsert)
     else
         sql = generator.update_sql(TABLE_NAME.USER ,data,{uuid = uuid})
     end
-    print(sql)
+    DEBUG_LOG(sql)
     local res = skynet.call(self.__mysql,"lua","query",sql)
 end
 

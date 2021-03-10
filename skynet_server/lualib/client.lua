@@ -42,7 +42,7 @@ local function msg_dispatch(fd,message)
 	end 
     local f = client.MSG[message.name]
     if not f then 
-        ERROR_LOG("message not define callback message:",message.name)
+        ERROR_LOG("message not define callback message:%s %s",message.name,table.dump(client.MSG))
         return nil
     end 
     return f(fd,message.data)

@@ -100,7 +100,16 @@ function  string.split(str,sep)
     end
   end 
   
-
+  function table.size(t) 
+    if not t then 
+        return 0
+    end 
+    local c = 0
+    for k,v in pairs(t) do
+        c = c + 1
+    end
+    return c
+  end
 
 function is_float(v)
     if  type(v) ~= "number" then 

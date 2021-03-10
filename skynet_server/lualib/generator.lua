@@ -30,7 +30,7 @@ function generator.insert_sql(tabname,data)
         if t == "boolean" then 
             val_str = string.format("%s \'%d\'", val_str,val and 1 or 0)
         elseif t == "number" then 
-            val_str = string.format("%s \'%f\'", val_str,val )
+            val_str = string.format("%s \'%d\'", val_str,val )
         elseif t == "string" then 
             val_str = string.format("%s \'%s\'", val_str,val )
         elseif t == "table" then 
@@ -50,11 +50,7 @@ function generator.update_sql(tabname,data,conditions)
         if t == "boolean" then 
             return string.format(" `%s`=\'%d\'", field,val and 1 or 0)
         elseif t == "number" then 
-            if is_float(val) then 
-                return string.format(" `%s`=\'%f\'", field,val )
-            else
-                return string.format(" `%s`=\'%d\'", field,val )
-            end
+            return string.format(" `%s`=\'%d\'", field,val )
         elseif t == "string" then 
             return string.format(" `%s`=\'%s\'", field,val )
         elseif t == "table" then 

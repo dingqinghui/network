@@ -1,5 +1,5 @@
 local skynet =  require "skynet"
-local dbmgr = require "dbmgr"
+local redisop = require "redisop"
 local rediskey = require "rediskey"
 local generator = require "generator" 
 local errcode = require "errcode"
@@ -18,7 +18,7 @@ function MSG.register(fd,data)
 	local password = data.password
 
 	-- 检验账户是否存在
-	local ret = dbmgr.sadd(rediskey.account_list,account)
+	local ret = redisop.sadd(rediskey.account_list,account)
 	if ret == 0 then 
 		ERROR_LOG("注册失败账号已经存在 账号:" .. account )
 		return errcode.ACCOUNT_EXIST
@@ -33,13 +33,13 @@ function MSG.register(fd,data)
 	}
 	
 	-- 保存账号信息
-	ret = dbmgr.hset(rediskey.account,account,table.serialize(info))
+	ret = redisop.hset(rediskey.account,account,table.serialize(info))
 	if ret == 0 then 
-		dbmgr.srem(rediskey.account_list,account)
+		redisop.srem(rediskey.account_list,account)
 		ERROR_LOG("添加账号失败")
 		return errcode.ADD_ACOUNT_FAIL
 	end
-	ret = dbmgr.hget(rediskey.account,account)
+	ret = redisop.hget(rediskey.account,account)
 
 	INFO_LOG("注册账号：%s UUID：%d ",account,uuid)
 	return errcode.RT_OK
@@ -53,13 +53,13 @@ function MSG.login(fd,data)
     
     INFO_LOG("登陆%s ",account)
 	-- 验证用户是否存在
-	local ret = dbmgr.sadd(rediskey.account_list,account)
+	local ret = redisop.sadd(rediskey.account_list,account)
 	if ret == 1 then
 		ERROR_LOG("账号不存在 账号：" .. account)
 		return errcode.ACCOUNT_NOT_EXIST
 	end  
 	-- 验证登陆密码正确性
-	ret = dbmgr.hget(rediskey.account,account)
+	ret = redisop.hget(rediskey.account,account)
 	if not ret  then
 		ERROR_LOG("数据库获取密码失败 账号：" .. account)
 		return errcode.DB_GET_PASSWORD_FAIL

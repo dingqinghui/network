@@ -15,7 +15,6 @@ function user:ctor(uuid,fd,token,client)
     self.__token = token
     self.__status = USER_STATUS.INIT_INSTANCE
     self.__isnew = false
-    self.__savecnt = 0
 end
 
 
@@ -64,7 +63,7 @@ function save_timer()
     end 
     __USER__:save()
 
-    skynet.timeout(USER_SAVE_INTERVAL,save_timer)
+    skynet.timeout(USER_SAVE_INTERVAL * 100,save_timer)
 end
 
 function user:load_data(data)
@@ -72,14 +71,19 @@ function user:load_data(data)
     if not data.uuid then 
         self.__isnew = true
     end 
-
-    data.reg_time = data.reg_time or skynet.time()
+    data.uuid     = data.uuid or self.__uuid
+    data.reg_time = data.reg_time or math.ceil(skynet.time())
     data.name     = data.name or "初始名字"
 
 
     self.__data = data
+
+    -- 立刻存档一次
+    if self.__isnew then 
+        self:save(true)
+    end
     -- 开启存档定时器
-    skynet.timeout(USER_SAVE_INTERVAL,save_timer)
+    skynet.timeout(USER_SAVE_INTERVAL* 100,save_timer)
 end
 
 function user:enter_game()
@@ -91,13 +95,9 @@ function user:enter_game()
 end
 
 
-function user:save()
-    if self.__isnew and self.__savecnt <= 0 then 
-        userdb.save(self.__uuid,self.__data,true)   -- 插入
-    else
-        userdb.save(self.__uuid,self.__data,false)  -- 更新
-    end 
-    self.__savecnt = self.__savecnt + 1
+function user:save(binsert)
+    print(table.dump(self.__data))
+    userdb.save(self.__uuid,self.__data,binsert)   
 end
 
 return user

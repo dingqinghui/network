@@ -63,7 +63,10 @@ end
 function CMD.query(sql)
     assert(sql)
     local res = db:query(sql)
-    skynet.error( dump( res ) )
+    
+    if res.err then 
+        ERROR_LOG("sql:%s errno:%d err:%s ",sql,res.errno,res.err)
+    end
     return res 
 end
 

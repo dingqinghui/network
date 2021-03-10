@@ -27,12 +27,15 @@ function CMD.newuser(uuid,fd,token)
     __USER__ = user_mod.new(uuid,fd,token,client)
 
     sermgr.send("hubd","lua","redirect",fd,skynet.self())
+
+    DEBUG_LOG("新玩家上线： uuid：%d fd：%d",uuid,fd)
 end
 
 
 function CMD.assign(uuid,fd,token)
     assert(__USER__)
     assert(fd ~= nil)
+    assert( __USER__:getuuid() == uuid )
 
     client.startping(fd)
     
@@ -40,6 +43,8 @@ function CMD.assign(uuid,fd,token)
     __USER__:settoken(token)
 
     sermgr.send("hubd","lua","redirect",fd,skynet.self())
+
+    DEBUG_LOG("玩家重复上线： uuid：%d fd：%d",uuid,fd)
 end
 
 

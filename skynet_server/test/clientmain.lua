@@ -23,20 +23,20 @@ end)
 local userdb = require "userdb"
 
 skynet.start(function ()
-    -- for i=1,1 do
-    --     skynet.newservice("clientd",i)
-    --     print(i)
-    -- end
+    for i=1,1 do
+        skynet.newservice("clientd",i)
+        print(i)
+    end
     
 
     
-    print( table.dump( userdb.load(1) ) )
+    -- print( table.dump( userdb.load(1) ) )
 
 
-    userdb.save(1111,{
-        uuid = 1111,
-        reg_time = skynet.time(),
-        name = "测试名字2111"
-    },false)
+    -- userdb.save(1111,{
+    --     uuid = 1111,
+    --     reg_time = skynet.time(),
+    --     name = "测试名字2111"
+    -- },false)
 end
 )

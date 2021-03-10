@@ -202,3 +202,606 @@
 2021-03-10 11:12:00	info	action: update, structure: String ,key: t_user:1111 ,field: , value: {"name":"测试名字2111","reg_time":1615345920,"uuid":1111}
 2021-03-10 11:12:00	info	处理完成 1 条数据
 2021-03-10 11:12:00	info	save position binlog.000017 5653
+[2021/03/10 15:05:54] [info] sync.go:235 table structure changed, clear table cache: dqh_logdb.t_user
+2021-03-10 15:05:54	info	save position binlog.000017 5893
+2021-03-10 15:06:22	info	action: insert, structure: String ,key: t_user:6775310833535782912 ,field: , value: {"name":"初始名字","reg_time":1615359983,"uuid":6775310833535782912}
+2021-03-10 15:06:22	info	处理完成 1 条数据
+2021-03-10 15:06:22	info	save position binlog.000017 6208
+2021-03-10 15:08:23	info	action: insert, structure: String ,key: t_user:6775311325015937024 ,field: , value: {"name":"初始名字","reg_time":1615360103,"uuid":6775311325015937024}
+2021-03-10 15:08:23	info	处理完成 1 条数据
+2021-03-10 15:08:23	info	save position binlog.000017 6523
+2021-03-10 15:08:23	info	action: insert, structure: String ,key: t_user:6775311325020131328 ,field: , value: {"name":"初始名字","reg_time":1615360103,"uuid":6775311325020131328}
+2021-03-10 15:08:23	info	action: insert, structure: String ,key: t_user:6775311325041102848 ,field: , value: {"name":"初始名字","reg_time":1615360103,"uuid":6775311325041102848}
+2021-03-10 15:08:23	info	处理完成 2 条数据
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621771333632 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621771333632}
+2021-03-10 15:09:33	info	处理完成 1 条数据
+2021-03-10 15:09:33	info	save position binlog.000017 7468
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621762945024 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621762945024}
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621767139328 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621767139328}
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621775527936 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621775527936}
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621783916544 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621783916544}
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621758750720 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621758750720}
+2021-03-10 15:09:33	info	action: insert, structure: String ,key: t_user:6775311621779722240 ,field: , value: {"name":"初始名字","reg_time":1615360173,"uuid":6775311621779722240}
+2021-03-10 15:09:33	info	处理完成 6 条数据
+2021-03-10 15:11:37	info	action: insert, structure: String ,key: t_user:6775312153613276160 ,field: , value: {"name":"初始名字","reg_time":1615360298,"uuid":6775312153613276160}
+2021-03-10 15:11:37	info	处理完成 1 条数据
+2021-03-10 15:11:37	info	save position binlog.000017 9673
+2021-03-10 15:11:37	info	action: insert, structure: String ,key: t_user:6775312153604887552 ,field: , value: {"name":"初始名字","reg_time":1615360298,"uuid":6775312153604887552}
+2021-03-10 15:11:37	info	处理完成 1 条数据
+2021-03-10 15:11:37	info	action: insert, structure: String ,key: t_user:6775312153625859072 ,field: , value: {"name":"初始名字","reg_time":1615360298,"uuid":6775312153625859072}
+2021-03-10 15:11:37	info	处理完成 1 条数据
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:4 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:1111 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775310833535782912 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311325015937024 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311325020131328 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311325041102848 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621758750720 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621762945024 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621767139328 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621771333632 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621775527936 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621779722240 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775311621783916544 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775312153604887552 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775312153613276160 ,field: , value: <nil>
+2021-03-10 15:14:07	info	action: delete, structure: String ,key: t_user:6775312153625859072 ,field: , value: <nil>
+2021-03-10 15:14:07	info	处理完成 16 条数据
+2021-03-10 15:14:07	info	save position binlog.000017 11012
+2021-03-10 15:21:23	info	action: insert, structure: String ,key: t_user:6775314610091299840 ,field: , value: {"name":"初始名字","reg_time":1615360883,"uuid":6775314610091299840}
+2021-03-10 15:21:23	info	处理完成 1 条数据
+2021-03-10 15:21:23	info	save position binlog.000017 11327
+2021-03-10 15:21:23	info	action: insert, structure: String ,key: t_user:6775314610095494144 ,field: , value: {"name":"初始名字","reg_time":1615360883,"uuid":6775314610095494144}
+2021-03-10 15:21:23	info	处理完成 1 条数据
+2021-03-10 15:31:03	info	action: delete, structure: String ,key: t_user:6775314610091299840 ,field: , value: <nil>
+2021-03-10 15:31:03	info	action: delete, structure: String ,key: t_user:6775314610095494144 ,field: , value: <nil>
+2021-03-10 15:31:03	info	处理完成 2 条数据
+2021-03-10 15:31:03	info	save position binlog.000017 11983
+2021-03-10 15:31:13	info	action: insert, structure: String ,key: t_user:6775317083371705344 ,field: , value: {"name":"初始名字","reg_time":1615361474,"uuid":6775317083371705344}
+2021-03-10 15:31:13	info	处理完成 1 条数据
+2021-03-10 15:31:13	info	save position binlog.000017 12298
+2021-03-10 15:31:13	info	action: insert, structure: String ,key: t_user:6775317083375899648 ,field: , value: {"name":"初始名字","reg_time":1615361474,"uuid":6775317083375899648}
+2021-03-10 15:31:13	info	处理完成 1 条数据
+2021-03-10 15:33:24	info	action: insert, structure: String ,key: t_user:6775317634847183872 ,field: , value: {"name":"初始名字","reg_time":1615361605,"uuid":6775317634847183872}
+2021-03-10 15:33:24	info	处理完成 1 条数据
+2021-03-10 15:33:24	info	save position binlog.000017 12928
+2021-03-10 15:35:00	info	action: insert, structure: String ,key: t_user:6775318038490223191 ,field: , value: {"name":"初始名字","reg_time":1615361701,"uuid":6775318038490223191}
+2021-03-10 15:35:00	info	处理完成 1 条数据
+2021-03-10 15:35:00	info	save position binlog.000017 13243
+2021-03-10 15:35:37	info	action: delete, structure: String ,key: t_user:6775317083371705344 ,field: , value: <nil>
+2021-03-10 15:35:37	info	action: delete, structure: String ,key: t_user:6775317083375899648 ,field: , value: <nil>
+2021-03-10 15:35:37	info	action: delete, structure: String ,key: t_user:6775317634847183872 ,field: , value: <nil>
+2021-03-10 15:35:37	info	action: delete, structure: String ,key: t_user:6775318038490223191 ,field: , value: <nil>
+2021-03-10 15:35:37	info	处理完成 4 条数据
+2021-03-10 15:35:37	info	save position binlog.000017 13636
+2021-03-10 15:36:18	info	action: insert, structure: String ,key: t_user:6775318356284248672 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356284248672}
+2021-03-10 15:36:18	info	处理完成 1 条数据
+2021-03-10 15:36:18	info	save position binlog.000017 13951
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442983 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288442983}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442989 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288442989}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442981 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288442981}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442986 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288442986}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443008 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288443008}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442993 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288442993}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443006 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288443006}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443024 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288443024}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443021 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288443021}
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443029 ,field: , value: {"name":"初始名字","reg_time":1615361779,"uuid":6775318356288443029}
+2021-03-10 15:36:19	info	处理完成 10 条数据
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288442998 ,field: , value: {"name":"初始名字","reg_time":1615361780,"uuid":6775318356288442998}
+2021-03-10 15:36:19	info	处理完成 1 条数据
+2021-03-10 15:36:19	info	action: insert, structure: String ,key: t_user:6775318356288443022 ,field: , value: {"name":"初始名字","reg_time":1615361780,"uuid":6775318356288443022}
+2021-03-10 15:36:19	info	处理完成 1 条数据
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356284248672 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442981 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442983 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442986 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442989 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442993 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288442998 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443006 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443008 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443021 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443022 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443024 ,field: , value: <nil>
+2021-03-10 15:38:29	info	action: delete, structure: String ,key: t_user:6775318356288443029 ,field: , value: <nil>
+2021-03-10 15:38:29	info	处理完成 13 条数据
+2021-03-10 15:38:29	info	save position binlog.000017 18358
+2021-03-10 15:38:42	info	action: insert, structure: String ,key: t_user:6775318958447891251 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958447891251}
+2021-03-10 15:38:42	info	处理完成 1 条数据
+2021-03-10 15:38:42	info	save position binlog.000017 18673
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958447891236 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958447891236}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958443696930 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958443696930}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958452085574 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958452085574}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958456279915 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958456279915}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958447891237 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958447891237}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958447891255 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958447891255}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958452085564 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958452085564}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958452085580 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958452085580}
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958447891252 ,field: , value: {"name":"初始名字","reg_time":1615361923,"uuid":6775318958447891252}
+2021-03-10 15:38:43	info	处理完成 9 条数据
+2021-03-10 15:38:43	info	action: insert, structure: String ,key: t_user:6775318958523388800 ,field: , value: {"name":"初始名字","reg_time":1615361924,"uuid":6775318958523388800}
+2021-03-10 15:38:43	info	处理完成 1 条数据
+2021-03-10 15:42:19	info	action: insert, structure: String ,key: t_user:6775319871111663621 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663621}
+2021-03-10 15:42:19	info	处理完成 1 条数据
+2021-03-10 15:42:19	info	save position binlog.000017 22138
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871103276010 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871103276010}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871115857948 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871115857948}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663625 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663625}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871124246597 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871124246597}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871103276011 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871103276011}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664631 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664631}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663628 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663628}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664629 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664629}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663620 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663620}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871103276013 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871103276013}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664632 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664632}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663618 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663618}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664628 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664628}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664633 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664633}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871115857953 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871115857953}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663619 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663619}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663616 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663616}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664635 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664635}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871099081705 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871099081705}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871107470319 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871107470319}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664627 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664627}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871107470322 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871107470322}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111664630 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111664630}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871107470318 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871107470318}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871111663631 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871111663631}
+2021-03-10 15:42:20	info	action: insert, structure: String ,key: t_user:6775319871103276012 ,field: , value: {"name":"初始名字","reg_time":1615362140,"uuid":6775319871103276012}
+2021-03-10 15:42:20	info	处理完成 26 条数据
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958443696930 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958447891236 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958447891237 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958447891251 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958447891252 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958447891255 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958452085564 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958452085574 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958452085580 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958456279915 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775318958523388800 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871099081705 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871103276010 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871103276011 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871103276012 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871103276013 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871107470318 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871107470319 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871107470322 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663616 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663618 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663619 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663620 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663621 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663625 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663628 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111663631 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664627 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664628 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664629 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664630 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664631 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664632 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664633 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871111664635 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871115857948 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871115857953 ,field: , value: <nil>
+2021-03-10 15:44:10	info	action: delete, structure: String ,key: t_user:6775319871124246597 ,field: , value: <nil>
+2021-03-10 15:44:10	info	处理完成 38 条数据
+2021-03-10 15:44:10	info	save position binlog.000017 31605
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343231 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343231}
+2021-03-10 15:44:46	info	处理完成 1 条数据
+2021-03-10 15:44:46	info	save position binlog.000017 31920
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343221 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343221}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343222 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343222}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343226 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343226}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343225 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343225}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343223 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343223}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343229 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343229}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343227 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343227}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480460148915 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480460148915}
+2021-03-10 15:44:46	info	action: insert, structure: String ,key: t_user:6775320480464343230 ,field: , value: {"name":"初始名字","reg_time":1615362287,"uuid":6775320480464343230}
+2021-03-10 15:44:46	info	处理完成 9 条数据
+2021-03-10 15:44:47	info	action: insert, structure: String ,key: t_user:6775320480497897729 ,field: , value: {"name":"初始名字","reg_time":1615362288,"uuid":6775320480497897729}
+2021-03-10 15:44:47	info	处理完成 1 条数据
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834045 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834045}
+2021-03-10 15:46:42	info	处理完成 1 条数据
+2021-03-10 15:46:42	info	save position binlog.000017 35385
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834046 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834046}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834044 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834044}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834048 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834048}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834049 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834049}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834050 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834050}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834047 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834047}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834043 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834043}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834042 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834042}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834056 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834056}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834054 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834054}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834057 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834057}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834058 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834058}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834052 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834052}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980979028363 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980979028363}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834051 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834051}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834053 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834053}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980983222668 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980983222668}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980987416973 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980987416973}
+2021-03-10 15:46:42	info	action: insert, structure: String ,key: t_user:6775320980974834055 ,field: , value: {"name":"初始名字","reg_time":1615362403,"uuid":6775320980974834055}
+2021-03-10 15:46:42	info	处理完成 19 条数据
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288870302366 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288870302366}
+2021-03-10 15:47:57	info	处理完成 1 条数据
+2021-03-10 15:47:57	info	save position binlog.000017 41685
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108029 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108029}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108037 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108037}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288870302387 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288870302387}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288870302406 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288870302406}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108014 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108014}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108025 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108025}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108044 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108044}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288870302377 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288870302377}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288870302398 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288870302398}
+2021-03-10 15:47:57	info	action: insert, structure: String ,key: t_user:6775321288866108047 ,field: , value: {"name":"初始名字","reg_time":1615362478,"uuid":6775321288866108047}
+2021-03-10 15:47:57	info	处理完成 10 条数据
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480460148915 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343221 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343222 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343223 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343225 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343226 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343227 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343229 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343230 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480464343231 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320480497897729 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834042 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834043 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834044 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834045 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834046 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834047 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834048 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834049 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834050 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834051 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834052 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834053 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834054 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834055 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834056 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834057 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980974834058 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980979028363 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980983222668 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775320980987416973 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108014 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108025 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108029 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108037 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108044 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288866108047 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288870302366 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288870302377 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288870302387 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288870302398 ,field: , value: <nil>
+2021-03-10 15:50:17	info	action: delete, structure: String ,key: t_user:6775321288870302406 ,field: , value: <nil>
+2021-03-10 15:50:17	info	处理完成 42 条数据
+2021-03-10 15:50:17	info	save position binlog.000017 46216
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914297 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914297}
+2021-03-10 15:50:29	info	处理完成 1 条数据
+2021-03-10 15:50:29	info	save position binlog.000017 46531
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925955719986 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925955719986}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914296 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914296}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914293 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914293}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914295 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914295}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914298 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914298}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925964108608 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925964108608}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914294 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914294}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914302 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914302}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925964108607 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925964108607}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925972497237 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925972497237}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914300 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914300}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925976691600 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925976691600}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914301 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914301}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925972497246 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925972497246}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925976691578 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925976691578}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925976691602 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925976691602}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914299 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914299}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925959914291 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925959914291}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925972497250 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925972497250}
+2021-03-10 15:50:29	info	action: insert, structure: String ,key: t_user:6775321925968302913 ,field: , value: {"name":"初始名字","reg_time":1615362630,"uuid":6775321925968302913}
+2021-03-10 15:50:29	info	处理完成 20 条数据
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925976691581 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925976691581}
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925972497222 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925972497222}
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925976691580 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925976691580}
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925976691603 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925976691603}
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925976691591 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925976691591}
+2021-03-10 15:50:30	info	处理完成 5 条数据
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925972497243 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925972497243}
+2021-03-10 15:50:30	info	处理完成 1 条数据
+2021-03-10 15:50:30	info	action: insert, structure: String ,key: t_user:6775321925972497223 ,field: , value: {"name":"初始名字","reg_time":1615362631,"uuid":6775321925972497223}
+2021-03-10 15:50:30	info	处理完成 1 条数据
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711187 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711187}
+2021-03-10 15:56:05	info	处理完成 1 条数据
+2021-03-10 15:56:05	info	save position binlog.000017 55351
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711185 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711185}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711174 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711174}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711181 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711181}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711182 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711182}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711172 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711172}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711170 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711170}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711176 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711176}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711177 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711177}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333140517885 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333140517885}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711186 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711186}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333144711173 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333144711173}
+2021-03-10 15:56:05	info	action: insert, structure: String ,key: t_user:6775323333140517883 ,field: , value: {"name":"初始名字","reg_time":1615362966,"uuid":6775323333140517883}
+2021-03-10 15:56:05	info	处理完成 12 条数据
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925955719986 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914291 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914293 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914294 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914295 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914296 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914297 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914298 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914299 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914300 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914301 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925959914302 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925964108607 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925964108608 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925968302913 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497222 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497223 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497237 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497243 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497246 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925972497250 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691578 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691580 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691581 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691591 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691600 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691602 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775321925976691603 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333140517883 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333140517885 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711170 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711172 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711173 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711174 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711176 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711177 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711181 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711182 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711185 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711186 ,field: , value: <nil>
+2021-03-10 16:00:21	info	action: delete, structure: String ,key: t_user:6775323333144711187 ,field: , value: <nil>
+2021-03-10 16:00:21	info	处理完成 41 条数据
+2021-03-10 16:00:21	info	save position binlog.000017 60486
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446216523972 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446216523972}
+2021-03-10 16:00:28	info	处理完成 1 条数据
+2021-03-10 16:00:28	info	save position binlog.000017 60801
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446216523973 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446216523973}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446216523974 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446216523974}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446216523971 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446216523971}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884110 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884110}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446229106887 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446229106887}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884109 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884109}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884116 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884116}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078421 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078421}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884114 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884114}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446241689800 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446241689800}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021533 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021533}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078425 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078425}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021534 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021534}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021514 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021514}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021532 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021532}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884106 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884106}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021523 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021523}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021531 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021531}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021516 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021516}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446300410146 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446300410146}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884107 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884107}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661350 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661350}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021524 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021524}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244275 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244275}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244271 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244271}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661347 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661347}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884111 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884111}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021512 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021512}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446296215839 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446296215839}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244282 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244282}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078430 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078430}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446241689801 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446241689801}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078424 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078424}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244281 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244281}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049960 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049960}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244277 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244277}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884108 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884108}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884115 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884115}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078427 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078427}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049964 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049964}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884113 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884113}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021506 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021506}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021502 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021502}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078432 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078432}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021508 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021508}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446245884112 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446245884112}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244276 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244276}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078423 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078423}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078428 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078428}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078422 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078422}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661349 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661349}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661346 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661346}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078426 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078426}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049961 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049961}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244279 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244279}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446300410149 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446300410149}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021529 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021529}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078431 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078431}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446296215840 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446296215840}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021513 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021513}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661345 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661345}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021507 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021507}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021528 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021528}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446250078429 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446250078429}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021522 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021522}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021527 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021527}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049966 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049966}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049963 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049963}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021517 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021517}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021525 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021525}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021521 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021521}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021530 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021530}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446300410147 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446300410147}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446300410150 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446300410150}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446296215841 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446296215841}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021518 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021518}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021519 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021519}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446300410148 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446300410148}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244280 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244280}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021505 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021505}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049962 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049962}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446287827196 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446287827196}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021509 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021509}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021526 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021526}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021510 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021510}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021520 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021520}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021515 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021515}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021511 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021511}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446271049965 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446271049965}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661351 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661351}
+2021-03-10 16:00:28	info	处理完成 90 条数据
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244272 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244272}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244278 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244278}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244274 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244274}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021504 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021504}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244273 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244273}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446275244283 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446275244283}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446262661348 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446262661348}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021501 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021501}
+2021-03-10 16:00:28	info	action: insert, structure: String ,key: t_user:6775324446292021503 ,field: , value: {"name":"初始名字","reg_time":1615363229,"uuid":6775324446292021503}
+2021-03-10 16:00:28	info	处理完成 9 条数据
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470220 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470220}
+2021-03-10 16:03:07	info	处理完成 1 条数据
+2021-03-10 16:03:07	info	save position binlog.000017 92301
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470219 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470219}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111496053140 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111496053140}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470221 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470221}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470224 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470224}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470223 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470223}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470225 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470225}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470222 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470222}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470227 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470227}
+2021-03-10 16:03:07	info	action: insert, structure: String ,key: t_user:6775325111483470226 ,field: , value: {"name":"初始名字","reg_time":1615363388,"uuid":6775325111483470226}
+2021-03-10 16:03:07	info	处理完成 9 条数据
+2021-03-10 16:05:18	info	action: insert, structure: String ,key: t_user:6775325650472505821 ,field: , value: {"name":"初始名字","reg_time":1615363519,"uuid":6775325650472505821}
+2021-03-10 16:05:18	info	处理完成 1 条数据
+2021-03-10 16:05:18	info	save position binlog.000017 95451
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209518 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209518}
+2021-03-10 16:08:11	info	处理完成 1 条数据
+2021-03-10 16:08:11	info	save position binlog.000017 95766
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986773 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986773}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209526 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209526}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403846 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403846}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986785 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986785}
+2021-03-10 16:08:11	info	处理完成 4 条数据
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209528 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209528}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403837 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403837}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379404792458 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379404792458}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986787 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986787}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986782 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986782}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209511 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209511}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986768 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986768}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209523 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209523}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986793 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986793}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986784 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986784}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403835 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403835}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986765 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986765}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209515 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209515}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986780 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986780}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209513 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209513}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986767 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986767}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986791 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986791}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209519 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209519}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209521 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209521}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209516 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209516}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379404792460 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379404792460}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403847 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403847}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209514 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209514}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209524 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209524}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379480289990 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379480289990}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209527 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209527}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986779 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986779}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986766 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986766}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181112 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181112}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986788 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986788}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986783 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986783}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986770 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986770}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379476095684 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379476095684}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379404792459 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379404792459}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986776 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986776}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181117 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181117}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181108 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181108}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181115 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181115}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403836 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403836}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403842 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403842}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986789 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986789}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181109 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181109}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986801 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986801}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986781 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986781}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986771 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986771}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986777 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986777}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209529 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209529}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403839 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403839}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986796 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986796}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379505455816 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379505455816}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209525 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209525}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986778 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986778}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986795 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986795}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403845 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403845}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986786 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986786}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986797 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986797}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986798 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986798}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403838 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403838}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181113 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181113}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209517 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209517}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181110 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181110}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986794 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986794}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379476095685 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379476095685}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986799 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986799}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209530 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209530}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986803 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986803}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986774 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986774}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379400598152 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379400598152}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986769 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986769}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209512 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209512}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986792 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986792}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379476095682 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379476095682}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986772 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986772}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181111 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181111}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209522 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209522}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379476095683 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379476095683}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379404792457 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379404792457}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403844 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403844}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379509650121 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379509650121}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403841 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403841}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181120 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181120}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379476095681 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379476095681}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986790 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986790}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181119 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181119}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379392209520 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379392209520}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403843 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403843}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181118 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181118}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379480289991 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379480289991}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379396403840 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379396403840}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986800 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986800}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986802 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986802}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379509650122 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379509650122}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379408986775 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379408986775}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181116 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181116}
+2021-03-10 16:08:11	info	action: insert, structure: String ,key: t_user:6775326379413181114 ,field: , value: {"name":"初始名字","reg_time":1615363692,"uuid":6775326379413181114}
+2021-03-10 16:08:11	info	处理完成 95 条数据

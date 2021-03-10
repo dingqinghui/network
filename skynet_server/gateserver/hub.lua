@@ -50,12 +50,11 @@ end
 function handler.message(fd, msg, sz)
     DEBUG_LOG("收到客户端消息  fd:%d msg:%s sz:%d",fd,msg,sz)
 
-    local s = authagent[fd]
-    if not s then 
-        s = useragent
-    end 
-
-    skynet.redirect(s,skynet.self(),"client",fd,msg,sz) 
+    if useragent[fd] then 
+        skynet.redirect(useragent[fd],skynet.self(),"client",fd,msg,sz) 
+    else
+        skynet.redirect(authagent[fd],skynet.self(),"client",fd,msg,sz) 
+    end
 end
 
 
@@ -91,9 +90,11 @@ local CMD = {}
 
 
 --useragent 初始化完成 重定向
-function CMD.redirect(fd,s)
+function CMD.redirect(source,fd,s)
     useragent[fd] = s
     authagent[fd] = nil
+
+    DEBUG_LOG("重定向 FD:%s Agent:%d",fd,s)
 end
 
 

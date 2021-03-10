@@ -5,7 +5,7 @@ local usertime = require "usertime"
 
 
 local tm
-local CLIENT_CNT_MAX = 10
+local CLIENT_CNT_MAX = 100
 local curCnt = 0
 
 math.randomseed(os.time())

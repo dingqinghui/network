@@ -27,11 +27,13 @@ function MSG.response_login_gate(pack,cli)
         return 
     end 
 
-    finishcnt  = finishcnt + 1
-    --if finishcnt % 100 == 0 then 
-        --INFO_LOG("登陆成功 数量%d %f",finishcnt,skynet.time())
-    --end 
-    LoginFinish()
+    -- finishcnt  = finishcnt + 1
+    -- --if finishcnt % 100 == 0 then 
+    --     --INFO_LOG("登陆成功 数量%d %f",finishcnt,skynet.time())
+    -- --end 
+    -- LoginFinish()
+    skynet.sleep(300)
+    cli:enter_game()
 end
 
 
@@ -161,9 +163,22 @@ function client:login_success(gate_addr,token,uuid)
 
         
         self.__fd = gatefd
-
+        self.__uuid = uuid
         self:login_gate_msg(token,uuid)
     --end
 end
+
+function client:enter_game()
+    self:send( 
+        {
+            name = "enter_game_msg",
+            data = {
+                 uuid = self.__uuid,
+            }
+        })
+
+end
+
+
 
 return client

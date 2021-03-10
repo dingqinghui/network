@@ -1,5 +1,5 @@
 local skynet =  require "skynet"
-local dbmgr = require "dbmgr"
+local redisop = require "redisop"
 local rediskey = require "rediskey"
 local generator = require "generator" 
 local errcode = require "errcode"
@@ -12,6 +12,7 @@ local SERVICE_NAME = comdefine.SERVICE_NAME
 local MSG = client.gethandler()
 
 local NODEID = skynet.getenv("nodeid")
+
 
 function MSG.enter_game_msg(fd,data)
     local uuid = data.uuid
@@ -27,7 +28,7 @@ function MSG.enter_game_msg(fd,data)
     local statu =  __USER__:get_statu()
     if statu == USER_STATUS.LOADING_DATA then 
         return errcode.USER_LOADING_DATA
-    else if statu == USER_STATUS.LOADED then 
+    elseif statu == USER_STATUS.LOADED then 
 
     else
         __USER__:set_statu(USER_STATUS.LOADING_DATA)

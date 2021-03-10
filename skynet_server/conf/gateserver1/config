@@ -34,7 +34,7 @@ redisport = 6379
 -- redisauth = "dingqinghui"
 ------------------------------------------------------redis---------------------------------------------------------
 
-
+mysqlconf = "127.0.0.1#3306#root#Jq@123456#dqh_logdb"
 
 -- daemon = "./skynet.pid"
 -- snax_interface_g = "snax_g"
