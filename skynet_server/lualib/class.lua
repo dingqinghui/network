@@ -3,8 +3,6 @@ __G_CLASS_SET__ = __G_CLASS_SET__ or {}
 
 __G_CLASS__ = function (module_name, class_name, mode)
     assert(type(module_name) == "string" and type(class_name) == "string")
-    -- __LOG_DEBUG__(module_name)
-    -- __LOG_DEBUG__(class_name)
 
     local cls_set = __G_CLASS_SET__
     local cls_name = module_name .. "@" .. class_name
