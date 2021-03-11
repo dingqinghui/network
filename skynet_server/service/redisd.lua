@@ -54,7 +54,6 @@ local function slaveinit()
         end 
     end
 
-    
     local function reconnect(conf)
         skynet.timeout(500,function (conf)
             connect(conf)

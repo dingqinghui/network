@@ -8,6 +8,7 @@ local redis
 
 skynet.init(function()
     redis = skynet.uniqueservice("redisd")
+    assert(redis)
 end)
 
 

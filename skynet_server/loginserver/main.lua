@@ -3,13 +3,13 @@ require "skynet.manager"
 
 --local nodemgr = require"nodemgr"
 
-
+local redistool = require "redistool"
 
 local GETENV = skynet.getenv
 
 skynet.start(function ()
 	local handle = skynet.self()
-	skynet.error(type(handle),handle)
+
     -- 守护进程模式无法开启console
 	if GETENV("daemon") == nil then
 		skynet.newservice("console")
@@ -17,7 +17,7 @@ skynet.start(function ()
 
 	skynet.newservice("debug_console", GETENV("console_port") or 8001)
 	
-	--skynet.newservice("debug_console", GETENV("console_port") or 8001)
+	skynet.newservice("debug_console", GETENV("console_port") or 8001)
 	local hub = skynet.newservice("hub" )
 	local conf={
 		address = GETENV("address") or "127.0.0.1",
@@ -30,8 +30,6 @@ skynet.start(function ()
 
 	--skynet.newservice("gate_mgr")
 
-	
-	
 	skynet.exit()
 
 end )

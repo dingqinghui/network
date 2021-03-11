@@ -25,6 +25,7 @@ skynet.start(function ()
    for i=1,CLIENT_CNT_MAX do
         local cli = client.new(i)
    end
+
 end
 )
 
