@@ -4,7 +4,7 @@ local gateserver = require "snax.gateserver"
 
 
 local authmaster    -- 验证主服务
-local agent = {}    -- 为了保证同一客户端的请求的处理顺序，同一客户端的消息只能发送给同一个auth服务
+local agent = {}    
 
 
 skynet.register_protocol {
@@ -78,11 +78,6 @@ function CMD.closeclient(source,fd)
     gateserver.closeclient(fd)
     close_fd(fd)
     INFO_LOG("服务器主动关闭客户端 fd:" .. fd)
-
-    logincnt  = logincnt + 1
-    if logincnt % 100 == 0 then 
-        INFO_LOG("完成登陆验证数量 %d   %f" , logincnt , skynet.time()) 
-    end 
 end
 
 function handler.command(cmd, source, ...)
